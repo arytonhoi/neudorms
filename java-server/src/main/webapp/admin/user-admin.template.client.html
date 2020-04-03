@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>User Admin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="user-admin.style.client.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <link href="../styles/styles.css" rel="stylesheet" /> -->
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>User Admin</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+          <th>&nbsp;</th>
+        </tr>
+
+        <tr class="wbdv-form">
+          <td><input id="usernameFld" class="form-control" placeholder="Username" /></td>
+          <td><input id="passwordFld" class="form-control" placeholder="Password" /></td>
+          <td><input id="firstNameFld" class="form-control" placeholder="First Name" /></td>
+          <td><input id="lastNameFld" class="form-control" placeholder="Last Name" /></td>
+          <td><select id="roleFld" class="form-control">
+              <option value="FACULTY">Faculty</option>
+              <option value="STUDENT">Student</option>
+              <option value="ADMIN">Admin</option>
+            </select></td>
+          <td><span class="float-right" style="white-space: nowrap; cursor: pointer;">
+              <!-- <i class="fa-2x fa fa-search wbdv-search"></i> -->
+              <i class="fa-2x fa fa-plus wbdv-create"></i>
+              <i class="fa-2x fa fa-check wbdv-update"></i>
+            </span></td>
+        </tr>
+      </thead>
+
+      <tbody class="wbdv-tbody">
+        <tr class="wbdv-template wbdv-user wbdv-hidden">
+          <td class="wbdv-username">ada</td>
+          <td>&nbsp;</td>
+          <td class="wbdv-first-name">Ada</td>
+          <td class="wbdv-last-name">Lovelace</td>
+          <td class="wbdv-role">FACULTY</td>
+          <td class="wbdv-actions">
+            <span class="float-right" style="cursor: pointer;">
+              <i id="wbdv-remove" class="fa-2x fa fa-times wbdv-remove"></i>
+              <i id="wbdv-edit" class="fa-2x fa fa-pencil wbdv-edit"></i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    </table>
+
+  </div>
+  <script src="../services/user.server.client.js"></script>
+  <script src="user-admin.controller.client.js"></script>
+</body>
