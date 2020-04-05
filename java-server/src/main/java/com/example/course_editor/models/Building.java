@@ -15,6 +15,8 @@ public class Building {
     private List<Picture> pictures;
     @OneToMany(mappedBy = "building")
     private List<Review> reviews;
+    @OneToMany(mappedBy = "building")
+    private List<Bookmark> bookmarks;
     
     public String getName() {
         return this.name;
@@ -42,5 +44,9 @@ public class Building {
 
     public List<Review> getReviews() {
         return this.reviews;
+    }
+
+    public List<Bookmark> getBookmarks() {
+        return this.bookmarks;
     }
 }

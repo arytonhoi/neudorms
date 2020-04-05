@@ -15,11 +15,11 @@ public class User {
     private String email;
     private String name;
     private String major;
-    // @Column(nullable = true)
     private String year;
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
-    // private List<Building> bookmarkedDorms;
+    @OneToMany(mappedBy = "user")
+    private List<Bookmark> bookmarks;
 
     public String getUsername() {
         return this.username;
@@ -77,9 +77,9 @@ public class User {
         this.year = year;
     }
 
-    // public List<Building> getBookmarkedDorms() {
-    //     return this.bookmarkedDorms;
-    // }
+    public List<Bookmark> getBookmarked() {
+        return this.bookmarks;
+    }
 
     public List<Review> getReviews() {
         return this.reviews;
