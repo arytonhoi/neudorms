@@ -21,6 +21,10 @@ public class Review {
     private String imageUrl;
     private String sentiment;
     
+    public Integer getId() {
+        return this.id;
+    }
+
     public User getUser() {
         return this.user;
     }

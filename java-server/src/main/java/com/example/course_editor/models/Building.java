@@ -18,6 +18,10 @@ public class Building {
     @OneToMany(mappedBy = "building")
     private List<Bookmark> bookmarks;
     
+    public Integer getId() {
+        return this.id;
+    }
+
     public String getName() {
         return this.name;
     }

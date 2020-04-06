@@ -21,6 +21,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Bookmark> bookmarks;
 
+    public Integer getId() {
+        return this.id;
+    }
+
     public String getUsername() {
         return this.username;
     }
