@@ -6,7 +6,7 @@ class Home extends React.Component {
     return (
       <div>
         <h2 className="col ml-3">First Year Dorms</h2>
-        <div class="row col mx-auto">
+        <div className="row col mx-auto">
           <BuildingCard />
           <BuildingCard />
           <BuildingCard />
@@ -18,7 +18,7 @@ class Home extends React.Component {
         </div>
 
         <h2 className="col ml-3 mt-5">Second Year Dorms</h2>
-        <div class="row col mx-auto">
+        <div className="row col mx-auto">
           <BuildingCard />
           <BuildingCard />
           <BuildingCard />
@@ -30,7 +30,7 @@ class Home extends React.Component {
         </div>
 
         <h2 className="col ml-3 mt-5">Upperclassmen Dorms</h2>
-        <div class="row col mx-auto">
+        <div className="row col mx-auto">
           <BuildingCard />
           <BuildingCard />
           <BuildingCard />
@@ -42,7 +42,7 @@ class Home extends React.Component {
         </div>
 
         <h2 className="col ml-3 mt-5">Graduate Student Dorms</h2>
-        <div class="row col mx-auto">
+        <div className="row col mx-auto">
           <BuildingCard />
           <BuildingCard />
           <BuildingCard />
@@ -51,7 +51,7 @@ class Home extends React.Component {
         </div>
 
         <h2 className="col ml-3 mt-5">Law Student Dorms</h2>
-        <div class="row col mx-auto">
+        <div className="row col mx-auto">
           <BuildingCard />
           <BuildingCard />
         </div>

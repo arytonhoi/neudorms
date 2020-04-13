@@ -2,8 +2,10 @@ package com.example.course_editor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.example.course_editor.models.Building;
+import com.example.course_editor.models.*;
 import com.example.course_editor.services.BuildingService;
+import com.example.course_editor.services.PictureService;
+import com.example.course_editor.services.ReviewService;
 
 import java.util.List;
 
@@ -13,6 +15,10 @@ public class BuildingController {
 
   @Autowired
   BuildingService buildingService;
+  @Autowired
+  ReviewService reviewService;
+  @Autowired
+  PictureService pictureService;
 
   @GetMapping("/api/buildings")
   public List<Building> findAllBuildings() {
@@ -24,7 +30,17 @@ public class BuildingController {
     return buildingService.findBuildingById(buildingId);
   }
 
-  @PostMapping("/api/buildings/")
+  @GetMapping("/api/buildings/{buildingId}/reviews")
+  public List<Review> findReviewsForBuilding(@PathVariable("buildingId") Integer buildingId) {
+    return reviewService.findReviewsForBuilding(buildingId);
+  }
+
+  @GetMapping("/api/buildings/{buildingId}/pictures")
+  public List<Picture> findPicturesForBuilding(@PathVariable("buildingId") Integer buildingId) {
+    return pictureService.findPicturesForBuilding(buildingId);
+  }
+
+  @PostMapping("/api/buildings")
   public Building createBuilding(@RequestBody Building building) {
     return buildingService.createBuilding(building);
   }
@@ -38,9 +54,4 @@ public class BuildingController {
   public Integer deleteBuilding(@PathVariable("buildingId") Integer buildingId) {
     return buildingService.deleteBuilding(buildingId);
   }
-
-  // @GetMapping("/api/topics/{tid}/widgets")
-  // public List<Widget> findWidgetsForTopic(@PathVariable("tid") Integer topicId) {
-  //   return widgetService.findWidgetsForTopic(topicId);
-  // }  
 }

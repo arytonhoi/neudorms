@@ -14,7 +14,4 @@ public interface BuildingRepository extends CrudRepository<Building, Integer> {
 
   @Query("SELECT building FROM Building building WHERE building.id=:buildingId")
   public Building findBuildingById(@Param("buildingId") Integer buildingId);
-
-  // @Query("SELECT topic FROM Topic topic WHERE topic.lessonId=:lessonId")
-  // public List<Topic> findTopicsForLesson(@Param("lessonId") String lessonId);
 }

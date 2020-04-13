@@ -11,6 +11,8 @@ public class Building {
     private Integer id;
     private String name;
     private String address;
+    private String thumbnailImageUrl;
+    private String mainImageUrl;
     @OneToMany(mappedBy = "building")
     private List<Picture> pictures;
     @OneToMany(mappedBy = "building")
@@ -36,6 +38,22 @@ public class Building {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getThumbnailImageUrl() {
+        return this.thumbnailImageUrl;
+    }
+
+    public void setThumbnailImageUrl(String url) {
+        this.thumbnailImageUrl = url;
+    }
+
+    public String getMainImageUrl() {
+        return this.mainImageUrl;
+    }
+
+    public void setMainImageUrl(String url) {
+        this.mainImageUrl = url;
     }
 
     public List<Picture> getPictures() {

@@ -1,0 +1,53 @@
+package com.example.course_editor.services;
+
+import com.example.course_editor.models.Picture;
+import com.example.course_editor.repositories.PictureRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PictureService {
+  @Autowired
+  PictureRepository pictureRepository;
+
+  public Picture createPicture(Picture picture) {
+    return pictureRepository.save(picture);
+  }
+
+  public int updatePicture(Integer pictureId, Picture picture) {
+    // make sure picture exists
+    int pictureIdIndex = -1;
+    List<Picture> pictureList = this.findAllPictures();
+    for (int i = 0; i < pictureList.size(); i++) {
+      Picture p = pictureList.get(i);
+      if (p.getId() == pictureId) {
+        pictureIdIndex = i;
+        break;
+      }
+    }
+
+    if (pictureIdIndex == -1) {
+      return 0;
+    } else {
+      // Picture b = this.findPictureById(pictureIdIndex);
+      this.deletePicture(pictureId);
+      this.createPicture(picture);
+      return 1;
+    }
+  }
+
+  public Integer deletePicture(Integer pictureId) {
+    pictureRepository.deleteById(pictureId);
+    return 1;
+  }
+
+  public List<Picture> findAllPictures() {
+    return (List<Picture>) pictureRepository.findAll();
+  }
+
+  public List<Picture> findPicturesForBuilding(Integer buildingId) {
+    return pictureRepository.findPicturesForBuilding(buildingId);
+  }
+}

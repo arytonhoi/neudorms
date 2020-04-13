@@ -27,7 +27,7 @@ public class BuildingService {
     for (int i = 0; i < buildingList.size(); i++) {
       Building b = buildingList.get(i);
       if (b.getId() == buildingId) {
-        buildingId = i;
+        buildingIdIndex = i;
         break;
       }
     }

@@ -13,6 +13,10 @@ public class Picture {
     @JsonIgnore
     private Building building;
     private String url;     
+
+    public Integer getId() {
+        return this.id;
+    }
     
     public Building getBuilding() {
         return this.building;

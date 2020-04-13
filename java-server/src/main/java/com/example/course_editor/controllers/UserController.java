@@ -2,7 +2,9 @@ package com.example.course_editor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.example.course_editor.models.User;
+import com.example.course_editor.models.*;
+import com.example.course_editor.services.BookmarkService;
+import com.example.course_editor.services.ReviewService;
 import com.example.course_editor.services.UserService;
 
 import java.util.List;
@@ -12,35 +14,44 @@ import java.util.List;
 public class UserController {
 
   @Autowired
-  BuildingService buildingService;
+  UserService userService;
+  @Autowired
+  ReviewService reviewService;
+  @Autowired
+  BookmarkService bookmarkService;
 
-  @GetMapping("/api/buildings")
-  public List<Building> findAllBuildings() {
-    return buildingService.findAllBuildings();
+  @GetMapping("/api/users")
+  public List<User> findAllUsers() {
+    return userService.findAllUsers();
   }
 
-  @GetMapping("/api/buildings/{buildingId}")
-  public Building findBuildingById(@PathVariable("buildingId") Integer buildingId) {
-    return buildingService.findBuildingById(buildingId);
+  @GetMapping("/api/users/{username}")
+  public User findUserByUsername(@PathVariable("username") String username) {
+    return userService.findUserByUsername(username);
   }
 
-  @PostMapping("/api/buildings/")
-  public Building createBuilding(@RequestBody Building building) {
-    return buildingService.createBuilding(building);
+  @GetMapping("/api/users/{username}/reviews")
+  public List<Review> findReviewsByUser(@PathVariable("username") String username) {
+    return reviewService.findReviewsByUser(username);
   }
 
-  @PutMapping("/api/buildings/{buildingId}")
-  public Integer updateBuilding(@PathVariable("buildingId") Integer buildingId, @RequestBody Building building) {
-    return buildingService.updateBuilding(buildingId, building);
+  @GetMapping("/api/users/{username}/bookmarks")
+  public List<Bookmark> findBookmarksForUser(@PathVariable("username") String username) {
+    return bookmarkService.findBookmarksForUser(username);
   }
 
-  @DeleteMapping("/api/buildings/{buildingId}")
-  public Integer deleteBuilding(@PathVariable("buildingId") Integer buildingId) {
-    return buildingService.deleteBuilding(buildingId);
+  @PostMapping("/api/users")
+  public User createUser(@RequestBody User user) {
+    return userService.createUser(user);
   }
 
-  // @GetMapping("/api/topics/{tid}/widgets")
-  // public List<Widget> findWidgetsForTopic(@PathVariable("tid") Integer topicId) {
-  //   return widgetService.findWidgetsForTopic(topicId);
-  // }  
+  @PutMapping("/api/users/{username}")
+  public Integer updateUser(@PathVariable("username") String username, @RequestBody User user) {
+    return userService.updateUser(username, user);
+  }
+
+  @DeleteMapping("/api/users/{username}")
+  public Integer deleteUser(@PathVariable("username") String username) {
+    return userService.deleteUser(username);
+  }
 }

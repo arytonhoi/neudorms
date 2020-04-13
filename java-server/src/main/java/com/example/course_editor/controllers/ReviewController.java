@@ -19,22 +19,12 @@ public class ReviewController {
     return reviewService.findAllReviews();
   }
 
-  @GetMapping("/api/{buildingId}/reviews")
-  public List<Review> findReviewsForBuilding(@PathVariable("buildingId") Integer buildingId) {
-    return reviewService.findReviewsForBuilding(buildingId);
-  }  
-
-  @GetMapping("/api/{username}/reviews")
-  public List<Review> findReviewsByUser(@PathVariable("username") String username) {
-    return reviewService.findReviewsByUser(username);
-  }  
-
   @GetMapping("/api/reviews/{reviewId}")
   public Review findReviewById(@PathVariable("reviewId") Integer reviewId) {
     return reviewService.findReviewById(reviewId);
   }
 
-  @PostMapping("/api/reviews/")
+  @PostMapping("/api/reviews")
   public Review createReview(@RequestBody Review Review) {
     return reviewService.createReview(Review);
   }
