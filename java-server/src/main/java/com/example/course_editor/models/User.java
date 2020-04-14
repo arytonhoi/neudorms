@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,13 @@ public class User {
     private String year;
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
-    @OneToMany(mappedBy = "user")
-    private List<Bookmark> bookmarks;
+    @ManyToMany
+    @JoinTable(
+        name = "bookmarks", 
+        joinColumns = @JoinColumn(name = "userId"), 
+        inverseJoinColumns = @JoinColumn(name = "buildingId")
+    )
+    private List<Building> bookmarkedBuildings;
 
     public Integer getId() {
         return this.id;
@@ -38,14 +43,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return this.role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getEmail() {
@@ -80,8 +77,8 @@ public class User {
         this.year = year;
     }
 
-    public List<Bookmark> getBookmarked() {
-        return this.bookmarks;
+    public List<Building> getBookmarkedBuildings() {
+        return this.bookmarkedBuildings;
     }
 
     public List<Review> getReviews() {

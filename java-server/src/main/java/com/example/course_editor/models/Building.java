@@ -17,8 +17,8 @@ public class Building {
     private List<Picture> pictures;
     @OneToMany(mappedBy = "building")
     private List<Review> reviews;
-    @OneToMany(mappedBy = "building")
-    private List<Bookmark> bookmarks;
+    @ManyToMany(mappedBy = "bookmarkedBuildings")
+    private List<User> bookmarkUsers;
     
     public Integer getId() {
         return this.id;
@@ -68,7 +68,7 @@ public class Building {
         return this.reviews;
     }
 
-    public List<Bookmark> getBookmarks() {
-        return this.bookmarks;
+    public List<User> getBookmarkUsers() {
+        return this.bookmarkUsers;
     }
 }

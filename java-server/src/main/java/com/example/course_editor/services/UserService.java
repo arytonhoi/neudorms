@@ -1,6 +1,7 @@
 package com.example.course_editor.services;
 
 import com.example.course_editor.models.User;
+import com.example.course_editor.models.Building;
 import com.example.course_editor.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,14 @@ public class UserService {
 
   public List<User> findAllUsers() {
     return (List<User>) userRepository.findAll();
+  }
+
+  public User findUserByUsername(String username) {
+    return userRepository.findUserByUsername(username);
+  }
+
+  public List<Building> findBookmarksForUser(Integer userId) {
+    return userRepository.findBookmarksForUser(userId);
   }
 
   public int updateUser(String username, User user) {
@@ -46,9 +55,5 @@ public class UserService {
     User user = this.findUserByUsername(username);
     userRepository.deleteById(user.getId());
     return 1;
-  }
-
-  public User findUserByUsername(String username) {
-    return userRepository.findUserByUsername(username);
   }
 }

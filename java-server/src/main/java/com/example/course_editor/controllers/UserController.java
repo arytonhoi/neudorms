@@ -3,7 +3,6 @@ package com.example.course_editor.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.course_editor.models.*;
-import com.example.course_editor.services.BookmarkService;
 import com.example.course_editor.services.ReviewService;
 import com.example.course_editor.services.UserService;
 
@@ -17,8 +16,6 @@ public class UserController {
   UserService userService;
   @Autowired
   ReviewService reviewService;
-  @Autowired
-  BookmarkService bookmarkService;
 
   @GetMapping("/api/users")
   public List<User> findAllUsers() {
@@ -35,9 +32,9 @@ public class UserController {
     return reviewService.findReviewsByUser(username);
   }
 
-  @GetMapping("/api/users/{username}/bookmarks")
-  public List<Bookmark> findBookmarksForUser(@PathVariable("username") String username) {
-    return bookmarkService.findBookmarksForUser(username);
+  @GetMapping("/api/users/{userId}/bookmarks")
+  public List<Building> findBookmarksForUser(@PathVariable("userId") Integer userId) {
+    return userService.findBookmarksForUser(userId);
   }
 
   @PostMapping("/api/users")
