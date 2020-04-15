@@ -1,7 +1,7 @@
 package com.example.course_editor.models;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -16,14 +16,14 @@ public class User {
     private String major;
     private String year;
     @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
+    private Set<Review> reviews;
     @ManyToMany
     @JoinTable(
         name = "bookmarks", 
         joinColumns = @JoinColumn(name = "userId"), 
         inverseJoinColumns = @JoinColumn(name = "buildingId")
     )
-    private List<Building> bookmarkedBuildings;
+    private Set<Building> bookmarkedBuildings;
 
     public Integer getId() {
         return this.id;
@@ -77,7 +77,7 @@ public class User {
         this.year = year;
     }
 
-    public List<Building> getBookmarkedBuildings() {
+    public Set<Building> getBookmarkedBuildings() {
         return this.bookmarkedBuildings;
     }
 
@@ -85,7 +85,7 @@ public class User {
         this.bookmarkedBuildings.add(building);
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return this.reviews;
     }
 

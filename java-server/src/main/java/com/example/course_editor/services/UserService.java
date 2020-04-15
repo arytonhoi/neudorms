@@ -1,7 +1,6 @@
 package com.example.course_editor.services;
 
 import com.example.course_editor.models.*;
-import com.example.course_editor.repositories.ReviewRepository;
 import com.example.course_editor.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ public class UserService {
   @Autowired
   UserRepository userRepository;
   @Autowired
-  ReviewRepository reviewRepository;
+  BuildingService buildingService;
 
   public User createUser(User user) {
     return userRepository.save(user);
@@ -37,8 +36,9 @@ public class UserService {
     return 1;
   }
 
-  public Integer addBookmarkForUser(Integer userId, Building building) {
+  public Integer addBookmarkForUser(Integer userId, Integer buildingId) {
     User user = this.findUserById(userId);
+    Building building = buildingService.findBuildingById(buildingId);
     user.addBookmark(building);
     return 1;
   }
@@ -62,7 +62,6 @@ public class UserService {
     if (userIdIndex == -1) {
       return 0;
     } else {
-      // User b = this.findUserById(userIdIndex);
       this.deleteUser(username);
       this.createUser(user);
       return 1;

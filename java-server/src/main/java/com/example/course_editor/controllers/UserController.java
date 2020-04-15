@@ -23,6 +23,11 @@ public class UserController {
     return userService.findAllUsers();
   }
 
+  // @GetMapping("/api/users/{userId}")
+  // public User findUserByUsername(@PathVariable("userId") Integer userId) {
+  //   return userService.findUserById(userId);
+  // }
+
   @GetMapping("/api/users/{username}")
   public User findUserByUsername(@PathVariable("username") String username) {
     return userService.findUserByUsername(username);
@@ -33,10 +38,10 @@ public class UserController {
     return userService.findBookmarksForUser(userId);
   }
   
-  @PutMapping("/api/users/{userId}/bookmarks")
-  public Integer addUserBookmark(@PathVariable("userId") Integer userId, @RequestBody Building building) {
-    userService.addBookmarkForUser(userId, building);
-    return buildingService.addBookmarkUser(userId, building);  
+  @PutMapping("/api/users/{userId}/bookmarks/{buildingId}")
+  public Integer addUserBookmark(@PathVariable("userId") Integer userId, @PathVariable("buildingId") Integer buildingId) {
+    userService.addBookmarkForUser(userId, buildingId);
+    return buildingService.addBookmarkUser(userId, buildingId);  
   }
 
   @PostMapping("/api/users")

@@ -60,8 +60,9 @@ public class BuildingService {
     return 1;
   }
 
-  public Integer addBookmarkUser(Integer userId, Building building) {
+  public Integer addBookmarkUser(Integer userId, Integer buildingId) {
     User user = userService.findUserById(userId);
+    Building building = this.findBuildingById(buildingId);
     building.addBookmarkUser(user);
     return 1;
   }
