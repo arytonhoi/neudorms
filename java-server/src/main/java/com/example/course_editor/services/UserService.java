@@ -1,7 +1,7 @@
 package com.example.course_editor.services;
 
-import com.example.course_editor.models.User;
-import com.example.course_editor.models.Building;
+import com.example.course_editor.models.*;
+import com.example.course_editor.repositories.ReviewRepository;
 import com.example.course_editor.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,8 @@ import java.util.List;
 public class UserService {
   @Autowired
   UserRepository userRepository;
+  @Autowired
+  ReviewRepository reviewRepository;
 
   public User createUser(User user) {
     return userRepository.save(user);
@@ -21,8 +23,17 @@ public class UserService {
     return (List<User>) userRepository.findAll();
   }
 
+  public User findUserById(Integer userId) {
+    return userRepository.findUserById(userId);
+  }
+
   public User findUserByUsername(String username) {
     return userRepository.findUserByUsername(username);
+  }
+
+  public void addReviewForUser(Integer userId, Review review) {
+    User user = this.findUserById(userId);
+    user.addReview(review);
   }
 
   public List<Building> findBookmarksForUser(Integer userId) {

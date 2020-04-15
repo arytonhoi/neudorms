@@ -1,6 +1,6 @@
 package com.example.course_editor.services;
 
-import com.example.course_editor.models.Review;
+import com.example.course_editor.models.*;
 import com.example.course_editor.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,16 @@ import java.util.List;
 public class ReviewService {
   @Autowired
   ReviewRepository reviewRepository;
+  @Autowired
+  UserService userService;
+  @Autowired
+  BuildingService buildingService;
 
-  public Review createReview(Review review) {
+  public Review createReview(Integer buildingId, Integer userId, Review review) {
+    userService.addReviewForUser(userId, review);
+    buildingService.addReviewForBuilding(buildingId, review);
+    review.setBuilding(buildingService.findBuildingById(buildingId));
+    review.setUser(userService.findUserById(userId));
     return reviewRepository.save(review);
   }
 
@@ -52,8 +60,9 @@ public class ReviewService {
       return 0;
     } else {
       // Building b = this.findBuildingById(buildingIdIndex);
+      Review oldReview = this.findReviewById(reviewId);
       this.deleteReview(reviewIdIndex);
-      this.createReview(review);
+      this.createReview(oldReview.getBuilding().getId(), oldReview.getUser().getId(), review);
       return 1;
     }
   }

@@ -68,6 +68,10 @@ public class Building {
         return this.reviews;
     }
 
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
     public List<User> getBookmarkUsers() {
         return this.bookmarkUsers;
     }

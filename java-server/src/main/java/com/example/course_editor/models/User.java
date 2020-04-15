@@ -84,4 +84,8 @@ public class User {
     public List<Review> getReviews() {
         return this.reviews;
     }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
 }

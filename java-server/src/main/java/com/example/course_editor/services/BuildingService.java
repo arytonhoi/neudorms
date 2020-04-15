@@ -1,6 +1,6 @@
 package com.example.course_editor.services;
 
-import com.example.course_editor.models.Building;
+import com.example.course_editor.models.*;
 import com.example.course_editor.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,17 @@ public class BuildingService {
   @Autowired
   BuildingRepository buildingRepository;
 
+  public Building findBuildingById(Integer buildingId) {
+    return buildingRepository.findBuildingById(buildingId);
+  }
+
+  public List<Building> findAllBuildings() {
+    return (List<Building>) buildingRepository.findAll();
+  }
+
   public Building createBuilding(Building building) {
     return buildingRepository.save(building);
   }
-
-  // public List<Topic> findTopicsForLesson(String lid) {
-  //   return topicRepository.findTopicsForLesson(lid);
-  // }
 
   public int updateBuilding(Integer buildingId, Building building) {
     // make sure building exists
@@ -47,11 +51,8 @@ public class BuildingService {
     return 1;
   }
 
-  public Building findBuildingById(Integer buildingId) {
-    return buildingRepository.findBuildingById(buildingId);
-  }
-
-  public List<Building> findAllBuildings() {
-    return (List<Building>) buildingRepository.findAll();
+  public void addReviewForBuilding(Integer buildingId, Review review)   {
+    Building building = this.findBuildingById(buildingId);
+    building.addReview(review);
   }
 }

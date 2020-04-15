@@ -41,7 +41,7 @@ public class Review {
         this.building = building;
     }
 
-    public String date() {
+    public String getDate() {
         return this.date;
     }
 

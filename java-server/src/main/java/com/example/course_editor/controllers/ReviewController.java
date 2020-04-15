@@ -24,9 +24,11 @@ public class ReviewController {
     return reviewService.findReviewById(reviewId);
   }
 
-  @PostMapping("/api/reviews")
-  public Review createReview(@RequestBody Review Review) {
-    return reviewService.createReview(Review);
+  @PostMapping("/api/reviews/{buildingId}/{userId}")
+  public Review createReview(@PathVariable("buildingId") Integer buildingId, 
+    @PathVariable("userId") Integer userId,
+    @RequestBody Review Review) {
+    return reviewService.createReview(buildingId, userId, Review);
   }
 
   @PutMapping("/api/reviews/{reviewId}")
