@@ -16,11 +16,13 @@ public class ReviewService {
   @Autowired
   BuildingService buildingService;
 
-  public Review createReview(Integer buildingId, Integer userId, Review review) {
-    userService.addReviewForUser(userId, review);
+  public Review createReview(Integer buildingId, Review review) {
+    User user = userService.findUserByUsername(review.getUsername());
+    userService.addReviewForUser(user.getId(), review);
     buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
-    review.setUser(userService.findUserById(userId));
+    review.setUser(user);
+    review.setSentiment("positive");
     return reviewRepository.save(review);
   }
 
@@ -59,10 +61,9 @@ public class ReviewService {
     if (reviewIdIndex == -1) {
       return 0;
     } else {
-      // Building b = this.findBuildingById(buildingIdIndex);
       Review oldReview = this.findReviewById(reviewId);
       this.deleteReview(reviewIdIndex);
-      this.createReview(oldReview.getBuilding().getId(), oldReview.getUser().getId(), review);
+      this.createReview(oldReview.getBuilding().getId(), review);
       return 1;
     }
   }

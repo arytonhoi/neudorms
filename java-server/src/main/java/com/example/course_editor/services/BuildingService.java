@@ -2,6 +2,7 @@ package com.example.course_editor.services;
 
 import com.example.course_editor.models.*;
 import com.example.course_editor.repositories.BuildingRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public class BuildingService {
   @Autowired
   BuildingRepository buildingRepository;
+  @Autowired
+  UserService userService;
 
   public Building findBuildingById(Integer buildingId) {
     return buildingRepository.findBuildingById(buildingId);
@@ -51,8 +54,15 @@ public class BuildingService {
     return 1;
   }
 
-  public void addReviewForBuilding(Integer buildingId, Review review)   {
+  public Integer addReviewForBuilding(Integer buildingId, Review review)   {
     Building building = this.findBuildingById(buildingId);
     building.addReview(review);
+    return 1;
+  }
+
+  public Integer addBookmarkUser(Integer userId, Building building) {
+    User user = userService.findUserById(userId);
+    building.addBookmarkUser(user);
+    return 1;
   }
 }

@@ -60,8 +60,8 @@ public class Building {
         return this.pictures;
     }
 
-    public void setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
+    public void addPicture(Picture picture) {
+        this.pictures.add(picture);
     }
 
     public List<Review> getReviews() {
@@ -74,5 +74,9 @@ public class Building {
 
     public List<User> getBookmarkUsers() {
         return this.bookmarkUsers;
+    }
+
+    public void addBookmarkUser(User user) {
+        this.bookmarkUsers.add(user);
     }
 }

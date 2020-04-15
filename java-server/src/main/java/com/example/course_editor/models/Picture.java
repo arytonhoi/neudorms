@@ -22,8 +22,8 @@ public class Picture {
         return this.building;
     }
 
-    public void setBuilding(Building buidling) {
-        this.building = buidling;
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public String getUrl() {

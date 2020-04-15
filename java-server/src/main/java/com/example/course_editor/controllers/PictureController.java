@@ -19,9 +19,14 @@ public class PictureController {
     return pictureService.findAllPictures();
   }
 
-  @PostMapping("/api/pictures")
-  public Picture createPicture(@RequestBody Picture picture) {
-    return pictureService.createPicture(picture);
+  @GetMapping("/api/buildings/{buildingId}/pictures")
+  public List<Picture> findPicturesForBuilding(@PathVariable("buildingId") Integer buildingId) {
+    return pictureService.findPicturesForBuilding(buildingId);
+  }
+
+  @PostMapping("/api/buildings/{buildingId}/pictures")
+  public Picture createPicture(@PathVariable("buildingId") Integer buildingId, @RequestBody Picture picture) {
+    return pictureService.createPicture(buildingId, picture);
   }
 
   @PutMapping("/api/pictures/{pictureId}")

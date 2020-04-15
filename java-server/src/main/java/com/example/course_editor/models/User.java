@@ -81,6 +81,10 @@ public class User {
         return this.bookmarkedBuildings;
     }
 
+    public void addBookmark(Building building) {
+        this.bookmarkedBuildings.add(building);
+    }
+
     public List<Review> getReviews() {
         return this.reviews;
     }

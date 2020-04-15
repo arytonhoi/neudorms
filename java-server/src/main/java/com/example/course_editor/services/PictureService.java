@@ -1,6 +1,6 @@
 package com.example.course_editor.services;
 
-import com.example.course_editor.models.Picture;
+import com.example.course_editor.models.*;
 import com.example.course_editor.repositories.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,13 @@ import java.util.List;
 public class PictureService {
   @Autowired
   PictureRepository pictureRepository;
+  @Autowired
+  BuildingService buildingService;
 
-  public Picture createPicture(Picture picture) {
+  public Picture createPicture(Integer buildingId, Picture picture) {
+    Building building = buildingService.findBuildingById(buildingId);
+    building.addPicture(picture);
+    picture.setBuilding(building);
     return pictureRepository.save(picture);
   }
 
@@ -31,9 +36,9 @@ public class PictureService {
     if (pictureIdIndex == -1) {
       return 0;
     } else {
-      // Picture b = this.findPictureById(pictureIdIndex);
+      Integer buildingId = pictureList.get(pictureIdIndex).getBuilding().getId();
       this.deletePicture(pictureId);
-      this.createPicture(picture);
+      this.createPicture(buildingId, picture);
       return 1;
     }
   }

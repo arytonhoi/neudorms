@@ -31,16 +31,23 @@ public class UserService {
     return userRepository.findUserByUsername(username);
   }
 
-  public void addReviewForUser(Integer userId, Review review) {
+  public Integer addReviewForUser(Integer userId, Review review) {
     User user = this.findUserById(userId);
     user.addReview(review);
+    return 1;
+  }
+
+  public Integer addBookmarkForUser(Integer userId, Building building) {
+    User user = this.findUserById(userId);
+    user.addBookmark(building);
+    return 1;
   }
 
   public List<Building> findBookmarksForUser(Integer userId) {
     return userRepository.findBookmarksForUser(userId);
   }
 
-  public int updateUser(String username, User user) {
+  public Integer updateUser(String username, User user) {
     // make sure user exists
     int userIdIndex = -1;
     List<User> userList = this.findAllUsers();

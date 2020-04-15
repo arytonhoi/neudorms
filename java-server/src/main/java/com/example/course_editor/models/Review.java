@@ -16,6 +16,7 @@ public class Review {
     @ManyToOne
     @JsonIgnore
     private User user;
+    private String username;
     private String date;
     private String text;
     private String imageUrl;
@@ -31,6 +32,14 @@ public class Review {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Building getBuilding() {
