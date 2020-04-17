@@ -5,10 +5,12 @@ export const findAllBuildings = (buildings) => ({
   buildings: buildings
 })
 
-export const findBuildingById = (buildingId) => ({
-  type: FIND_BUILDING_BY_ID,
-  buildingId: buildingId
-})
+export const findBuildingById = (building) => {
+  return {
+    type: FIND_BUILDING_BY_ID,
+    building: building
+  }
+}
 
 export const createBuilding = (building) => ({
   type: CREATE_BUILDING,

@@ -24,9 +24,9 @@ class BuildingCard extends React.Component {
               <p className="card-text">
                 Description
               </p>
-              <a href="#" className="btn btn-primary mr-3">
+              <button className="btn btn-primary mr-3">
                 Bookmark
-                </a>
+                </button>
             </div>
           </Link>
         </div>
