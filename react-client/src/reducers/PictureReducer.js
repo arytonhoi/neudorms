@@ -14,7 +14,7 @@ const pictureReducer = (state = initialState, action) => {
 
         case FIND_PICTURES_FOR_BUILDING:
             return {
-                pictures: action.pictures
+                pictures: state.pictures.filter(picture => picture.building.id === action.buildingId)
             }
 
         case CREATE_PICTURE:
@@ -38,6 +38,9 @@ const pictureReducer = (state = initialState, action) => {
             return {
                 pictures: state.pictures.filter(picture => picture.id !== action.pictureId)
             }
+
+        default:
+            return state
     }
 }
 

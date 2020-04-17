@@ -1,4 +1,10 @@
-import { FIND_ALL_BUILDINGS, FIND_BUILDING_BY_ID, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../constants';
+import {
+  FIND_ALL_BUILDINGS,
+  FIND_BUILDING_BY_ID,
+  CREATE_BUILDING,
+  DELETE_BUILDING,
+  UPDATE_BUILDING,
+} from '../constants';
 
 const initialState = {
   buildings: [],
