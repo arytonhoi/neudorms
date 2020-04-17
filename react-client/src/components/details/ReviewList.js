@@ -2,26 +2,27 @@ import React from "react";
 import { connect } from "react-redux";
 import { findBuildingById, updateBuilding, deleteBuilding } from '../../actions/BuildingActions';
 import buildingService from '../../services/BuildingService';
+import './details.css';
 
-class TextDetails extends React.Component {
+class ReviewList extends React.Component {
   componentDidMount() {
     this.props.findBuildingById(this.props.buildingId);
   }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (prevProps.topicId !== this.props.topicId) {
-  //     this.props.findWidgetsForTopic(this.props.topicId)
-  //   }
-  // }
-
-  state = {
-  }
-
+  
   render() {
     return (
       <div>
-        <h1>{this.props.building.name}</h1>
-        Address: {this.props.building.address}
+        {
+          this.props.building.reviews.map(review =>
+            <ul className='list-group' key={review.id}>
+              <li className='list-group-item'>
+                <h4>{review.username}</h4>
+                <p>{review.sentiment} review</p>
+                <p>{review.text}</p>
+              </li>
+            </ul>
+          )
+        }
       </div>
     );
   }
@@ -47,10 +48,11 @@ const dispatchToPropertyMapper = (dispatch) => ({
 })
 
 const stateToPropertyMapper = (state) => {
+  console.log(state)
   return {
     building: state.buildings.building
   }
 }
 
 export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
-  (TextDetails)
+  (ReviewList)

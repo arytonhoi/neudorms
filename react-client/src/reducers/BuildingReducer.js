@@ -1,7 +1,10 @@
 import { FIND_ALL_BUILDINGS, FIND_BUILDING_BY_ID, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../constants';
 
 const initialState = {
-  buildings: []
+  buildings: [],
+  building: {
+    reviews: []
+  }
 }
 
 const buildingReducer = (state = initialState, action) => {
@@ -13,7 +16,7 @@ const buildingReducer = (state = initialState, action) => {
 
     case FIND_BUILDING_BY_ID:
       return {
-        
+        building: action.building
       }
 
     case CREATE_BUILDING:
