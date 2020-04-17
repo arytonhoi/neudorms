@@ -1,22 +1,31 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../actions/UserActions";
-import UserService from "../../services/UserService";
-import BuildingCard from "./BuildingCard";
-import styled from "styled-components";
+import userService from "../../services/UserService";
 
-class BuildingList extends React.Component {
+class RegistrationForm extends React.Component {
   componentDidMount() {
-    this.props.findAllBuildings();
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (prevProps.topicId !== this.props.topicId) {
-  //     this.props.findWidgetsForTopic(this.props.topicId)
-  //   }
-  // }
+  state = {
+    user: {
 
-  state = {};
+    }
+  }
+
+  // <input
+  // className="form-control"
+  // placeholder="Header text"
+  // onChange={(e) => {
+  //   const newTitle = e.target.value;
+  //   this.setState(prevState => ({
+  //     widget: {
+  //       ...prevState.widget,
+  //       text: newTitle
+  //     }
+  //   }))
+  // }}
+  // value={this.state.widget.text} />
 
   render() {
     return (
@@ -92,38 +101,19 @@ class BuildingList extends React.Component {
 }
 
 const dispatchToPropertyMapper = (dispatch) => ({
-  findAllBuildings: () => {
-    buildingService
-      .findAllBuildings()
-      .then((buildings) => dispatch(findAllBuildings(buildings)));
-  },
-
-  createBuilding: (building) => {
-    buildingService
-      .createBuilding(building)
-      .then((building) => dispatch(createBuilding(building)));
-  },
-
-  updateBuilding: (buildingId, building) => {
-    buildingService
-      .updateBuilding(buildingId, building)
-      .then((status) => dispatch(updateBuilding(buildingId, building)));
-  },
-
-  deleteBuilding: (buildingId) => {
-    buildingService
-      .deleteBuilding(buildingId)
-      .then((status) => dispatch(deleteBuilding(buildingId)));
-  },
+  createUser: (user) => {
+    userService.createUser(user)
+      .then((user) => dispatch(createUser(user)));
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
-  buildings: state.buildings.buildings,
+  // users: state.buildings.buildings
 });
 
 export default connect(
   stateToPropertyMapper,
   dispatchToPropertyMapper
-)(BuildingList);
+)(RegistrationForm);
 
 
