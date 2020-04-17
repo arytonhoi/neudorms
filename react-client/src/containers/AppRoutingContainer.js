@@ -20,7 +20,7 @@ class AppRoutingContainer extends React.Component {
               render={(props) =>
                   <ProfileContainer
                       {...props}
-                      userId={props.match.params.username}
+                      username={props.match.params.username}
                   />}
               component={ProfileContainer}
           />
