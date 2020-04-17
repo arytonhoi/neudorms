@@ -58,7 +58,7 @@ class HomeContainer extends React.Component {
               <a className="nav-link profile" href="/profile">
                 Housing Group
               </a>
-              <a className="nav-link profile" href="/profile">
+              <a className="nav-link profile" href="/bookmarks">
                 Bookmarks
               </a>
               <a className="nav-link profile" href="/profile">
