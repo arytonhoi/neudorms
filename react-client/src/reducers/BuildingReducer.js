@@ -1,4 +1,4 @@
-import { FIND_ALL_BUILDINGS, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../../constants';
+import { FIND_ALL_BUILDINGS, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../constants';
 
 const initialState = {
   buildings: []
@@ -38,4 +38,4 @@ const buildingReducer = (state = initialState, action) => {
   }
 }
 
-export default buildingReducer
+export default buildingReducer;

@@ -11,12 +11,21 @@ class AppRoutingContainer extends React.Component {
     return (
       <Router>
         <Switch>
-            <Route path="/home" component={HomeContainer} />
-            <Route path="/profile" component={ProfileContainer} />
-            <Route path="/search" component={SearchContainer} />
-            <Route path="/details" component={DetailsContainer} />
-            <Route path="/login" component={LoginContainer} />
-          </Switch>
+          <Route path="/home" component={HomeContainer} />
+          <Route path="/profile" component={ProfileContainer} />
+          <Route path="/search" component={SearchContainer} />
+          <Route
+            path="/details/:buildingId"
+            exact={true}
+            render={(props) =>
+              <DetailsContainer
+                {...props}
+                buildingId={props.match.params.buildingId}
+              />}
+            component={DetailsContainer}
+          />
+          <Route path="/login" component={LoginContainer} />
+        </Switch>
       </Router>
     )
   }
