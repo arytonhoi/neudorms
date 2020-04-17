@@ -1,6 +1,18 @@
 import React from "react";
+import {combineReducers, createStore} from "redux";
+import userReducer from "../reducers/UserReducer";
+
+const rootReducer = combineReducers({
+  users: userReducer
+})
+
+let store = createStore(rootReducer)
 
 class ProfileContainer extends React.Component {
+  state = {
+    userId: this.props.match.params.userId
+  }
+
   render() {
     return (
         <div>
@@ -12,9 +24,9 @@ class ProfileContainer extends React.Component {
 
           <div className="container-fluid">
             <h1>Profile</h1>
-            <div className="alert alert-success">
-              Profile successfully saved
-            </div>
+            {/*<div className="alert alert-success">*/}
+            {/*  Profile successfully saved*/}
+            {/*</div>*/}
             <form>
               <div className="form-group row">
                 <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
