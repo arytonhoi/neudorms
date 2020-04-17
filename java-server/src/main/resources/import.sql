@@ -1,17 +1,15 @@
---INSERT INTO buildings (address, main_image_url, name, thumbnail_image_url) VALUES
---	("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Stetson West", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Stetson East", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Melvin Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Speare Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/spearehall.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Smith Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Light Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Kerr Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "153 Hemenway Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "Kennedy Hall", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "International Village", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/INV-exterior-01.jpg"),
---    ("21 Forsyth Street", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg", "East Village", "https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg");
---
-INSERT INTO buildings VALUES
-    (1, 'name1'),
-    (2, 'name2'),
-    (3, 'name3');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('White Hall', '21 Forsyth Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Stetson West', '10 Forsyth Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Stetson East', '11 Speare Place', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Speare Hall', '10 Speare Place', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/spearehall.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/spearehall.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Smith Hall', '129 Hemenway Street', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/smith-2.jpg?resize=923%2C692&ssl=1', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/smith-2.jpg?resize=923%2C692&ssl=1');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Light Hall', '81-83 St. Stephen Street', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/light-2.jpg?ssl=1', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/light-2.jpg?ssl=1');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Kerr Hall', '96 The Fenway', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/kerr.jpg?ssl=1', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/kerr.jpg?ssl=1');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Melvin Hall', '90 The Fenway', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/melvin.jpg?ssl=1', 'https://i1.wp.com/www.society19.com/wp-content/uploads/2016/06/melvin.jpg?ssl=1');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Kennedy Hall', '119 Hemenway Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('International Village', '1155 Tremont Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/INV-exterior-01.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/INV-exterior-01.jpg');
+INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('East Village', '291 St. Botolph Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg');
+
+INSERT INTO users (username, password) VALUES ('stanleyliu', 'password');
+INSERT INTO users (username, password) VALUES ('presidentaoun', 'password123');
+INSERT INTO users (username, password) VALUES ('test', 'test');
