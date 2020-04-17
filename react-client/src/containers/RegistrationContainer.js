@@ -1,28 +1,27 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
-import BuildingList from "../components/registration/RegistrationForm";
-import buildingReducer from "../reducers/BuildingReducer";
+import RegistrationForm from "../components/registration/RegistrationForm";
+import userReducer from "../reducers/UserReducer";
 import "./HomeContainer.css";
 
 const rootReducer = combineReducers({
-  buildings: buildingReducer,
+  users: userReducer,
 });
 
 let store = createStore(rootReducer);
 
-class HomeContainer extends React.Component {
+class RegistrationContainer extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
-          <HomeWrapper>
-            <BuildingList />
-          </HomeWrapper>
+        <div className='container'>
+          <h1>Sign up</h1>
+          <RegistrationForm />
         </div>
       </Provider>
     );
   }
 }
 
-export default HomeContainer;
+export default RegistrationContainer;

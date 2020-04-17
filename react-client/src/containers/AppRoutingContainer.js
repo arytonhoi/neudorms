@@ -6,6 +6,7 @@ import SearchContainer from "./SearchContainer";
 import DetailsContainer from "./DetailsContainer";
 import LoginContainer from "./LoginContainer";
 import BookmarksContainer from "./BookmarksContainer";
+import RegistrationContainer from "./RegistrationContainer";
 
 class AppRoutingContainer extends React.Component {
   render() {
@@ -27,6 +28,7 @@ class AppRoutingContainer extends React.Component {
           />
           <Route path="/login" component={LoginContainer} />
           <Route path="/bookmarks" component={BookmarksContainer} />
+          <Route path="/registration" component={RegistrationContainer} />
         </Switch>
       </Router>
     )
