@@ -2,26 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { findBuildingById, updateBuilding, deleteBuilding } from '../../actions/BuildingActions';
 import buildingService from '../../services/BuildingService';
+import './details.css';
 
-class TextDetails extends React.Component {
+class ImageDetails extends React.Component {
   componentDidMount() {
     this.props.findBuildingById(this.props.buildingId);
-  }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (prevProps.topicId !== this.props.topicId) {
-  //     this.props.findWidgetsForTopic(this.props.topicId)
-  //   }
-  // }
-
-  state = {
   }
 
   render() {
     return (
       <div>
-        <h1>{this.props.building.name}</h1>
-        Address: {this.props.building.address}
+        <img className='building-image' src={this.props.building.mainImageUrl} />
       </div>
     );
   }
@@ -53,4 +44,4 @@ const stateToPropertyMapper = (state) => {
 }
 
 export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
-  (TextDetails)
+  (ImageDetails)
