@@ -9,11 +9,11 @@ class BuildingList extends React.Component {
     this.props.findAllBuildings();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (prevProps.topicId !== this.props.topicId) {
-    //   this.props.findWidgetsForTopic(this.props.topicId)
-    // }
-  }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if (prevProps.topicId !== this.props.topicId) {
+  //     this.props.findWidgetsForTopic(this.props.topicId)
+  //   }
+  // }
 
   state = {
   }

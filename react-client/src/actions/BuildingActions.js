@@ -1,8 +1,13 @@
-import { FIND_ALL_BUILDINGS, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../constants';
+import { FIND_ALL_BUILDINGS, FIND_BUILDING_BY_ID, CREATE_BUILDING, DELETE_BUILDING, UPDATE_BUILDING } from '../constants';
 
 export const findAllBuildings = (buildings) => ({
   type: FIND_ALL_BUILDINGS,
   buildings: buildings
+})
+
+export const findBuildingById = (buildingId) => ({
+  type: FIND_BUILDING_BY_ID,
+  buildingId: buildingId
 })
 
 export const createBuilding = (building) => ({
