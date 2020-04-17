@@ -1,20 +1,20 @@
 import React from "react";
-import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { Provider } from "react-redux";
+import { combineReducers, createStore } from "redux";
 import BuildingList from "../components/home/BuildingList";
 import buildingReducer from "../reducers/BuildingReducer";
 import "./HomeContainer.css";
-// import styled from "styled-components";
+import styled from "styled-components";
 
-// const HomeWrapper = styled.div`
-//   margin: 32px 48px;
-// `;
+const HomeWrapper = styled.div`
+  margin: 32px 48px;
+`;
 
 const rootReducer = combineReducers({
-  buildings: buildingReducer
-})
+  buildings: buildingReducer,
+});
 
-let store = createStore(rootReducer)
+let store = createStore(rootReducer);
 
 class HomeContainer extends React.Component {
   render() {
@@ -24,7 +24,7 @@ class HomeContainer extends React.Component {
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand mr-5" href="/home">
               neudorms
-          </a>
+            </a>
             <button
               className="navbar-toggler"
               type="button"
@@ -46,24 +46,29 @@ class HomeContainer extends React.Component {
                       placeholder="Search"
                       aria-label="Search"
                     />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <button
+                      className="btn btn-outline-success my-2 my-sm-0"
+                      type="submit"
+                    >
                       Search
-                  </button>
+                    </button>
                   </form>
                 </li>
               </ul>
               <a className="nav-link profile" href="/profile">
                 Housing Group
-            </a>
+              </a>
               <a className="nav-link profile" href="/profile">
                 Bookmarks
-            </a>
+              </a>
               <a className="nav-link profile" href="/profile">
                 Profile
-            </a>
+              </a>
             </div>
           </nav>
-          <BuildingList />
+          <HomeWrapper>
+            <BuildingList />
+          </HomeWrapper>
         </div>
       </Provider>
     );
