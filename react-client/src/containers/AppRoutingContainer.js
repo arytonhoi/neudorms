@@ -14,12 +14,12 @@ class AppRoutingContainer extends React.Component {
         <Switch>
           <Route path="/home" component={HomeContainer} />
           <Route
-              path="/profile/:userId"
+              path="/profile/:username"
               exact={true}
               render={(props) =>
                   <ProfileContainer
                       {...props}
-                      userId={props.match.params.userId}
+                      userId={props.match.params.username}
                   />}
               component={ProfileContainer}
           />
