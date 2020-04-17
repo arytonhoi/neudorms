@@ -1,12 +1,7 @@
 import React from "react";
 import {combineReducers, createStore} from "redux";
 import userReducer from "../reducers/UserReducer";
-import { findUserByUsernamem, updateUser, deleteUser } from "../actions/UserActions";
-import userService from '../services/UserService';
 import {Provider} from "react-redux";
-import ImageDetails from "../components/details/ImageDetails";
-import TextDetails from "../components/details/TextDetails";
-import ReviewList from "../components/details/ReviewList";
 import ProfileComponent from "../components/profile/ProfileComponent";
 
 const rootReducer = combineReducers({

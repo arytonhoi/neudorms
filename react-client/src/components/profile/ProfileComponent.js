@@ -8,6 +8,9 @@ class ProfileComponent extends React.Component {
         this.props.findUserByUsername(this.props.username);
     }
 
+    state = {
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -31,6 +34,7 @@ class ProfileComponent extends React.Component {
                         <div className="col-sm-10">
                             <input type="password" className="form-control"
                                    id="passwordFld"
+                                   // this.props.user.password
                                    placeholder="*********"></input>
                         </div>
                     </div>
@@ -40,26 +44,53 @@ class ProfileComponent extends React.Component {
                         <div className="col-sm-10">
                             <input className="form-control"
                                    id="emailFld"
+                                   // this.props.user.email
                                    placeholder="alice@wonderland.com"></input>
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="dobFld" className="col-sm-2 col-form-label">
-                            Date of Birth </label>
+                        <label htmlFor="nameFld" className="col-sm-2 col-form-label">
+                            Name </label>
                         <div className="col-sm-10">
-                            <input type="date" className="form-control"
-                                   id="dobFld"
-                                   placeholder=""></input>
+                            <input className="form-control"
+                                   id="nameFld"
+                                // this.props.user.name
+                                   placeholder="Name Here"></input>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <label htmlFor="majorFld" className="col-sm-2 col-form-label">
+                            Major </label>
+                        <div className="col-sm-10">
+                            <input className="form-control"
+                                   id="majorFld"
+                                // this.props.user.major
+                                   placeholder="Computer Science"></input>
+                        </div>
+                    </div>
+                    
+                    <div className="form-group row">
+                        <label htmlFor="yearFld" className="col-sm-2 col-form-label">
+                            Year </label>
+                        <div className="col-sm-10">
+                            <select id="yearFld" className="form-control">
+                                {/*this.props.user.year*/}
+                                <option value="1">1st year</option>
+                                <option value="2">2nd year</option>
+                                <option value="3">3rd year</option>
+                                <option value="4">4th year</option>
+                                <option value="5">5th year</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div className="form-group row">
                         <label htmlFor="roleFld" className="col-sm-2 col-form-label">
                             Role </label>
                         <div className="col-sm-10">
-                            <select id="roleFld" className="form-control">
-                                <option value="Student">Student</option>
-                                <option value="Admin">Admin</option>
-                            </select>
+                            <input className="form-control"
+                                   id="roleFld"
+                                   placeholder="Student" readOnly></input>
                         </div>
                     </div>
                     <div className="form-group row">
@@ -69,8 +100,6 @@ class ProfileComponent extends React.Component {
                             <a href="../home" id="logoutBtn"
                                className="btn btn-danger btn-block">Logout</a>
                             <button id="deleteBtn" className="btn btn-secondary btn-block">Delete Account</button>
-
-
                             {/*onClick={() => this.props.createModule(this.props.courseId)}*/}
                         </div>
                     </div>
