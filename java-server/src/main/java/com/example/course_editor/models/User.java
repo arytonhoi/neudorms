@@ -7,14 +7,14 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private Integer id;
     private String username;
     private String password;
     private String email;
     private String name;
     private String major;
-    private String year;
+    private Integer year;
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
     @ManyToMany
@@ -24,10 +24,6 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "buildingId")
     )
     private Set<Building> bookmarkedBuildings;
-
-    public Integer getId() {
-        return this.id;
-    }
 
     public String getUsername() {
         return this.username;
@@ -69,11 +65,11 @@ public class User {
         this.major = major;
     }
 
-    public String getYear() {
+    public Integer getYear() {
         return this.year;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 

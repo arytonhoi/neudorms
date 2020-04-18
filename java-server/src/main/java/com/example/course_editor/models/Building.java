@@ -3,6 +3,8 @@ package com.example.course_editor.models;
 import javax.persistence.*;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="buildings")
 public class Building {
@@ -18,6 +20,7 @@ public class Building {
     @OneToMany(mappedBy = "building")
     private Set<Review> reviews;
     @ManyToMany(mappedBy = "bookmarkedBuildings")
+    @JsonIgnore
     private Set<User> bookmarkUsers;
     
     public Integer getId() {

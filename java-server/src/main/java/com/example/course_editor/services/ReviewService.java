@@ -18,7 +18,7 @@ public class ReviewService {
 
   public Review createReview(Integer buildingId, Review review) {
     User user = userService.findUserByUsername(review.getUsername());
-    userService.addReviewForUser(user.getId(), review);
+    userService.addReviewForUser(user.getUsername(), review);
     buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
     review.setUser(user);

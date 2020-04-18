@@ -26,20 +26,20 @@ public class Review {
         return this.id;
     }
 
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getUsername() {
         return this.username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Building getBuilding() {

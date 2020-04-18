@@ -61,8 +61,8 @@ public class BuildingService {
     return 1;
   }
 
-  public Integer addBookmarkUser(Integer userId, Integer buildingId) {
-    User user = userService.findUserById(userId);
+  public Integer addBookmarkUser(String username, Integer buildingId) {
+    User user = userService.findUserByUsername(username);
     Building building = this.findBuildingById(buildingId);
     building.addBookmarkUser(user);
     buildingRepository.save(building);

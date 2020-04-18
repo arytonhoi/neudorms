@@ -23,25 +23,20 @@ public class UserController {
     return userService.findAllUsers();
   }
 
-  // @GetMapping("/api/users/{userId}")
-  // public User findUserByUsername(@PathVariable("userId") Integer userId) {
-  //   return userService.findUserById(userId);
-  // }
-
   @GetMapping("/api/users/{username}")
   public User findUserByUsername(@PathVariable("username") String username) {
     return userService.findUserByUsername(username);
   }
 
-  @GetMapping("/api/users/{userId}/bookmarks")
-  public List<Building> findBookmarksForUser(@PathVariable("userId") Integer userId) {
-    return userService.findBookmarksForUser(userId);
+  @GetMapping("/api/users/{username}/bookmarks")
+  public List<Building> findBookmarksForUser(@PathVariable("username") String username) {
+    return userService.findBookmarksForUser(username);
   }
   
-  @PutMapping("/api/users/{userId}/bookmarks/{buildingId}")
-  public Integer addUserBookmark(@PathVariable("userId") Integer userId, @PathVariable("buildingId") Integer buildingId) {
-    userService.addBookmarkForUser(userId, buildingId);
-    return buildingService.addBookmarkUser(userId, buildingId);  
+  @PutMapping("/api/users/{username}/bookmarks/{buildingId}")
+  public Integer addUserBookmark(@PathVariable("username") String username, @PathVariable("buildingId") Integer buildingId) {
+    userService.addBookmarkForUser(username, buildingId);
+    return buildingService.addBookmarkUser(username, buildingId);  
   }
 
   @PostMapping("/api/users")

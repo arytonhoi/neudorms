@@ -8,17 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, String> {
 
   @Query("SELECT user FROM User user")
   public List<User> findAllUsers();
 
-  @Query("SELECT user FROM User user WHERE user.id=:userId")
-  public User findUserById(@Param("userId") Integer userId);
-
   @Query("SELECT user FROM User user WHERE user.username=:username")
   public User findUserByUsername(@Param("username") String username);
 
-  @Query("SELECT user.bookmarkedBuildings FROM User user WHERE user.id=:userId")
-  public List<Building> findBookmarksForUser(@Param("userId") Integer userId);
+  @Query("SELECT user.bookmarkedBuildings FROM User user WHERE user.id=:username")
+  public List<Building> findBookmarksForUser(@Param("username") String username);
 }

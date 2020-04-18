@@ -22,46 +22,42 @@ public class UserService {
     return (List<User>) userRepository.findAll();
   }
 
-  public User findUserById(Integer userId) {
-    return userRepository.findUserById(userId);
-  }
-
   public User findUserByUsername(String username) {
     return userRepository.findUserByUsername(username);
   }
 
-  public Integer addReviewForUser(Integer userId, Review review) {
-    User user = this.findUserById(userId);
+  public Integer addReviewForUser(String username, Review review) {
+    User user = this.findUserByUsername(username);
     user.addReview(review);
     userRepository.save(user);
     return 1;
   }
 
-  public Integer addBookmarkForUser(Integer userId, Integer buildingId) {
-    User user = this.findUserById(userId);
+  public Integer addBookmarkForUser(String username, Integer buildingId) {
+    User user = this.findUserByUsername(username);
     Building building = buildingService.findBuildingById(buildingId);
     user.addBookmark(building);
     userRepository.save(user);
     return 1;
   }
 
-  public List<Building> findBookmarksForUser(Integer userId) {
-    return userRepository.findBookmarksForUser(userId);
+  public List<Building> findBookmarksForUser(String username) {
+    return userRepository.findBookmarksForUser(username);
   }
 
   public Integer updateUser(String username, User user) {
     // make sure user exists
-    int userIdIndex = -1;
+    int usernameIndex = -1;
     List<User> userList = this.findAllUsers();
     for (int i = 0; i < userList.size(); i++) {
       User u = userList.get(i);
       if (u.getUsername().equals(username)) {
-        userIdIndex = i;
+        usernameIndex = i;
         break;
       }
     }
 
-    if (userIdIndex == -1) {
+    if (usernameIndex == -1) {
       return 0;
     } else {
       this.deleteUser(username);
@@ -72,7 +68,7 @@ public class UserService {
 
   public Integer deleteUser(String username) {
     User user = this.findUserByUsername(username);
-    userRepository.deleteById(user.getId());
+    userRepository.deleteById(user.getUsername());
     return 1;
   }
 }

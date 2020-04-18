@@ -1,3 +1,4 @@
+/*Insert buildings*/
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('White Hall', '21 Forsyth Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/WHITE-exterior-02-e1511889474120.jpg');
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Stetson West', '10 Forsyth Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg');
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('Stetson East', '11 Speare Place', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/STW-exterior-Speare-Quad-03-e1511889294218.jpg');
@@ -10,6 +11,9 @@ INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUE
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('International Village', '1155 Tremont Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/INV-exterior-01.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/INV-exterior-01.jpg');
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('East Village', '291 St. Botolph Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg');
 
-INSERT INTO users (username, password) VALUES ('stanleyliu', 'password');
-INSERT INTO users (username, password) VALUES ('presidentaoun', 'password123');
-INSERT INTO users (username, password) VALUES ('test', 'test');
+/*Insert users*/
+INSERT INTO users (username, password, email, name, major, year) VALUES ('stanleyliu', 'password', 'liu.st@husky.neu.edu', 'Stanley Liu', 'Computer Science', 3);
+INSERT INTO users (username, password, email, name, major, year) VALUES ('ahoi', 'password', 'hoi.a@husky.neu.edu', 'Aryton Hoi', 'Computer Science', 4);
+
+/*Insert review*/
+-- INSERT INTO reviews (username, date, text, image_url) VALUES ('ahoi', 'April 17, 2020', 'White ')
