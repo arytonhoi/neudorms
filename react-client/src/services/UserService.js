@@ -24,11 +24,11 @@ export const addUserBookmark = async (userId, buildingId) => {
     }).then(response => response.json())
 }
 
-export const createUser = async (user) => {
-    return fetch(`${API_URL}/users`, {
-        method: "POST",
-        body: JSON.stringify(user),
-        headers: {
+export const createUser = user =>
+  fetch(`${API_URL}/users`, {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
             'content-type': 'application/json'
         }
     }).then(response => response.json())
