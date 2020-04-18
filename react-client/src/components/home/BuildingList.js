@@ -11,7 +11,7 @@ import BuildingCard from "./BuildingCard";
 import styled from "styled-components";
 
 const Header = styled.h1`
-  font-weight: 900;
+  font-weight: 700;
 `;
 
 class BuildingList extends React.Component {

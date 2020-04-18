@@ -4,28 +4,31 @@ import { createUser } from "../../actions/UserActions";
 import userService from "../../services/UserService";
 
 class RegistrationForm extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "start",
+      password: "",
+      email: "",
+      name: "",
+      major: "",
+      year: 1,
+    };
+
+    this.signup = this.signup.bind(this);
   }
 
-  state = {
-    user: {
-
-    }
+  signup() {
+    this.props.createUser({
+      username: this.state.username,
+      password: this.state.password,
+      email: this.state.email,
+      name: this.state.name,
+      major: this.state.major,
+      year: this.state.year,
+    });
+    this.props.history.push("/home");
   }
-
-  // <input
-  // className="form-control"
-  // placeholder="Header text"
-  // onChange={(e) => {
-  //   const newTitle = e.target.value;
-  //   this.setState(prevState => ({
-  //     widget: {
-  //       ...prevState.widget,
-  //       text: newTitle
-  //     }
-  //   }))
-  // }}
-  // value={this.state.widget.text} />
 
   render() {
     return (
@@ -33,66 +36,104 @@ class RegistrationForm extends React.Component {
         <form>
           <div className="form-group row">
             <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
-              Username </label>
+              Username
+            </label>
             <div className="col-sm-10">
-              <input className="form-control"
+              <input
+                className="form-control"
                 id="usernameFld"
-                placeholder="Alice" readOnly></input>
+                placeholder="josephaoun"
+                onChange={(e) => this.setState({ username: e.target.value })}
+              />
             </div>
           </div>
           <div className="form-group row">
             <label htmlFor="passwordFld" className="col-sm-2 col-form-label">
-              Password </label>
+              Password
+            </label>
             <div className="col-sm-10">
-              <input type="password" className="form-control"
+              <input
+                type="password"
+                className="form-control"
                 id="passwordFld"
-                placeholder="*********"></input>
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="phoneFld" className="col-sm-2 col-form-label">
-              Phone </label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                id="phoneFld"
-                placeholder="(555) 123-4324"></input>
+                placeholder="*********"
+                onChange={(e) => this.setState({ password: e.target.value })}
+              />
             </div>
           </div>
           <div className="form-group row">
             <label htmlFor="emailFld" className="col-sm-2 col-form-label">
-              Email </label>
+              Email
+            </label>
             <div className="col-sm-10">
-              <input className="form-control"
+              <input
+                className="form-control"
                 id="emailFld"
-                placeholder="alice@wonderland.com"></input>
+                type="email"
+                placeholder="presidentaoun@northeastern.edu"
+                onChange={(e) => this.setState({ email: e.target.value })}
+              />
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="dobFld" className="col-sm-2 col-form-label">
-              Date of Birth </label>
+            <label htmlFor="nameFld" className="col-sm-2 col-form-label">
+              Name
+            </label>
             <div className="col-sm-10">
-              <input type="date" className="form-control"
-                id="dobFld"
-                placeholder=""></input>
+              <input
+                type="text"
+                className="form-control"
+                id="nameFld"
+                placeholder="Joseph Aoun"
+                onChange={(e) => this.setState({ name: e.target.value })}
+              />
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="roleFld" className="col-sm-2 col-form-label">
-              Role </label>
+            <label htmlFor="majorFld" className="col-sm-2 col-form-label">
+              Major
+            </label>
             <div className="col-sm-10">
-              <select id="roleFld" className="form-control">
-                <option value="Student">Student</option>
-                <option value="Admin">Admin</option>
-              </select>
+              <input
+                type="text"
+                className="form-control"
+                id="majorFld"
+                placeholder="Computer Science"
+                onChange={(e) => this.setState({ major: e.target.value })}
+              />
             </div>
           </div>
           <div className="form-group row">
+            <label htmlFor="yearFld" className="col-sm-2 col-form-label">
+              Year
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="number"
+                className="form-control"
+                id="yearFld"
+                placeholder="4"
+                onChange={(e) => this.setState({ year: e.target.value })}
+              />
+            </div>
+          </div>
+          <div className="form-group row mt-4">
             <label className="col-sm-2 col-form-label"></label>
-            <div className="col-sm-10">
-              <button id="updateBtn" className="btn btn-success btn-block">Update</button>
-              <a href="../home" id="logoutBtn"
-                className="btn btn-danger btn-block">Logout</a>
-            </div>
+            <button
+              className="btn btn-primary col ml-3 mr-4"
+              onClick={this.signup}
+              type="button"
+            >
+              Sign Up
+            </button>
+            <button
+              href="../home"
+              className="btn btn-outline-secondary col mr-3"
+              onClick={() => this.props.history.push("/home")}
+              type="button"
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
@@ -102,9 +143,10 @@ class RegistrationForm extends React.Component {
 
 const dispatchToPropertyMapper = (dispatch) => ({
   createUser: (user) => {
-    userService.createUser(user)
-      .then((user) => dispatch(createUser(user)));
-  }
+    userService
+      .createUser(user)
+      .then((actualUser) => dispatch(createUser(actualUser)));
+  },
 });
 
 const stateToPropertyMapper = (state) => ({
@@ -115,5 +157,3 @@ export default connect(
   stateToPropertyMapper,
   dispatchToPropertyMapper
 )(RegistrationForm);
-
-
