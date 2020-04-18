@@ -20,7 +20,7 @@ public class Review {
     private String date;
     private String text;
     private String imageUrl;
-    private String sentiment;
+    private Double sentiment;
     
     public Integer getId() {
         return this.id;
@@ -74,11 +74,11 @@ public class Review {
         this.imageUrl = imageUrl;
     }
 
-    public String getSentiment() {
+    public Double getSentiment() {
         return this.sentiment;
     }
 
-    public void setSentiment(String sentiment) {
+    public void setSentiment(Double sentiment) {
         this.sentiment = sentiment;
     }
 }
