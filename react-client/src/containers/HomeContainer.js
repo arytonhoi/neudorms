@@ -2,12 +2,35 @@ import React from "react";
 import BuildingList from "../components/home/BuildingList";
 import "./HomeContainer.css";
 import styled from "styled-components";
+import { profile, logout } from "../services/UserService";
 
 const HomeWrapper = styled.div`
   margin: 32px 48px;
 `;
 
 class HomeContainer extends React.Component {
+  state = {
+    profile: {
+      username: "",
+      loggedIn: false,
+    },
+  };
+
+  componentDidMount() {
+    profile().then((profile) => {
+      if (profile.username) {
+        this.setState({
+          profile: profile,
+          loggedIn: true,
+        });
+      } else {
+        this.setState({
+          loggedIn: false,
+        });
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -45,15 +68,41 @@ class HomeContainer extends React.Component {
                 </form>
               </li>
             </ul>
-            <a className="nav-link profile" href="/profile/ahoi">
-              Housing Group
-            </a>
-            <a className="nav-link profile" href="/bookmarks">
-              Bookmarks
-            </a>
-            <a className="nav-link profile" href="/profile/ahoi">
-              Profile
-            </a>
+            {this.state.loggedIn && (
+              <div className="row">
+                <a className="nav-link profile" href="#">
+                  Housing Group
+                </a>
+                <a className="nav-link profile" href="/bookmarks">
+                  Bookmarks
+                </a>
+                <a
+                  className="nav-link profile"
+                  href={`/profile/${this.state.profile.username}`}
+                >
+                  Profile
+                </a>
+                <a
+                  className="nav-link profile"
+                  href="#"
+                  onClick={() => {
+                    logout().then(this.setState({ loggedIn: false }));
+                  }}
+                >
+                  Log Out
+                </a>
+              </div>
+            )}
+            {!this.state.loggedIn && (
+              <div className="row">
+                <a className="nav-link profile" href="/login">
+                  Log In
+                </a>
+                <a className="nav-link profile" href="/registration">
+                  Sign Up
+                </a>
+              </div>
+            )}
           </div>
         </nav>
         <HomeWrapper>

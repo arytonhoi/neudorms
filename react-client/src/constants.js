@@ -1,4 +1,8 @@
-export const API_URL = "https://nudorms-server.herokuapp.com/api";
+export const API_URL = "http://localhost:8070/api";
+export const REGISTER_URL = "http://localhost:8070";
+
+// LOCAL URL: http://localhost:8070/api
+// DEPLOY URL: https://nudorms-server.herokuapp.com/api
 
 // building constants
 export const FIND_ALL_BUILDINGS = 'CREATE_ALL_BUILDINGS';

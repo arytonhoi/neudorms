@@ -1,33 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../actions/UserActions";
-import { register } from "../../services/UserService";
+import { login } from "../../services/UserService";
 import userService from "../../services/UserService";
 
-class RegistrationForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "start",
+      username: "",
       password: "",
-      email: "",
-      name: "",
-      major: "",
-      year: 1,
+      confirmPassword: "",
     };
 
-    this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
   }
 
-  register() {
-    register({
-      username: this.state.username,
-      password: this.state.password,
-      email: this.state.email,
-      name: this.state.name,
-      major: this.state.major,
-      year: this.state.year,
-    }).then((newUser) => this.props.history.push("/home"));
+  login() {
+    if (this.state.password !== this.state.confirmPassword) {
+      alert("Passwords do not match.");
+    } else {
+      login({
+        username: this.state.username,
+        password: this.state.password,
+      }).then((result) => {
+        if (result === 1) {
+          this.props.history.push("/home");
+        } else {
+          alert("Your username and password don't match. Please try again.")
+        }
+      });
+    }
   }
 
   render() {
@@ -62,58 +65,21 @@ class RegistrationForm extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="emailFld" className="col-sm-2 col-form-label">
-              Email
+            <label
+              htmlFor="confpasswordFld"
+              className="col-sm-2 col-form-label"
+            >
+              Confirm Password
             </label>
             <div className="col-sm-10">
               <input
+                type="password"
                 className="form-control"
-                id="emailFld"
-                type="email"
-                placeholder="presidentaoun@northeastern.edu"
-                onChange={(e) => this.setState({ email: e.target.value })}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="nameFld" className="col-sm-2 col-form-label">
-              Name
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                className="form-control"
-                id="nameFld"
-                placeholder="Joseph Aoun"
-                onChange={(e) => this.setState({ name: e.target.value })}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="majorFld" className="col-sm-2 col-form-label">
-              Major
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                className="form-control"
-                id="majorFld"
-                placeholder="Computer Science"
-                onChange={(e) => this.setState({ major: e.target.value })}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="yearFld" className="col-sm-2 col-form-label">
-              Year
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="number"
-                className="form-control"
-                id="yearFld"
-                placeholder="4"
-                onChange={(e) => this.setState({ year: e.target.value })}
+                id="confpasswordFld"
+                placeholder="*********"
+                onChange={(e) =>
+                  this.setState({ confirmPassword: e.target.value })
+                }
               />
             </div>
           </div>
@@ -121,10 +87,10 @@ class RegistrationForm extends React.Component {
             <label className="col-sm-2 col-form-label"></label>
             <button
               className="btn btn-primary col ml-3 mr-4"
-              onClick={this.register}
+              onClick={this.login}
               type="button"
             >
-              Sign Up
+              Log In
             </button>
             <button
               href="../home"
@@ -156,4 +122,4 @@ const stateToPropertyMapper = (state) => ({
 export default connect(
   stateToPropertyMapper,
   dispatchToPropertyMapper
-)(RegistrationForm);
+)(LoginForm);

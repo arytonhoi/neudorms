@@ -1,5 +1,40 @@
-import { API_URL } from "../constants";
+import { API_URL, REGISTER_URL } from "../constants";
 
+// Registration Services
+export const logout = () =>
+  fetch(`${REGISTER_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+export const profile = () =>
+  fetch(`${REGISTER_URL}/profile`, {
+    method: "POST",
+    credentials: "include",
+  }).then((response) => response.json());
+
+export const register = (user) =>
+  fetch(`${REGISTER_URL}/register`, {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "content-type": "application/json",
+    },
+    credentials: "include",
+  }).then((response) => response.json());
+
+export const login = (user) =>
+  fetch(`${REGISTER_URL}/login`, {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "content-type": "application/json",
+    },
+    credentials: "include",
+  }).then((response) => response.json());
+
+
+// Users API Services
 export const findAllUsers = async () => {
   return fetch(`${API_URL}/users`).then((response) => response.json());
 };
@@ -51,6 +86,10 @@ export const deleteUser = async (username) => {
 };
 
 export default {
+  logout,
+  profile,
+  login,
+  register,
   findAllUsers,
   findUserByUsername,
   findBookmarksForUser,
