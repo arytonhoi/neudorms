@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+
 @Service
 public class ReviewService {
   @Autowired
@@ -16,13 +21,23 @@ public class ReviewService {
   @Autowired
   BuildingService buildingService;
 
-  public Review createReview(Integer buildingId, Review review) {
+  public Review createReview(Integer buildingId, Review review) throws Exception {
     User user = userService.findUserByUsername(review.getUsername());
     userService.addReviewForUser(user.getUsername(), review);
     buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
     review.setUser(user);
-    review.setSentiment("positive");
+
+    LanguageServiceClient language = LanguageServiceClient.create();
+    Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();
+
+    // Detects the sentiment of the text
+    Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
+
+    // System.out.printf("Text: %s%n", text);
+    // System.out.printf("Sentiment: %s, %s%n", sentiment.getScore(), sentiment.getMagnitude());
+
+    review.setSentiment((double) sentiment.getScore());
     return reviewRepository.save(review);
   }
 
@@ -63,7 +78,12 @@ public class ReviewService {
     } else {
       Review oldReview = this.findReviewById(reviewId);
       this.deleteReview(reviewIdIndex);
-      this.createReview(oldReview.getBuilding().getId(), review);
+      try {
+        this.createReview(oldReview.getBuilding().getId(), review);
+      } catch (Exception e) {
+        return 0;
+      }
+      
       return 1;
     }
   }

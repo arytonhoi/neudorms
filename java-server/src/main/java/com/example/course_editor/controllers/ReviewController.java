@@ -36,7 +36,11 @@ public class ReviewController {
 
   @PostMapping("/api/buildings/{buildingId}/reviews")
   public Review createReview(@PathVariable("buildingId") Integer buildingId, @RequestBody Review Review) {
-    return reviewService.createReview(buildingId, Review);
+    try {
+      return reviewService.createReview(buildingId, Review);
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   @PutMapping("/api/reviews/{reviewId}")
