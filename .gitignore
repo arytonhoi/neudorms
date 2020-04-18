@@ -1,1 +1,4 @@
 nudorms-api-key.json
+
+# For VSCode
+*.code-workspace
