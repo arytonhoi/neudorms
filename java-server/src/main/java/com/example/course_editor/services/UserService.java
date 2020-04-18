@@ -71,4 +71,14 @@ public class UserService {
     userRepository.deleteById(user.getUsername());
     return 1;
   }
+
+  public User login(User user) {
+    User actualUser = this.findUserByUsername(user.getUsername());
+    if (actualUser != null && actualUser.getUsername().equals(user.getUsername())
+            && actualUser.getPassword().equals(user.getPassword())) {
+      return actualUser;
+    } else {
+      return null;
+    }
+  }
 }
