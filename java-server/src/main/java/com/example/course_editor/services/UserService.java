@@ -33,6 +33,7 @@ public class UserService {
   public Integer addReviewForUser(Integer userId, Review review) {
     User user = this.findUserById(userId);
     user.addReview(review);
+    userRepository.save(user);
     return 1;
   }
 
@@ -40,6 +41,7 @@ public class UserService {
     User user = this.findUserById(userId);
     Building building = buildingService.findBuildingById(buildingId);
     user.addBookmark(building);
+    userRepository.save(user);
     return 1;
   }
 

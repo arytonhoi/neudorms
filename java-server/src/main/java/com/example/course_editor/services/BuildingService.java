@@ -57,6 +57,7 @@ public class BuildingService {
   public Integer addReviewForBuilding(Integer buildingId, Review review)   {
     Building building = this.findBuildingById(buildingId);
     building.addReview(review);
+    buildingRepository.save(building);
     return 1;
   }
 
@@ -64,6 +65,7 @@ public class BuildingService {
     User user = userService.findUserById(userId);
     Building building = this.findBuildingById(buildingId);
     building.addBookmarkUser(user);
+    buildingRepository.save(building);
     return 1;
   }
 }
