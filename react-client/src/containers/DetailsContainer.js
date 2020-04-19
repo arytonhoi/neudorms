@@ -24,12 +24,14 @@ class DetailsContainer extends React.Component {
           logout={this.props.logout}
         />
         {this.props.building && (
-          <div className="container">
+          <div>
             <ImageDetails building={this.props.building} />
-            <TextDetails building={this.props.building} />
-            <br />
-            <h4>Reviews</h4>
-            <ReviewList building={this.props.building} />
+
+            <div className="container">
+              <TextDetails building={this.props.building} />
+              <br />
+              <ReviewList building={this.props.building} />
+            </div>
           </div>
         )}
       </div>
