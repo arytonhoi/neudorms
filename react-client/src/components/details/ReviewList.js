@@ -46,75 +46,20 @@ class ReviewList extends React.Component {
     return (
       <div className="mb-5">
         <Title>Reviews</Title>
-        <ReviewBox className="card">
-          <ReviewHeader>
-            <ReviewUser>stanleyliu</ReviewUser>
-            <Sentiment>Sentiment: 0.8</Sentiment>
-          </ReviewHeader>
-
-          <ReviewText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel
-            dignissim odio, et viverra quam. Sed accumsan tempor lacus, vehicula
-            dictum leo varius nec. Etiam ac lectus in felis efficitur pulvinar.
-            Morbi eu magna vitae augue molestie sagittis at eget mi. Nunc id
-            bibendum dui, et mattis est. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Maecenas et dapibus lacus. Ut eget fermentum metus.
-            Donec leo arcu, scelerisque vel sodales sit amet, scelerisque sit
-            amet neque. Suspendisse fermentum leo magna, faucibus tincidunt
-            ligula sagittis ut. Pellentesque elementum et dolor eget tincidunt.
-            Sed luctus ipsum vel tellus consectetur, eget pulvinar sapien
-            ullamcorper.
-          </ReviewText>
-        </ReviewBox>
-        <ReviewBox className="card">
-          <ReviewHeader>
-            <ReviewUser>stanleyliu</ReviewUser>
-            <Sentiment>Sentiment: 0.8</Sentiment>
-          </ReviewHeader>
-
-          <ReviewText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel
-            dignissim odio, et viverra quam. Sed accumsan tempor lacus, vehicula
-            dictum leo varius nec. Etiam ac lectus in felis efficitur pulvinar.
-            Morbi eu magna vitae augue molestie sagittis at eget mi. Nunc id
-            bibendum dui, et mattis est. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Maecenas et dapibus lacus. Ut eget fermentum metus.
-            Donec leo arcu, scelerisque vel sodales sit amet, scelerisque sit
-            amet neque. Suspendisse fermentum leo magna, faucibus tincidunt
-            ligula sagittis ut. Pellentesque elementum et dolor eget tincidunt.
-            Sed luctus ipsum vel tellus consectetur, eget pulvinar sapien
-            ullamcorper.
-          </ReviewText>
-        </ReviewBox>
-        <ReviewBox className="card">
-          <ReviewHeader>
-            <ReviewUser>stanleyliu</ReviewUser>
-            <Sentiment>Sentiment: 0.8</Sentiment>
-          </ReviewHeader>
-
-          <ReviewText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel
-            dignissim odio, et viverra quam. Sed accumsan tempor lacus, vehicula
-            dictum leo varius nec. Etiam ac lectus in felis efficitur pulvinar.
-            Morbi eu magna vitae augue molestie sagittis at eget mi. Nunc id
-            bibendum dui, et mattis est. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Maecenas et dapibus lacus. Ut eget fermentum metus.
-            Donec leo arcu, scelerisque vel sodales sit amet, scelerisque sit
-            amet neque. Suspendisse fermentum leo magna, faucibus tincidunt
-            ligula sagittis ut. Pellentesque elementum et dolor eget tincidunt.
-            Sed luctus ipsum vel tellus consectetur, eget pulvinar sapien
-            ullamcorper.
-          </ReviewText>
-        </ReviewBox>
         {this.props.building.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
-            <li className="list-group-item">
-              <h4>{review.username}</h4>
-              <p>{review.sentiment} review</p>
-              <p>{review.text}</p>
-            </li>
+            <ReviewBox className="card">
+              <ReviewHeader>
+                <ReviewUser>{review.username}</ReviewUser>
+                <Sentiment>Sentiment: {review.sentiment}</Sentiment>
+              </ReviewHeader>
+              <ReviewText>
+                {review.text}
+              </ReviewText>
+            </ReviewBox>
           </ul>
-        ))}
+        ))
+        }
       </div>
     );
   }
