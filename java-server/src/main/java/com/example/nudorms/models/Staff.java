@@ -9,7 +9,6 @@ public class Staff {
     private String username;
     private String password;
     private String name;
-    // private String email;
     private String role;
 
     public String getUsername() {
@@ -27,14 +26,6 @@ public class Staff {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    // public String getEmail() {
-    //     return this.email;
-    // }
-
-    // public void setEmail(String email) {
-    //     this.email = email;
-    // }
 
     public String getName() {
         return this.name;
