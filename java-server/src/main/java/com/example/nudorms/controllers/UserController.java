@@ -34,8 +34,12 @@ public class UserController {
 
     // Solve review JSON writing error
     User actualUser = userService.findUserByUsername(profile.getUsername());
-    actualUser.setPassword("***");
-    return actualUser;
+    if (actualUser != null) {
+      actualUser.setPassword("***");
+      return actualUser;
+    } else {
+      return null;
+    }
   }
 
   @PostMapping("/login")
