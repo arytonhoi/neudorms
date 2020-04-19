@@ -4,17 +4,8 @@ import { findBuildingById, updateBuilding, deleteBuilding } from '../../actions/
 import buildingService from '../../services/BuildingService';
 
 class TextDetails extends React.Component {
-  componentDidMount() {
-    this.props.findBuildingById(this.props.buildingId);
-  }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (prevProps.topicId !== this.props.topicId) {
-  //     this.props.findWidgetsForTopic(this.props.topicId)
-  //   }
-  // }
-
   state = {
+    building: this.props.building
   }
 
   render() {
@@ -46,11 +37,5 @@ const dispatchToPropertyMapper = (dispatch) => ({
   }
 })
 
-const stateToPropertyMapper = (state) => {
-  return {
-    building: state.buildings.building
-  }
-}
-
-export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
+export default connect(null, dispatchToPropertyMapper)
   (TextDetails)

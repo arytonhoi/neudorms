@@ -1,8 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import {
+  profile,
+  logout
+} from "../actions/UserActions";
 import BuildingList from "../components/home/BuildingList";
 import "./HomeContainer.css";
 import styled from "styled-components";
-import { profile, logout } from "../services/UserService";
+import userService from "../services/UserService";
+import NavBar from "../components/home/NavBar";
 
 const BuildingWrapper = styled.div`
   margin: 32px 48px;
@@ -22,85 +28,19 @@ const SearchBox = styled.div`
 `;
 
 class HomeContainer extends React.Component {
-  state = {
-    profile: {
-      username: "",
-      loggedIn: false,
-    },
-  };
-
   componentDidMount() {
-    profile().then((profile) => {
-      if (profile.username) {
-        this.setState({
-          profile: profile,
-          loggedIn: true,
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-        });
-      }
-    });
+    this.props.getProfile();
+    console.log(this.props.profile);
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light p-3">
-          <a className="navbar-brand mr-5 ml-3" href="/home">
-            neudorms
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarText"
-            aria-controls="navbarText"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse mr-3" id="navbarText">
-            <ul className="navbar-nav mr-auto" />
-            {this.state.loggedIn && (
-              <div className="row">
-                <a className="nav-link profile" href="#">
-                  Housing Group
-                </a>
-                <a className="nav-link profile" href="/bookmarks">
-                  Bookmarks
-                </a>
-                <a
-                  className="nav-link profile"
-                  href={`/profile/${this.state.profile.username}`}
-                >
-                  Profile
-                </a>
-                <a
-                  className="nav-link profile"
-                  href="#"
-                  onClick={() => {
-                    logout().then(this.setState({ loggedIn: false }));
-                  }}
-                >
-                  Log Out
-                </a>
-              </div>
-            )}
-            {!this.state.loggedIn && (
-              <div className="row">
-                <a className="nav-link profile" href="/login">
-                  Log In
-                </a>
-                <a className="nav-link profile" href="/registration">
-                  Sign Up
-                </a>
-              </div>
-            )}
-          </div>
-        </nav>
+        <NavBar 
+          profile={this.props.profile}
+          loggedIn={this.props.loggedIn}
+          logout={this.props.logout}
+        />
         <div className="search-wrapper">
           <div className="container">
             <SearchBox>
@@ -126,4 +66,26 @@ class HomeContainer extends React.Component {
   }
 }
 
-export default HomeContainer;
+const dispatchToPropertyMapper = (dispatch) => ({
+  getProfile: () => {
+    userService.profile().then((actualProfile) => {
+      if (actualProfile.username) {
+        console.log(actualProfile)
+        dispatch(profile(actualProfile));
+      }
+    });
+  },
+  logout: () => {
+    userService.logout().then(dispatch(logout()))
+  }
+});
+
+const stateToPropertyMapper = (state) => ({
+  profile: state.users.profile,
+  loggedIn: state.users.loggedIn
+});
+
+export default connect(
+  stateToPropertyMapper,
+  dispatchToPropertyMapper
+)(HomeContainer);

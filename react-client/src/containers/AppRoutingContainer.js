@@ -40,13 +40,13 @@ class AppRoutingContainer extends React.Component {
             <Route path="/search" component={SearchContainer} />
             <Route
               path="/details/:buildingId"
-              exact={true}
-              render={(props) => (
-                <DetailsContainer
-                  {...props}
-                  buildingId={props.match.params.buildingId}
-                />
-              )}
+              // exact={true}
+              // render={(props) => (
+              //   <DetailsContainer
+              //     {...props}
+              //     buildingId={props.match.params.buildingId}
+              //   />
+              // )}
               component={DetailsContainer}
             />
             <Route path="/login" component={LoginContainer} />

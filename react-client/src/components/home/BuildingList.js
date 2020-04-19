@@ -32,7 +32,7 @@ class BuildingList extends React.Component {
       <div>
         {/* <Header className="ml-3">Browse Dorms</Header> */}
         <div className="row col mx-auto mt-3">
-          {this.props.buildings.map((building) => (
+          {this.props.buildings && this.props.buildings.map((building) => (
             <BuildingCard key={building.id} building={building} />
           ))}
         </div>
