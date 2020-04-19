@@ -1,6 +1,6 @@
-package com.example.course_editor.repositories;
+package com.example.nudorms.repositories;
 
-import com.example.course_editor.models.Building;
+import com.example.nudorms.models.Building;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;

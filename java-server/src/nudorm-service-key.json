@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "nudorms",
+  "private_key_id": "4a97868c8aacd021a525189a448b630650d644ac",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDsSYI14zi7o8kF\nko9isXxyqNpcjTOdlbt2aWxSATGam3ZyPWH3ysxqnrbWQtJByE540uNLm9O64/Y8\nG0GALInmGeQjCi5ndSTrKZ13WoF4iMmBWdeTL1Yi/Khl2GNL+fshxnXvFK2I98Hl\nGyaay0sXaN9cSDI2C/nv2aOP0vX6n2waQ2Z1of8RZwMPJaWkuK0PVpnAWXY8Gs8+\n4tsw1gY9QwWVZIWDRlcdNDx7CCICJNTBPdOALAS4Vy1wH4Q9HrhszSXwtGW2Uh6t\nAUScm4IOiyeTzVQTsOLR6ncq6zP39IKlPMA1sgIXLkZcLuOSVihZmR37jyIovtDm\nDeIfC57lAgMBAAECggEAA8VwlJeZ0jTdAn/CVhrrF5FmWs/OIRfAtDUei3iFaChP\nDae5JpFQDeuWk3jhjjc6OWd0RUKpcHQu++qbcwZC9S84mu6QqwoNmstBPiRtqJTW\nUoAylqDMySYrMeTwQMgun+1g+H3l/yelKpjyVsoj2q3L0tc8JeyvAosAt0zwrB1T\nbDQ4QywQeEvBy6xFJeXFyobrB+uiG+N9dJ4rjkXMZ2bxvqy4d3PV43s7xxoWSeSG\nF+7dGMxpPUWQ4RYsMooexUqdEYuKH/DpAi27CcA9DVEgs9oj2Pvl6BQsnkf2xnwL\ntBaXV8DFrgVwMXuVaGb8hywT/ywIM+Z96ScviPY9AQKBgQD6cHmcLVYufij3f2U6\nXLALRFJuBf9WHPhOxRh60FfkuIQ2src633SEOprei980QSOhGZv6efM+U2FMWm6X\nOT/BYG1PRUbj2VxMEtryfnLofOaP1TxDy/jThgcpUPlBkIknwKeDUw8GhHg3ZDWy\nZ98y3Jnpz/aMaidIPyzM/Ive4QKBgQDxiJdCWtEKvE2vrZgUmgqqh8iP3ev8BE+x\n4x8DwZGLcVNUm5Z++Op1j5oJqTJgyZ3XB9OF5Q6rjOarFPG2ghR80kbJai13OLra\nKtshySpcfgUEK4PryIP03raXKZak9K3g+omhJS2lOtHoEvMZrJIkcJyIDjhPRn+Y\nZvpeCB9UhQKBgGb2VwkempACzlTyy2tzL+1x6XHShWeiAXRhE+9qOLiQI8tZLnvF\n4uF6NrHIT7vsC/nvzXDtMlQtc5MwmscRgmS+gDJXCQ4kDw43skyAMD3lG+WGhYBa\nG7LbJ5aU8+VAxyLQ0g3r2AGV9NbRHEJ88ga3K5A1L+gKvJu3XXPpYJgBAoGBANh8\nuj7CUb3Sm7sL2FUW4NqKi+zPV7XyU1A5J1JhjEe00qDyN8kk6Flo1gM0wS/ZZn0W\nybOoZCbFSvcq9Z/FJgHfI41ies/ybCAh63lz6mEunuZm7n5Gome3u2bv4tOFb9hI\nF1X1kd0YRI5DdducPv0kZljYjgYYRUNfgacIlrRVAoGBAJznfLZe9gfPxfXgyWT+\nADgog2Kijp1dPdMLFfj4Q44ap7+jjXcAZF8lX9rFa16t0dG+co9qrABa0eU2jt+6\nlko27NRr/FeHHDmhlBJzHo4aYHkoBMebORXhbGsmwGJ0kB9IQTFGWcIgSy10uIgG\ngHpjWFxr5nsUim/jVpjtFUyw\n-----END PRIVATE KEY-----\n",
+  "client_email": "nudorms-server@nudorms.iam.gserviceaccount.com",
+  "client_id": "115037059226492183603",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nudorms-server%40nudorms.iam.gserviceaccount.com"
+}

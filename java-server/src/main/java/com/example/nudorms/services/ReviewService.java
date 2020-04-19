@@ -1,7 +1,7 @@
-package com.example.course_editor.services;
+package com.example.nudorms.services;
 
-import com.example.course_editor.models.*;
-import com.example.course_editor.repositories.ReviewRepository;
+import com.example.nudorms.models.*;
+import com.example.nudorms.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

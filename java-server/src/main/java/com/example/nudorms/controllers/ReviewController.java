@@ -1,9 +1,9 @@
-package com.example.course_editor.controllers;
+package com.example.nudorms.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.example.course_editor.models.Review;
-import com.example.course_editor.services.ReviewService;
+import com.example.nudorms.models.Review;
+import com.example.nudorms.services.ReviewService;
 
 import java.util.List;
 

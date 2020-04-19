@@ -1,4 +1,4 @@
-package com.example.course_editor.models;
+package com.example.nudorms.models;
 
 import javax.persistence.*;
 import java.util.Set;
