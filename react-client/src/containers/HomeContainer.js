@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
-import { findAllBuildings } from "../actions/BuildingActions";
+import { findAllBuildings, filterBuildings } from "../actions/BuildingActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
 import "./HomeContainer.css";
@@ -29,7 +29,7 @@ const SearchBox = styled.div`
 class HomeContainer extends React.Component {
   componentDidMount() {
     this.props.getProfile();
-    this.fetchAllBuildings();
+    this.props.findAllBuildings();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -44,26 +44,13 @@ class HomeContainer extends React.Component {
   }
 
   state = {
-    buildings: this.props.buildings,
     searchTerm: '',
     filters: {}
   }
 
-  fetchAllBuildings() {
-    this.props.findAllBuildings(() => this.setState(
-      {
-        buildings: this.props.buildings
-      }
-    ))
-  }
-
   search = () => {
     console.log(this.state.searchTerm)
-    this.setState(
-      {
-        buildings: this.state.buildings
-          .filter(building => building.name.toLowerCase() === this.state.searchTerm.toLowerCase())
-      })
+    this.props.filterBuildings(this.state.searchTerm, this.state.filters)
   }
 
   render() {
@@ -123,6 +110,12 @@ const dispatchToPropertyMapper = (dispatch) => ({
       .findAllBuildings()
       .then((buildings) => dispatch(findAllBuildings(buildings)));
   },
+
+  filterBuildings: (searchTerm, filters) => {
+    buildingService
+      .findAllBuildings()
+      .then((buildings) => dispatch(filterBuildings(buildings, searchTerm, filters)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
