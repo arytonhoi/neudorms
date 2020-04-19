@@ -4,8 +4,21 @@ import "./HomeContainer.css";
 import styled from "styled-components";
 import { profile, logout } from "../services/UserService";
 
-const HomeWrapper = styled.div`
+const BuildingWrapper = styled.div`
   margin: 32px 48px;
+`;
+
+const SearchBox = styled.div`
+  height: 96px;
+  margin: 0px 72px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-color: white;
 `;
 
 class HomeContainer extends React.Component {
@@ -34,8 +47,8 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand mr-5" href="/home">
+        <nav className="navbar navbar-expand-lg navbar-light p-3">
+          <a className="navbar-brand mr-5 ml-3" href="/home">
             neudorms
           </a>
           <button
@@ -49,25 +62,8 @@ class HomeContainer extends React.Component {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active ml-4">
-                <form className="form-inline">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form>
-              </li>
-            </ul>
+          <div className="collapse navbar-collapse mr-3" id="navbarText">
+            <ul className="navbar-nav mr-auto" />
             {this.state.loggedIn && (
               <div className="row">
                 <a className="nav-link profile" href="#">
@@ -105,9 +101,26 @@ class HomeContainer extends React.Component {
             )}
           </div>
         </nav>
-        <HomeWrapper>
+        <div className="search-wrapper">
+          <div className="container">
+            <SearchBox>
+              <i class="fas fa-search" />
+              <input
+                class="form-control form-control-lg search-input"
+                id="search"
+                type="text"
+                placeholder="Dorm name or keyword"
+              />
+              <button className="btn btn-primary search-btn">
+                <span className="search-btn-text">Search</span>
+              </button>
+            </SearchBox>
+          </div>
+        </div>
+
+        <BuildingWrapper>
           <BuildingList />
-        </HomeWrapper>
+        </BuildingWrapper>
       </div>
     );
   }

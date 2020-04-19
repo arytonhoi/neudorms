@@ -1,3 +1,11 @@
+nav {
+  background-color: #f0f3f7;
+}
+
+.navbar-brand {
+  font-weight: 500;
+}
+
 .profile {
   color: gray;
   text-decoration: none;
@@ -10,13 +18,14 @@
 
 .card {
   background-color: red;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   width: 100%;
+  border-radius: 10px !important;
 }
 
 .card:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.5);
 }
 
 .card-link {
@@ -30,6 +39,40 @@
 
 .card-img-top {
   width: 100%;
-  height: 12vw;
+  height: 10rem;
   object-fit: cover;
+}
+
+#search {
+  outline: none;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  height: 100%;
+  background: white;
+}
+
+.fa-search {
+  font-size: larger;
+}
+
+.search-btn {
+  height: 56px;
+  width: 160px;
+}
+
+.search-btn-text {
+  font-weight: 700;
+}
+
+.search-wrapper {
+  padding-top: 18px;
+  padding-bottom: 48px;
+  background-color: #f0f3f7;
+}
+
+.nav-link {
+  color: dimgray;
 }
