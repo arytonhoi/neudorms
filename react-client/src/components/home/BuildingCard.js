@@ -24,7 +24,7 @@ class BuildingCard extends React.Component {
               <p className="card-text">
                 Description
               </p>
-              <button className="btn btn-primary mr-3">
+              <button className="btn btn-outline-secondary mr-3">
                 Bookmark
                 </button>
             </div>
