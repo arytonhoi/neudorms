@@ -1,4 +1,4 @@
-package com.example.course_editor;
+package com.example.nudorms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

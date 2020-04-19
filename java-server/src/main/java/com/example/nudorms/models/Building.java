@@ -1,4 +1,4 @@
-package com.example.course_editor.models;
+package com.example.nudorms.models;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,6 +15,16 @@ public class Building {
     private String address;
     private String thumbnailImageUrl;
     private String mainImageUrl;
+    // laundry, etc
+    private String amenities;
+    // freshman, grad, etc
+    private String residentTypes;
+    // economy, etc
+    private String buildingType;
+    // single, double, etc
+    private String roomTypes;
+    // cost of cheapest room
+    private Integer minimumCost;
     @OneToMany(mappedBy = "building")
     private Set<Picture> pictures;
     @OneToMany(mappedBy = "building")
@@ -81,5 +91,47 @@ public class Building {
 
     public void addBookmarkUser(User user) {
         this.bookmarkUsers.add(user);
+    }
+
+    public String getAmenities() {
+        return this.amenities;
+    }
+
+    public void setAmenities(String amenities) {
+        this.amenities = amenities;
+    }
+    
+    public String getResidentTypes() {
+        return this.residentTypes;
+    };
+
+    public void setResidentTypes(String residentTypes) {
+        this.residentTypes = residentTypes;
+    };
+    
+    public String getBuildingType() {
+        return this.buildingType;
+    };
+
+    public void setBuildingType(String buildingType) {
+        this.buildingType = buildingType;
+    }
+
+    // single, double, etc
+    public String getRoomTypes() {
+        return this.roomTypes;
+    };
+
+    public void setRoomTypes(String roomTypes) {
+        this.roomTypes = roomTypes;
+    };
+
+    // cost of cheapest room
+    public Integer getMinimumCost() {
+        return this.minimumCost;
+    };
+
+    public void setMinimumCost(Integer minimumCost) {
+        this.minimumCost = minimumCost;
     }
 }
