@@ -2,19 +2,19 @@ import { API_URL, REGISTER_URL } from "../constants";
 
 // Registration Services
 export const logout = () =>
-  fetch(`${REGISTER_URL}/logout`, {
+  fetch(`${API_URL}/users/logout`, {
     method: "POST",
     credentials: "include",
   });
 
 export const profile = () =>
-  fetch(`${REGISTER_URL}/profile`, {
+  fetch(`${API_URL}/users/profile`, {
     method: "POST",
     credentials: "include",
   }).then((response) => response.json());
 
 export const register = (user) =>
-  fetch(`${REGISTER_URL}/register`, {
+  fetch(`${API_URL}/users/register`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
@@ -24,7 +24,7 @@ export const register = (user) =>
   }).then((response) => response.json());
 
 export const login = (user) =>
-  fetch(`${REGISTER_URL}/login`, {
+  fetch(`${API_URL}/users/login`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
