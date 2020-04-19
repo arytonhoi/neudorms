@@ -10,7 +10,6 @@ class RegistrationForm extends React.Component {
     this.state = {
       username: "start",
       password: "",
-      email: "",
       name: "",
       major: "",
       year: 1,
@@ -23,7 +22,6 @@ class RegistrationForm extends React.Component {
     register({
       username: this.state.username,
       password: this.state.password,
-      email: this.state.email,
       name: this.state.name,
       major: this.state.major,
       year: this.state.year,
@@ -36,13 +34,14 @@ class RegistrationForm extends React.Component {
         <form>
           <div className="form-group row">
             <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
-              Username
+              Email
             </label>
             <div className="col-sm-10">
               <input
                 className="form-control"
                 id="usernameFld"
-                placeholder="josephaoun"
+                placeholder="presidentaoun@northeastern.edu"
+                type="email"
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
             </div>
@@ -58,20 +57,6 @@ class RegistrationForm extends React.Component {
                 id="passwordFld"
                 placeholder="*********"
                 onChange={(e) => this.setState({ password: e.target.value })}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="emailFld" className="col-sm-2 col-form-label">
-              Email
-            </label>
-            <div className="col-sm-10">
-              <input
-                className="form-control"
-                id="emailFld"
-                type="email"
-                placeholder="presidentaoun@northeastern.edu"
-                onChange={(e) => this.setState({ email: e.target.value })}
               />
             </div>
           </div>
