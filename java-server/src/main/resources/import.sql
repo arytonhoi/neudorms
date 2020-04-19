@@ -12,8 +12,8 @@ INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUE
 INSERT INTO buildings (name, address, thumbnail_image_url, main_image_url) VALUES ('East Village', '291 St. Botolph Street', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg', 'https://www.northeastern.edu/housing/wp-content/uploads/2017/05/exterior-04.jpg');
 
 /*Insert users*/
-INSERT INTO users (username, password, email, name, major, year) VALUES ('stanleyliu', 'password', 'liu.st@husky.neu.edu', 'Stanley Liu', 'Computer Science', 3);
-INSERT INTO users (username, password, email, name, major, year) VALUES ('ahoi', 'password', 'hoi.a@husky.neu.edu', 'Aryton Hoi', 'Computer Science', 4);
+INSERT INTO users (username, password, name, major, year) VALUES ('liu.st@husky.neu.edu', 'password', 'Stanley Liu', 'Computer Science', 3);
+INSERT INTO users (username, password, name, major, year) VALUES ('hoi.a@husky.neu.edu', 'password', 'Aryton Hoi', 'Computer Science', 4);
 
 /*Insert review*/
 -- INSERT INTO reviews (username, date, text, image_url) VALUES ('ahoi', 'April 17, 2020', 'White ')
