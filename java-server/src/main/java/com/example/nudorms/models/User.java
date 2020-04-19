@@ -7,11 +7,9 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Integer id;
     private String username;
     private String password;
-    private String email;
+    // private String email;
     private String name;
     private String major;
     private Integer year;
@@ -41,13 +39,13 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
+    // public String getEmail() {
+    //     return this.email;
+    // }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    // public void setEmail(String email) {
+    //     this.email = email;
+    // }
 
     public String getName() {
         return this.name;
