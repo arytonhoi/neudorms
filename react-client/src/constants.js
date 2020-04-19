@@ -1,5 +1,5 @@
-export const API_URL = "http://localhost:8070/api";
-export const REGISTER_URL = "http://localhost:8070";
+export const API_URL = "https://nudorms-server.herokuapp.com/api";
+export const REGISTER_URL = "https://nudorms-server.herokuapp.com";
 
 // LOCAL URL: http://localhost:8070/api
 // DEPLOY URL: https://nudorms-server.herokuapp.com/api
@@ -35,4 +35,6 @@ export const ADD_USER_BOOKMARK = 'ADD_USER_BOOKMARK';
 export const CREATE_USER = 'CREATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const DELETE_USER = 'DELETE_USER';
-
+export const PROFILE = 'PROFILE';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';

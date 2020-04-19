@@ -5,7 +5,10 @@ import {
   ADD_USER_BOOKMARK,
   CREATE_USER,
   UPDATE_USER,
-  DELETE_USER
+  DELETE_USER,
+  PROFILE,
+  LOGIN,
+  LOGOUT
 } from '../constants';
 
 export const findAllUsers = (users) => ({
@@ -49,4 +52,17 @@ export const updateUser = (userId, user) => ({
   type: UPDATE_USER,
   userId: userId,
   user: user
+})
+
+export const profile = (profile) => ({
+  type: PROFILE,
+  profile: profile
+})
+
+export const login = () => ({
+  type: LOGIN
+})
+
+export const logout = () => ({
+  type: LOGOUT
 })
