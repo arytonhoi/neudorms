@@ -70,24 +70,24 @@ class TextDetails extends React.Component {
           <Body>
             <Section>
               <Subtitle>Cost</Subtitle>
-              <Text>$1,200 /month</Text>
+              <Text>${this.props.building.minimumCost} /month</Text>
             </Section>
             <Section>
               <Subtitle>Resident Types</Subtitle>
-              <Text>Freshmen</Text>
+              <Text>{this.props.building.residentTypes}</Text>
             </Section>
             <Section>
               <Subtitle>Building Type</Subtitle>
-              <Text>Economy</Text>
+              <Text>{this.props.building.buildingType}</Text>
             </Section>
             <Section>
               <Subtitle>Room Types</Subtitle>
-              <Text>Single, Double, Triple, Quad</Text>
+              <Text>{this.props.building.roomTypes}</Text>
             </Section>
             <Section>
               <Subtitle>Amenities</Subtitle>
               <Text>
-                Shared bathroom, first floor common room, common room kitchen.
+                {this.props.building.amenities}
               </Text>
             </Section>
           </Body>

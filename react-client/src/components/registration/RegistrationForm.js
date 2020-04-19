@@ -34,13 +34,14 @@ class RegistrationForm extends React.Component {
         <form>
           <div className="form-group row">
             <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
-              Username
+              Email
             </label>
             <div className="col-sm-10">
               <input
                 className="form-control"
                 id="usernameFld"
-                placeholder="josephaoun"
+                placeholder="presidentaoun@northeastern.edu"
+                type="email"
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
             </div>

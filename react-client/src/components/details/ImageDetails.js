@@ -27,21 +27,13 @@ class ImageDetails extends React.Component {
           class="carousel"
         >
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src={this.props.building.mainImageUrl} class="col-4 p-0" alt="..." />
-              <img src="https://i.ytimg.com/vi/NTwTXX48DTM/maxresdefault.jpg" class="col-4 p-0" alt="..." />
-              <img src="https://66.media.tumblr.com/cd067920739906913f394161b8e16612/tumblr_o330ta0JAx1v9q01co1_1280.jpg" class="col-4 p-0" alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img src="https://i.ytimg.com/vi/NTwTXX48DTM/maxresdefault.jpg" class="col-4 p-0" alt="..." />
-              <img src="https://66.media.tumblr.com/cd067920739906913f394161b8e16612/tumblr_o330ta0JAx1v9q01co1_1280.jpg" class="col-4 p-0" alt="..." />
-              <img src={this.props.building.mainImageUrl} class="col-4 p-0" alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img src="https://66.media.tumblr.com/cd067920739906913f394161b8e16612/tumblr_o330ta0JAx1v9q01co1_1280.jpg" class="col-4 p-0" alt="..." />
-              <img src={this.props.building.mainImageUrl} class="col-4 p-0" alt="..." />
-              <img src="https://i.ytimg.com/vi/NTwTXX48DTM/maxresdefault.jpg" class="col-4 p-0" alt="..." />
-            </div>
+            {this.props.building.pictures && this.props.building.pictures.map((picture, index, pictures) => (
+              <div className={index === 0 ? "carousel-item active" : "carousel-item"} key={index}>
+                <img src={picture.url} class="col-4 p-0" alt="..." />
+                <img src={pictures[(index + 1) % pictures.length].url} class="col-4 p-0" alt="..." />
+                <img src={pictures[(index + 2) % pictures.length].url} class="col-4 p-0" alt="..." />
+              </div>
+            ))}
           </div>
           <a
             class="carousel-control-prev"
