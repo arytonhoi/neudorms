@@ -32,9 +32,15 @@ public class UserController {
   @PostMapping("/api/users/profile")
   public User profile(HttpSession session) {
     User profile = (User)session.getAttribute("profile");
+    User actualUser;
 
+    if (profile != null) {
+      actualUser = userService.findUserByUsername(profile.getUsername());
+    } else {
+      actualUser = null;
+    }
+    
     // Solve review JSON writing error
-    User actualUser = userService.findUserByUsername(profile.getUsername());
     if (actualUser != null) {
       actualUser.setPassword("***");
       return actualUser;
