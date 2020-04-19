@@ -10,7 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // need to specify origin URL to allow cookies
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true") // need to specify origin URL to allow cookies
 public class UserController {
 
   @Autowired
@@ -20,7 +20,7 @@ public class UserController {
   @Autowired
   BuildingService buildingService;
 
-  @PostMapping("/register")
+  @PostMapping("/api/users/register")
   public User register(HttpSession session, @RequestBody User user) {
     User newUser = userService.createUser(user);
     newUser.setPassword("***");
@@ -28,7 +28,7 @@ public class UserController {
     return newUser;
   }
 
-  @PostMapping("/profile")
+  @PostMapping("/api/users/profile")
   public User profile(HttpSession session) {
     User profile = (User)session.getAttribute("profile");
 
@@ -38,7 +38,7 @@ public class UserController {
     return actualUser;
   }
 
-  @PostMapping("/login")
+  @PostMapping("/api/users/login")
   public Integer login(HttpSession session, @RequestBody User user) {
     User newUser = userService.login(user);
     if (newUser != null) {
@@ -50,7 +50,7 @@ public class UserController {
     }
   }
 
-  @PostMapping("/logout")
+  @PostMapping("/api/users/logout")
   public User logout(HttpSession session) {
     User loggedOut = (User)session.getAttribute("profile");
     session.removeAttribute("profile");

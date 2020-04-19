@@ -10,7 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // need to specify origin URL to allow cookies
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true") // need to specify origin URL to allow cookies
 public class StaffController {
 
   @Autowired
@@ -20,7 +20,7 @@ public class StaffController {
   @Autowired
   BuildingService buildingService;
 
-  @PostMapping("/register")
+  @PostMapping("/api/staff/register")
   public Staff register(HttpSession session, @RequestBody Staff staff) {
     Staff newStaff = staffService.createStaff(staff);
     newStaff.setPassword("***");
@@ -28,7 +28,7 @@ public class StaffController {
     return newStaff;
   }
 
-  @PostMapping("/profile")
+  @PostMapping("/api/staff/profile")
   public Staff profile(HttpSession session) {
     Staff profile = (Staff)session.getAttribute("profile");
 
@@ -38,7 +38,7 @@ public class StaffController {
     return actualStaff;
   }
 
-  @PostMapping("/login")
+  @PostMapping("/api/staff/login")
   public Integer login(HttpSession session, @RequestBody Staff staff) {
     Staff newStaff = staffService.login(staff);
     if (newStaff != null) {
@@ -50,7 +50,7 @@ public class StaffController {
     }
   }
 
-  @PostMapping("/logout")
+  @PostMapping("/api/staff/logout")
   public Staff logout(HttpSession session) {
     Staff loggedOut = (Staff)session.getAttribute("profile");
     session.removeAttribute("profile");
@@ -63,7 +63,7 @@ public class StaffController {
   }
 
   @GetMapping("/api/staff/{username}")
-  public Staff findUserByUsername(@PathVariable("username") String username) {
+  public Staff findStaffByUsername(@PathVariable("username") String username) {
     return staffService.findStaffByUsername(username);
   }
 
