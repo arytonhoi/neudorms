@@ -9,7 +9,7 @@ class BuildingCard extends React.Component {
 
   render() {
     return (
-      <div className="card-container mt-3 mb-2 col-3 d-flex align-items-stretch">
+      <div className="card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch">
         <div className="card">
           <Link className="card-link"
             to={`/details/${this.state.building.id}`}>

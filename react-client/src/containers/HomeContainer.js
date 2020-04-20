@@ -4,13 +4,17 @@ import { profile, logout } from "../actions/UserActions";
 import { findAllBuildings, filterBuildings } from "../actions/BuildingActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
+import FilterList from "../components/home/FilterList";
+import SortBar from "../components/home/SortBar";
 import "./HomeContainer.css";
 import styled from "styled-components";
 import userService from "../services/UserService";
 import NavBar from "../components/home/NavBar";
 
 const BuildingWrapper = styled.div`
-  margin: 32px 48px;
+  margin: 32px 60px;
+  display: flex;
+  flex-direction: row;
 `;
 
 const SearchBox = styled.div`
@@ -44,14 +48,14 @@ class HomeContainer extends React.Component {
   }
 
   state = {
-    searchTerm: '',
-    filters: {}
-  }
+    searchTerm: "",
+    filters: {},
+  };
 
   search = () => {
-    console.log(this.state.searchTerm)
-    this.props.filterBuildings(this.state.searchTerm, this.state.filters)
-  }
+    console.log(this.state.searchTerm);
+    this.props.filterBuildings(this.state.searchTerm, this.state.filters);
+  };
 
   render() {
     return (
@@ -74,7 +78,8 @@ class HomeContainer extends React.Component {
               />
               <button
                 className="btn btn-primary search-btn"
-                onClick={this.search}>
+                onClick={this.search}
+              >
                 <span className="search-btn-text">Search</span>
               </button>
             </SearchBox>
@@ -82,9 +87,11 @@ class HomeContainer extends React.Component {
         </div>
 
         <BuildingWrapper>
-          <BuildingList
-            buildings={this.props.buildings}
-          />
+          <FilterList />
+          <div>
+            <SortBar />
+            <BuildingList buildings={this.props.buildings} />
+          </div>
         </BuildingWrapper>
       </div>
     );
@@ -95,14 +102,14 @@ const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
       if (actualProfile.username) {
-        console.log(actualProfile)
+        console.log(actualProfile);
         dispatch(profile(actualProfile));
       }
     });
   },
 
   logout: () => {
-    userService.logout().then(dispatch(logout()))
+    userService.logout().then(dispatch(logout()));
   },
 
   findAllBuildings: () => {
@@ -114,8 +121,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   filterBuildings: (searchTerm, filters) => {
     buildingService
       .findAllBuildings()
-      .then((buildings) => dispatch(filterBuildings(buildings, searchTerm, filters)))
-  }
+      .then((buildings) =>
+        dispatch(filterBuildings(buildings, searchTerm, filters))
+      );
+  },
 });
 
 const stateToPropertyMapper = (state) => ({
