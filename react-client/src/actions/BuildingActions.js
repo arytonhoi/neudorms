@@ -4,12 +4,20 @@ import {
   CREATE_BUILDING,
   DELETE_BUILDING,
   UPDATE_BUILDING,
-  FIND_PICTURES_FOR_BUILDING
+  FIND_PICTURES_FOR_BUILDING,
+  FILTER_BUILDINGS
 } from '../constants';
 
 export const findAllBuildings = (buildings) => ({
   type: FIND_ALL_BUILDINGS,
   buildings: buildings
+})
+
+export const filterBuildings = (buildings, searchTerm, filters) => ({
+  type: FILTER_BUILDINGS,
+  buildings: buildings,
+  searchTerm: searchTerm,
+  filters: filters
 })
 
 export const findBuildingById = (building) => {

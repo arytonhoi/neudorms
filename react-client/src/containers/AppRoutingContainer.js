@@ -11,10 +11,12 @@ import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 import userReducer from "../reducers/UserReducer";
 import buildingReducer from "../reducers/BuildingReducer";
+import reviewReducer from "../reducers/ReviewReducer";
 
 const rootReducer = combineReducers({
   users: userReducer,
   buildings: buildingReducer,
+  reviews: reviewReducer
 });
 
 let store = createStore(rootReducer);

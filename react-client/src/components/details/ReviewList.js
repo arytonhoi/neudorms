@@ -47,14 +47,19 @@ class ReviewList extends React.Component {
       <div className="mb-5">
         <Title>Reviews</Title>
         {this.props.building.reviews.map((review) => (
-          <ReviewBox className="card" key={review.id}>
-            <ReviewHeader>
-              <ReviewUser>{review.username}</ReviewUser>
-              <Sentiment>Sentiment: {review.sentiment}</Sentiment>
-            </ReviewHeader>
-            <ReviewText>{review.text}</ReviewText>
-          </ReviewBox>
-        ))}
+          <ul className="list-group" key={review.id}>
+            <ReviewBox className="card">
+              <ReviewHeader>
+                <ReviewUser>{review.username}</ReviewUser>
+                <Sentiment>Sentiment: {review.sentiment}</Sentiment>
+              </ReviewHeader>
+              <ReviewText>
+                {review.text}
+              </ReviewText>
+            </ReviewBox>
+          </ul>
+        ))
+        }
       </div>
     );
   }

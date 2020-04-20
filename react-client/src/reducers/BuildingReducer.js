@@ -4,6 +4,7 @@ import {
   CREATE_BUILDING,
   DELETE_BUILDING,
   UPDATE_BUILDING,
+  FILTER_BUILDINGS
 } from '../constants';
 
 const initialState = {
@@ -23,6 +24,18 @@ const buildingReducer = (state = initialState, action) => {
     case FIND_BUILDING_BY_ID:
       return {
         building: action.building
+      }
+
+    case FILTER_BUILDINGS:
+      let filteredBuildings = action.buildings;
+      console.log(action.searchTerm)
+      console.log(action.buildings)
+      if (action.searchTerm !== '') {
+        filteredBuildings = filteredBuildings
+          .filter(building => building.name.toLowerCase() === action.searchTerm.toLowerCase());
+      }
+      return {
+        buildings: filteredBuildings
       }
 
     case CREATE_BUILDING:
