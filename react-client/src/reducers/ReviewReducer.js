@@ -20,12 +20,12 @@ const reviewReducer = (state = initialState, action) => {
 
         case FIND_REVIEWS_BY_USER:
             return {
-                review: state.reviews.find(review => review.username === action.username)
+                reviews: state.reviews.find(review => review.username === action.username)
             }
 
         case FIND_REVIEWS_FOR_BUILDING:
             return {
-                review: state.reviews.filter(review => review.building.id !== action.buildingId)
+                reviews: state.reviews.filter(review => review.building.id !== action.buildingId)
             }
 
         case CREATE_REVIEW:

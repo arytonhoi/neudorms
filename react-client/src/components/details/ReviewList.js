@@ -46,7 +46,7 @@ class ReviewList extends React.Component {
     return (
       <div className="mb-5">
         <Title>Reviews</Title>
-        {this.props.building.reviews.map((review) => (
+        {this.props.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
             <ReviewBox className="card">
               <ReviewHeader>

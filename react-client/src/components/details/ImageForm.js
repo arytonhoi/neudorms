@@ -6,7 +6,7 @@ import userService from "../../services/UserService";
 import { profile } from "../../actions/UserActions";
 import "./details.css";
 
-class ReviewForm extends React.Component {
+class ImageForm extends React.Component {
   state = {
     text: "",
     imageUrl: "",
@@ -37,7 +37,7 @@ class ReviewForm extends React.Component {
     return (
       <div
         class="modal fade"
-        id="reviewModal"
+        id="photoModal"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -47,7 +47,7 @@ class ReviewForm extends React.Component {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Write a Review
+                Add a Photo
               </h5>
               <button
                 type="button"
@@ -61,19 +61,8 @@ class ReviewForm extends React.Component {
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="review-text" class="col-form-label">
-                    Review Text:
-                  </label>
-                  <textarea
-                    class="form-control"
-                    id="review-text"
-                    placeholder="Write your review here."
-                    onChange={(e) => this.setState({ text: e.target.value })}
-                  ></textarea>
-                </div>
-                <div class="form-group">
                   <label for="image-url" class="col-form-label">
-                    Optional Image URL:
+                    Image URL:
                   </label>
                   <input
                     type="text"
@@ -82,7 +71,7 @@ class ReviewForm extends React.Component {
                     onChange={(e) =>
                       this.setState({ imageUrl: e.target.value })
                     }
-                    placeholder="Optional image to go with your review."
+                    placeholder="Dorm image URL."
                   />
                 </div>
               </form>
@@ -98,9 +87,9 @@ class ReviewForm extends React.Component {
               <button
                 type="button"
                 class="btn btn-primary"
-                onClick={this.postReview}
+                // onClick={this.postReview}
               >
-                Post Review
+                Post Image
               </button>
             </div>
           </div>
@@ -134,4 +123,4 @@ const stateToPropertyMapper = (state) => ({
 export default connect(
   stateToPropertyMapper,
   dispatchToPropertyMapper
-)(ReviewForm);
+)(ImageForm);

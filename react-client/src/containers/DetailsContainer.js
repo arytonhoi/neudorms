@@ -8,8 +8,12 @@ import userService from "../services/UserService";
 import { profile, logout } from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
+import { findAllReviews } from "../actions/ReviewActions";
 import ReviewForm from "../components/details/ReviewForm";
+import ImageForm from "../components/details/ImageForm";
 import styled from "styled-components";
+import "bootstrap/js/dist/modal";
+import $ from "jquery";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -19,32 +23,35 @@ const ButtonWrapper = styled.div`
 `;
 
 class DetailsContainer extends React.Component {
-  state = {
-    writeReview: false
-  }
-
   writeReview = () => {
     if (this.props.loggedIn) {
-      this.setState({ writeReview: true })
+      $("#reviewModal").modal("show");
     } else {
-      alert("Log in to write a review")
+      alert("Log in to write a review");
+    }
+  };
+
+  addPhoto = () => {
+    if (this.props.loggedIn) {
+      $("#photoModal").modal("show");
+    } else {
+      alert("Log in to write a review");
     }
   }
 
   submitReview = () => {
-    this.setState({
-      writeReview: false
-    })
-    this.forceUpdate()
-  }
+    $("#reviewModal").modal("hide");
+    this.props.findBuildingById(this.props.match.params.buildingId);
+    this.forceUpdate();
+  };
 
   componentDidMount() {
     this.props.getProfile();
     this.props.findBuildingById(this.props.match.params.buildingId);
+    this.props.findReviews(this.props.match.params.buildingId);
   }
 
   render() {
-    console.log(this.props.building);
     return (
       <div>
         <NavBar
@@ -56,38 +63,23 @@ class DetailsContainer extends React.Component {
           <div>
             <ImageDetails building={this.props.building} />
             <div className="container">
-              <TextDetails building={this.props.building} />
-              <br />
-              <ButtonWrapper>
-                <button
-                  className="btn btn-outline-primary mr-2 btn-sm"
-                  onClick={this.writeReview}>
-                  Write a Review
-                </button>
-                <button className="btn btn-outline-secondary mr-2 btn-sm">
-                  Add Photo
-                </button>
-                <button className="btn btn-outline-secondary btn-sm">
-                  Bookmark
-                </button>
-              </ButtonWrapper>
-              <br />
-              {
-                this.state.writeReview && (
-                  <div>
-                    <ReviewForm
-                      profile={this.props.profile}
-                      building={this.props.building}
-                      submitReview={this.submitReview}
-                    />
-                    <br />
-                  </div>
-                )
-              }
-              <ReviewList building={this.props.building} />
+              <TextDetails
+                building={this.props.building}
+                writeReview={this.writeReview}
+                addPhoto={this.addPhoto}
+              />
+              <ReviewList reviews={this.props.reviews} />
             </div>
           </div>
         )}
+        <ReviewForm
+          building={this.props.building}
+          submitReview={this.submitReview}
+        />
+        <ImageForm 
+          building={this.props.building}
+          submitReview={this.submitReview}
+        />
       </div>
     );
   }
@@ -97,7 +89,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
       if (actualProfile.username) {
-        console.log(actualProfile)
         dispatch(profile(actualProfile));
       }
     });
@@ -110,12 +101,17 @@ const dispatchToPropertyMapper = (dispatch) => ({
   logout: () => {
     userService.logout().then(dispatch(logout()));
   },
+  findReviews: (buildingId) => {
+    buildingService.findReviewsForBuilding(buildingId)
+      .then(reviews => dispatch(findAllReviews(reviews)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   building: state.buildings.building,
+  reviews: state.reviews.reviews
 });
 
 export default connect(

@@ -51,6 +51,13 @@ const Text = styled.div`
   font-size: 16px;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 12px;
+`;
+
 class TextDetails extends React.Component {
   state = {
     building: this.props.building,
@@ -64,6 +71,21 @@ class TextDetails extends React.Component {
           <i class="fas fa-map-marker-alt ml-1 mr-2"></i>
           <AddressText>{this.props.building.address}</AddressText>
         </Address>
+        <ButtonWrapper>
+          <button
+            className="btn btn-outline-primary mr-2 btn-sm"
+            onClick={this.props.writeReview}
+          >
+            Write a Review
+          </button>
+          <button
+            className="btn btn-outline-secondary mr-2 btn-sm"
+            onClick={this.props.addPhoto}
+          >
+            Add Photo
+          </button>
+          <button className="btn btn-outline-secondary btn-sm">Bookmark</button>
+        </ButtonWrapper>
         <hr />
         <div className="mb-2 mt-2">
           <Title>Building Information</Title>
@@ -86,9 +108,7 @@ class TextDetails extends React.Component {
             </Section>
             <Section>
               <Subtitle>Amenities</Subtitle>
-              <Text>
-                {this.props.building.amenities}
-              </Text>
+              <Text>{this.props.building.amenities}</Text>
             </Section>
           </Body>
         </div>
