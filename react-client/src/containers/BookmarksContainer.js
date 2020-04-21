@@ -27,6 +27,16 @@ class BookmarksContainer extends React.Component {
     }
 
     render() {
+        console.log("PROFILE: " + JSON.stringify(this.props.profile.username));
+
+        console.log("BUILDINGS START: ======================");
+        let buildings = this.props.findBookmarksForUser(this.props.profile.username);
+        // for (let i = 0; i < buildings.length; i ++) {
+        //     console.log(buildings[i]);
+        // }
+        console.log(buildings);
+        console.log("BUILDINGS END: ======================");
+
         return (
             <div>
                 <NavBar
@@ -37,7 +47,7 @@ class BookmarksContainer extends React.Component {
                 <BuildingWrapper>
                     <RightWrapper>
                         <Header className="ml-3">My Bookmarks</Header>
-                        <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
+                        <BuildingList buildings={this.props.findBookmarksForUser(this.props.profile.username)} profile={this.props.profile} />
                     </RightWrapper>
                 </BuildingWrapper>
             </div>
@@ -60,6 +70,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     },
 
     findBookmarksForUser: (username) => {
+        console.log("findBookmarksForUser: " + username);
         userService
             .findBookmarksForUser(username)
             .then((username) => dispatch(findBookmarksForUser(username)));
