@@ -15,7 +15,6 @@ export const findAllBuildings = (buildings) => ({
 })
 
 export const filterBuildings = (buildings, searchTerm, filters) => {
-  console.log(filters)
   return {
     type: FILTER_BUILDINGS,
     buildings: buildings,

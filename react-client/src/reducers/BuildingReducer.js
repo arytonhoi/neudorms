@@ -32,34 +32,72 @@ const buildingReducer = (state = initialState, action) => {
 
     case FILTER_BUILDINGS:
       let filteredBuildings = action.buildings;
-      console.log(action.buildings)
       // filters by search term
       if (action.searchTerm !== '') {
         filteredBuildings = filteredBuildings
           .filter(building => building.name.toLowerCase().includes(action.searchTerm.toLowerCase()));
       }
       // filter by filters
-      let residentTypes = action.filters.residentTypes;
-      residentTypes.forEach((residentType) => {
-        console.log(residentType)
+      action.filters.residentTypes.forEach((residentType) => {
         filteredBuildings = filteredBuildings
           .filter(building => {
             if (building.residentTypes !== null) {
-              return building.residentTypes.includes(residentType)
+              return building.residentTypes.includes(residentType);
             } else {
               return false;
             }
           })
+      })
 
-      });
-
-      // let maxCost = action.filter.maxCost;
-      // let buildingTypes = action.filter.buildingTypes;
-      // let roomTypes = action.filter.roomTypes;
-      // let amenities = action.filter.amenities;
-
+      console.log(action.filters.maxCost)
+      console.log(filteredBuildings)
+      let maxCost = parseInt(action.filters.maxCost)
+      if (maxCost > 0 && !isNaN(maxCost)) {
+        filteredBuildings = filteredBuildings
+          .filter(building => {
+            if (building.minimumCost !== null) {
+              return building.minimumCost <= maxCost
+            } else {
+              return false;
+            }
+          })
+      }
       console.log(filteredBuildings)
 
+      action.filters.roomTypes.forEach((roomType) => {
+        filteredBuildings = filteredBuildings
+          .filter(building => {
+            if (building.roomTypes !== null) {
+              return building.roomTypes.includes(roomType);
+            } else {
+              return false;
+            }
+          })
+      })
+
+      action.filters.buildingTypes.forEach((buildingType) => {
+        filteredBuildings = filteredBuildings
+          .filter(building => {
+            if (building.buildingType !== null) {
+              return building.buildingType.includes(buildingType);
+            } else {
+              return false;
+            }
+          })
+      })
+
+      action.filters.amenities.forEach((amenity) => {
+        filteredBuildings = filteredBuildings
+          .filter(building => {
+            if (building.amenities !== null) {
+              return building.amenities.includes(amenity);
+            } else {
+              return false;
+            }
+          })
+      })
+
+      console.log(filteredBuildings)
       return {
         buildings: filteredBuildings
       }
