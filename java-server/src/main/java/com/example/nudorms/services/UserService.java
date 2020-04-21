@@ -45,7 +45,7 @@ public class UserService {
     return userRepository.findBookmarksForUser(username);
   }
 
-  public Integer updateUser(String username, User user) {
+  public Integer updateUser(String username, User newUser) {
     // make sure user exists
     int usernameIndex = -1;
     List<User> userList = this.findAllUsers();
@@ -60,8 +60,12 @@ public class UserService {
     if (usernameIndex == -1) {
       return 0;
     } else {
-      this.deleteUser(username);
-      this.createUser(user);
+      User oldUser = userList.get(usernameIndex);
+      oldUser.setName(newUser.getName());
+      oldUser.setPassword(newUser.getPassword());
+      oldUser.setMajor(newUser.getMajor());
+      oldUser.setYear(newUser.getYear());
+      userRepository.save(oldUser);
       return 1;
     }
   }
