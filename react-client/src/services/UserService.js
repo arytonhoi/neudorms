@@ -49,7 +49,6 @@ export const findUserByUsername = async (username) => {
 };
 
 export const findBookmarksForUser = async (username) => {
-    console.log("SERVICE USERNAME: " + username);
     return fetch(`${API_URL}/users/${username}/bookmarks`).then((response) =>
         response.json()
   );

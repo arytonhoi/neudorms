@@ -57,16 +57,7 @@ class AppRoutingContainer extends React.Component {
               component={DetailsContainer}
             />
             <Route path="/login" component={LoginContainer} />
-            <Route path="/bookmarks/:username"
-                   exact={true}
-                   // render={(props) => (
-                   //     <BookmarksContainer
-                   //         {...props}
-                   //         username={props.match.params.username}
-                   //     />
-                   // )}
-                   component={BookmarksContainer}
-            />
+            <Route path="/bookmarks" component={BookmarksContainer}/>
             <Route path="/registration" component={RegistrationContainer} />
           </Switch>
         </Router>

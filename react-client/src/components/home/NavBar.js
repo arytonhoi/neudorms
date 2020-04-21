@@ -24,9 +24,7 @@ export default function NavBar(props) {
               <a className="nav-link profile" href="#">
                 Housing Group
               </a>
-              <a className="nav-link profile"
-                 href={`/bookmarks/${props.profile.username}`}
-              >
+              <a className="nav-link profile" href="/bookmarks">
                 Bookmarks
               </a>
               <a
