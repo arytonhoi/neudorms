@@ -94,32 +94,25 @@ class HomeContainer extends React.Component {
 
         <BuildingWrapper>
 
-          {!this.props.loggedIn && (
-              <FilterList
-                  applyFilters={this.applyFilters}
-              />
-          )}
+          <FilterList
+              applyFilters={this.applyFilters}
+          />
 
           <RightWrapper>
 
-            {this.props.loggedIn && (
-                <div>
-                  <Header>My Recent Bookmarks</Header>
-                  {/*MOST RECENT BOOKMARKS HERE*/}
-                  <p>MOST RECENT BOOKMARKS HERE</p>
-                  <Header>My Recent Reviews</Header>
-                  {/*MOST RECENT REVIEWS HERE*/}
-                  <p>MOST RECENT REVIEWS HERE</p>
-                </div>
-            )}
+            {/*{this.props.loggedIn && (*/}
+            {/*    <div>*/}
+            {/*      <Header>My Recent Bookmarks</Header>*/}
+            {/*      /!*MOST RECENT BOOKMARKS HERE*!/*/}
+            {/*      <p>MOST RECENT BOOKMARKS HERE</p>*/}
+            {/*      <Header>My Recent Reviews</Header>*/}
+            {/*      /!*MOST RECENT REVIEWS HERE*!/*/}
+            {/*      <p>MOST RECENT REVIEWS HERE</p>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
-            {!this.props.loggedIn && (
-                <SortBar />
-            )}
-
-            {!this.props.loggedIn && (
-                <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
-            )}
+            <SortBar />
+            <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
 
           </RightWrapper>
         </BuildingWrapper>
