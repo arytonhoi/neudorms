@@ -36,9 +36,22 @@ public class UserService {
   public Integer addBookmarkForUser(String username, Integer buildingId) {
     User user = this.findUserByUsername(username);
     Building building = buildingService.findBuildingById(buildingId);
-    user.addBookmark(building);
-    userRepository.save(user);
-    return 1;
+
+    List<Building> bookmarkedBuildings = this.findBookmarksForUser(username);
+    boolean buildingAlreadyBookmarked = false;
+    for (Building currentBuilding : bookmarkedBuildings) {
+      if (currentBuilding.getId().equals(buildingId)) {
+        buildingAlreadyBookmarked = true;
+      }
+    }
+
+    if (buildingAlreadyBookmarked) {
+      return -1;
+    } else {
+      user.addBookmark(building);
+      userRepository.save(user);
+      return 1;
+    }
   }
 
   public List<Building> findBookmarksForUser(String username) {
