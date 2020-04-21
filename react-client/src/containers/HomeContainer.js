@@ -106,7 +106,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
       if (actualProfile.username) {
-        console.log(actualProfile);
         dispatch(profile(actualProfile));
       }
     });

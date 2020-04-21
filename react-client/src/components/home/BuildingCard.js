@@ -11,7 +11,7 @@ class BuildingCard extends React.Component {
 
   render() {
     return (
-      <div className="card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch">
+      <div className={this.props.inProfile ? "card-container mt-3 mb-2 col col-xl-6 d-flex align-items-stretch" : "card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch"}>
         {this.state.building && (
           <EditBuildingForm building={this.state.building} />
         )}

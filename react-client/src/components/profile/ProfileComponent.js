@@ -1,134 +1,151 @@
 import React from "react";
 import { connect } from "react-redux";
-import { findUserByUsername, updateUser, deleteUser } from "../../actions/UserActions";
-import userService from '../../services/UserService';
+import {
+  findUserByUsername,
+  updateUser,
+  deleteUser,
+} from "../../actions/UserActions";
+import userService from "../../services/UserService";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  margin-right: 60px;
+`;
+
+const Header = styled.div`
+  font-size: 38px;
+  font-weight: bold;
+  letter-spacing: 1.1px;
+  line-height: 50px;
+`;
 
 class ProfileComponent extends React.Component {
-    componentDidMount() {
-        this.props.findUserByUsername(this.props.username);
-    }
 
-    state = {
-    }
+  state = {
+    name: "",
+    email: "",
+    password: "",
+    major: "",
+    year: 1,
+  };
 
-    render() {
-        return (
-            <div className="container-fluid">
-                <h1>Profile</h1>
-                {/*<div className="alert alert-success">*/}
-                {/*  Profile successfully saved*/}
-                {/*</div>*/}
-                <form>
-                    <div className="form-group row">
-                        <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
-                            Username </label>
-                        <div className="col-sm-10">
-                            <input className="form-control"
-                                   id="usernameFld"
-                                   placeholder={this.props.username} readOnly></input>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="passwordFld" className="col-sm-2 col-form-label">
-                            Password </label>
-                        <div className="col-sm-10">
-                            <input type="password" className="form-control"
-                                   id="passwordFld"
-                                   // this.props.user.password
-                                   placeholder="*********"></input>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="emailFld" className="col-sm-2 col-form-label">
-                            Email </label>
-                        <div className="col-sm-10">
-                            <input className="form-control"
-                                   id="emailFld"
-                                   // this.props.user.email
-                                   placeholder="alice@wonderland.com"></input>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="nameFld" className="col-sm-2 col-form-label">
-                            Name </label>
-                        <div className="col-sm-10">
-                            <input className="form-control"
-                                   id="nameFld"
-                                // this.props.user.name
-                                   placeholder="Name Here"></input>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="majorFld" className="col-sm-2 col-form-label">
-                            Major </label>
-                        <div className="col-sm-10">
-                            <input className="form-control"
-                                   id="majorFld"
-                                // this.props.user.major
-                                   placeholder="Computer Science"></input>
-                        </div>
-                    </div>
-                    
-                    <div className="form-group row">
-                        <label htmlFor="yearFld" className="col-sm-2 col-form-label">
-                            Year </label>
-                        <div className="col-sm-10">
-                            <select id="yearFld" className="form-control">
-                                {/*this.props.user.year*/}
-                                <option value="1">1st year</option>
-                                <option value="2">2nd year</option>
-                                <option value="3">3rd year</option>
-                                <option value="4">4th year</option>
-                                <option value="5">5th year</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label htmlFor="roleFld" className="col-sm-2 col-form-label">
-                            Role </label>
-                        <div className="col-sm-10">
-                            <input className="form-control"
-                                   id="roleFld"
-                                   placeholder="Student" readOnly></input>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label"></label>
-                        <div className="col-sm-10">
-                            <button id="updateBtn" className="btn btn-success btn-block">Update</button>
-                            <a href="../home" id="logoutBtn"
-                               className="btn btn-danger btn-block">Logout</a>
-                            <button id="deleteBtn" className="btn btn-secondary btn-block">Delete Account</button>
-                            {/*onClick={() => this.props.createModule(this.props.courseId)}*/}
-                        </div>
-                    </div>
-                </form>
+  render() {
+    return (
+      <Wrapper className="col-4">
+        <Header>My Profile</Header>
+        <hr />
+        <form>
+          <div class="form-group mb-2">
+            <div class="form-group mb-2">
+              <label for="profile-email" class="col-form-label">
+                Email
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="profile-email"
+                onChange={(e) => this.setState({ username: e.target.value })}
+                defaultValue={this.props.profile.username}
+              />
             </div>
-        );
-    }
+            <label for="profile-name" class="col-form-label">
+              Name
+            </label>
+            <input
+              class="form-control"
+              id="profile-name"
+              defaultValue={this.props.profile.name}
+              onChange={(e) =>
+                this.setState(
+                  { name: e.target.value },
+                  console.log(this.state.name)
+                )
+              }
+            ></input>
+          </div>
+          <div class="form-group mb-2">
+            <label for="profile-password" class="col-form-label">
+              Password
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="profile-password"
+              onChange={(e) => this.setState({ password: e.target.value })}
+              defaultValue={this.props.profile.password}
+            />
+          </div>
+          <div class="form-group mb-2">
+            <label for="profile-major" class="col-form-label">
+              Major
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="profile-major"
+              onChange={(e) => this.setState({ major: e.target.value })}
+              defaultValue={this.props.profile.major}
+            />
+          </div>
+          <div class="form-group mb-2">
+            <label for="profile-year" class="col-form-label">
+              Year
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="profile-year"
+              onChange={(e) => this.setState({ year: e.target.value })}
+              defaultValue={this.props.profile.year}
+            />
+          </div>
+          <div className="row ml-0 mt-4">
+            <button
+              className="btn btn-success mr-3"
+              type="button"
+              onClick={() => {
+                  console.log("click")
+                userService.updateUser(this.props.profile.username, {
+                    ...this.props.profile.username,
+                    password: this.state.password,
+                    major: this.state.major,
+                    name: this.state.year,
+                    year: this.state.year,
+                  }).then(user => console.log(user))
+
+              }
+                
+              }
+            >
+              Update Profile
+            </button>
+            <button className="btn btn-outline-secondary">Cancel</button>
+          </div>
+        </form>
+      </Wrapper>
+    );
+  }
 }
 
 const dispatchToPropertyMapper = (dispatch) => ({
-    findUserByUsername: (username) => {
-        userService.findUserByUsername(username)
-            .then(user => dispatch(findUserByUsername(user)))
-    },
-    updateUser: (userId, user) => {
-        userService.updateUser(userId, user)
-            .then(status => dispatch(updateUser(userId, user)))
-    },
-    deleteUser: (userId) => {
-        userService.deleteUser(userId)
-            .then(status => dispatch(deleteUser(userId)))
-    }
-})
+  updateUser: (userId, user) => {
+    userService
+      .updateUser(userId, user);
+  },
+  deleteUser: (userId) => {
+    userService
+      .deleteUser(userId)
+      .then((status) => dispatch(deleteUser(userId)));
+  },
+});
 
 const stateToPropertyMapper = (state) => {
-    return {
-        user: state.users.user
-    }
-}
+  return {
+    user: state.users.user,
+  };
+};
 
-export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
-(ProfileComponent)
+export default connect(
+  stateToPropertyMapper,
+  dispatchToPropertyMapper
+)(ProfileComponent);
