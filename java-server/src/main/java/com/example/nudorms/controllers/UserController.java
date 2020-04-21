@@ -42,7 +42,7 @@ public class UserController {
     
     // Solve review JSON writing error
     if (actualUser != null) {
-      actualUser.setPassword("***");
+      // actualUser.setPassword("***");
       return actualUser;
     } else {
       return null;
@@ -53,7 +53,7 @@ public class UserController {
   public Integer login(HttpSession session, @RequestBody User user) {
     User newUser = userService.login(user);
     if (newUser != null) {
-      newUser.setPassword("***");
+      // newUser.setPassword("***");
       session.setAttribute("profile", newUser);
       return 1;
     } else {

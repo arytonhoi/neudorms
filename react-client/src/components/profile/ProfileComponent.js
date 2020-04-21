@@ -20,14 +20,26 @@ const Header = styled.div`
 `;
 
 class ProfileComponent extends React.Component {
-
   state = {
     name: "",
-    email: "",
     password: "",
     major: "",
     year: 1,
   };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (
+      prevProps.profile.username === "" &&
+      this.props.profile.username !== ""
+    ) {
+      this.setState({
+        name: this.props.profile.name,
+        password: this.props.profile.password,
+        major: this.props.profile.major,
+        year: this.props.profile.year,
+      });
+    }
+  }
 
   render() {
     return (
@@ -44,7 +56,7 @@ class ProfileComponent extends React.Component {
                 type="text"
                 class="form-control"
                 id="profile-email"
-                onChange={(e) => this.setState({ username: e.target.value })}
+                disabled
                 defaultValue={this.props.profile.username}
               />
             </div>
@@ -104,22 +116,33 @@ class ProfileComponent extends React.Component {
               className="btn btn-success mr-3"
               type="button"
               onClick={() => {
-                  console.log("click")
-                userService.updateUser(this.props.profile.username, {
+                console.log("click");
+                userService
+                  .updateUser(this.props.profile.username, {
                     ...this.props.profile.username,
                     password: this.state.password,
                     major: this.state.major,
-                    name: this.state.year,
+                    name: this.state.name,
                     year: this.state.year,
-                  }).then(user => console.log(user))
-
-              }
-                
-              }
+                  })
+                  .then(alert("Your profile has been updated!"));
+              }}
             >
               Update Profile
             </button>
-            <button className="btn btn-outline-secondary">Cancel</button>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() =>
+                this.setState({
+                  name: this.props.profile.name,
+                  password: this.props.profile.password,
+                  major: this.props.profile.major,
+                  year: this.props.profile.year,
+                })
+              }
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </Wrapper>
@@ -129,8 +152,7 @@ class ProfileComponent extends React.Component {
 
 const dispatchToPropertyMapper = (dispatch) => ({
   updateUser: (userId, user) => {
-    userService
-      .updateUser(userId, user);
+    userService.updateUser(userId, user);
   },
   deleteUser: (userId) => {
     userService
