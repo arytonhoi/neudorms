@@ -14,7 +14,12 @@ export const profile = () =>
       "content-type": "application/json",
     },
     credentials: "include"
-  }).then((response) => response.json());
+  }).then((response) => response.json())
+  .catch((e) => {
+    if (e.message === "JSON.parse: unexpected end of data at line 1 column 1 of the JSON data") {
+      return undefined;
+    }
+  });
 
 export const registerUser = (user) =>
   fetch(`${API_URL}/users/register`, {

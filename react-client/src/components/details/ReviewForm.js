@@ -115,7 +115,7 @@ class ReviewForm extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile.username) {
+      if (actualProfile) {
         dispatch(profile(actualProfile));
       }
     });
