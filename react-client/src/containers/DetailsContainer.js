@@ -5,7 +5,7 @@ import ImageDetails from "../components/details/ImageDetails";
 import ReviewList from "../components/details/ReviewList";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
-import { profile, logout } from "../actions/UserActions";
+import {profile, logout, addUserBookmark} from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
 import { findAllReviews } from "../actions/ReviewActions";
@@ -37,7 +37,16 @@ class DetailsContainer extends React.Component {
     } else {
       alert("Log in to write a review");
     }
-  }
+  };
+
+  addBookmark = () => {
+    if (this.props.loggedIn) {
+      this.props.addUserBookmark(this.props.profile.username, this.props.match.params.buildingId);
+      alert("Bookmarked " + this.props.building.name);
+    } else {
+      alert("Log in to bookmark");
+    }
+  };
 
   submitReview = () => {
     $("#reviewModal").modal("hide");
@@ -67,6 +76,7 @@ class DetailsContainer extends React.Component {
                 building={this.props.building}
                 writeReview={this.writeReview}
                 addPhoto={this.addPhoto}
+                addBookmark={this.addBookmark}
               />
               <ReviewList reviews={this.props.reviews} />
             </div>
@@ -104,6 +114,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   findReviews: (buildingId) => {
     buildingService.findReviewsForBuilding(buildingId)
       .then(reviews => dispatch(findAllReviews(reviews)))
+  },
+  addUserBookmark: (username, buildingId) => {
+    userService.addUserBookmark(username, buildingId)
+        .then(dispatch(addUserBookmark(username, buildingId)));
   }
 });
 
