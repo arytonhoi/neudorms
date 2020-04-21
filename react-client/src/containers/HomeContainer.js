@@ -18,7 +18,7 @@ const BuildingWrapper = styled.div`
 `;
 
 const RightWrapper = styled.div`
-  flex: 8;
+  width: 100%;
 `;
 
 const SearchBox = styled.div`

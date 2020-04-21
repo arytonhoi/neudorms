@@ -11,10 +11,6 @@ import BuildingCard from "./BuildingCard";
 import styled from "styled-components";
 import "bootstrap/js/dist/modal";
 
-const BuildingWrapper = styled.div`
-  flex: 4;
-`;
-
 class BuildingList extends React.Component {
   // componentDidMount() {
   //   this.props.findAllBuildings();
@@ -28,12 +24,12 @@ class BuildingList extends React.Component {
 
   render() {
     return (
-      <BuildingWrapper className="row mt-3">
+      <div className="row mt-3">
         {this.props.buildings &&
           this.props.buildings.map((building) => (
             <BuildingCard key={building.id} building={building} />
           ))}
-      </BuildingWrapper>
+      </div>
     );
   }
 }

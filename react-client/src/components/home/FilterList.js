@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 const FiltersWrapper = styled.div`
   margin-top: 12px;
-  margin-right: 48px;
-  flex: 2;
+  min-width: 250px;
 `;
 
 const FilterWrapper = styled.div`
