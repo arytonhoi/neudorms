@@ -43,6 +43,64 @@ class FilterList extends React.Component {
             }), () => this.props.applyFilters(this.state))
         }
         break;
+
+      case "Economy":
+      case "Standard":
+      case "Enhanced":
+        if (this.state.buildingTypes.includes(value)) {
+          this.setState(prevState => ({
+            buildingTypes: prevState.buildingTypes
+              .filter(buildingType => buildingType !== value)
+          }), () => this.props.applyFilters(this.state))
+        } else {
+          this.setState(prevState =>
+            ({
+              buildingTypes: [...prevState.buildingTypes, value]
+            }), () => this.props.applyFilters(this.state))
+        }
+        break;
+
+      case "Proctor":
+      case "Laundry":
+      case "Kitchen":
+      case "Elevator":
+      case "Lounge":
+      case "Vending":
+        if (this.state.amenities.includes(value)) {
+          this.setState(prevState => ({
+            amenities: prevState.amenities
+              .filter(amenity => amenity !== value)
+          }), () => this.props.applyFilters(this.state))
+        } else {
+          this.setState(prevState =>
+            ({
+              amenities: [...prevState.amenities, value]
+            }), () => this.props.applyFilters(this.state))
+        }
+        break;
+
+      case "Traditional":
+      case "Suite":
+      case "Apartment":
+        if (this.state.roomTypes.includes(value)) {
+          this.setState(prevState => ({
+            roomTypes: prevState.roomTypes
+              .filter(roomType => roomType !== value)
+          }), () => this.props.applyFilters(this.state))
+        } else {
+          this.setState(prevState =>
+            ({
+              roomTypes: [...prevState.roomTypes, value]
+            }), () => this.props.applyFilters(this.state))
+        }
+        break;
+
+      default:
+        this.setState(prevState =>
+          ({
+            maxCost: value
+          }), () => this.props.applyFilters(this.state))
+        break;
     }
   }
 
@@ -61,7 +119,6 @@ class FilterList extends React.Component {
               id="firstyear"
               value="Freshmen"
               onChange={(e) => {
-                console.log(e.target.value)
                 this.handleChange(e.target.value)
               }} />
             <label class="form-check-label" for="firstyear">
@@ -74,7 +131,6 @@ class FilterList extends React.Component {
               value="Sophomore"
               id="secondyear"
               onChange={(e) => {
-                console.log(e.target.value)
                 this.handleChange(e.target.value)
               }} />
             <label class="form-check-label" for="secondyear">
@@ -84,7 +140,6 @@ class FilterList extends React.Component {
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Upperclassmen" id="upperclassmen"
               onChange={(e) => {
-                console.log(e.target.value)
                 this.handleChange(e.target.value)
               }} />
             <label class="form-check-label" for="upperclassmen">
@@ -94,7 +149,6 @@ class FilterList extends React.Component {
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Graduates" id="graduate"
               onChange={(e) => {
-                console.log(e.target.value)
                 this.handleChange(e.target.value)
               }} />
             <label class="form-check-label" for="graduate">
@@ -104,7 +158,6 @@ class FilterList extends React.Component {
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Law" id="law"
               onChange={(e) => {
-                console.log(e.target.value)
                 this.handleChange(e.target.value)
               }} />
             <label class="form-check-label" for="law">
@@ -117,7 +170,11 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Cost</FilterTitle>
           <div class="input-group">
-            <input type="text" placeholder="Max" class="form-control max-input"/>
+            <input type="text" placeholder="Max" class="form-control max-input"
+              value={this.state.maxCost}
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <div class="input-group-append">
               <button class="input-group-text">Apply</button>
             </div>
@@ -127,19 +184,28 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Building Type</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Economy" />
+            <input class="form-check-input" type="checkbox" value="Economy" id="Economy"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Economy">
               Economy
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Standard" />
+            <input class="form-check-input" type="checkbox" value="Standard" id="Standard"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Standard">
               Standard
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Enhanced" />
+            <input class="form-check-input" type="checkbox" value="Enhanced" id="Enhanced"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Enhanced">
               Enhanced
             </label>
@@ -149,19 +215,28 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Room Type</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Traditional" />
+            <input class="form-check-input" type="checkbox" value="Traditional" id="Traditional"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Traditional">
               Traditional
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Suite-Style" />
+            <input class="form-check-input" type="checkbox" value="Suite" id="Suite-Style"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Suite-Style">
               Suite-Style
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Apartment" />
+            <input class="form-check-input" type="checkbox" value="Apartment" id="Apartment"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Apartment">
               Apartment Style
             </label>
@@ -171,37 +246,55 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Amenities</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Proctor" />
+            <input class="form-check-input" type="checkbox" value="Proctor" id="Proctor"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Proctor">
               Proctor
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Laundry" />
+            <input class="form-check-input" type="checkbox" value="Laundry" id="Laundry"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Laundry">
               Laundry
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Kitchen" />
+            <input class="form-check-input" type="checkbox" value="Kitchen" id="Kitchen"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Kitchen">
               Kitchen
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Elevator" />
+            <input class="form-check-input" type="checkbox" value="Elevator" id="Elevator"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Elevator">
               Elevator
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Lounge" />
+            <input class="form-check-input" type="checkbox" value="Lounge" id="Lounge"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Lounge">
               Lounge
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Vending" />
+            <input class="form-check-input" type="checkbox" value="Vending" id="Vending"
+              onChange={(e) => {
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="Vending">
               Vending Machines
             </label>

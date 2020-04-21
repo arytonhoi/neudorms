@@ -4,13 +4,16 @@ import { API_URL, REGISTER_URL } from "../constants";
 export const logout = () =>
   fetch(`${API_URL}/users/logout`, {
     method: "POST",
-    credentials: "include",
+    credentials: "include"
   });
 
 export const profile = () =>
   fetch(`${API_URL}/users/profile`, {
     method: "POST",
-    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
+    credentials: "include"
   }).then((response) => response.json());
 
 export const register = (user) =>
@@ -20,7 +23,7 @@ export const register = (user) =>
     headers: {
       "content-type": "application/json",
     },
-    credentials: "include",
+    credentials: "include"
   }).then((response) => response.json());
 
 export const login = (user) =>
@@ -30,7 +33,7 @@ export const login = (user) =>
     headers: {
       "content-type": "application/json",
     },
-    credentials: "include",
+    credentials: "include"
   }).then((response) => response.json());
 
 
