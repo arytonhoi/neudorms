@@ -16,15 +16,49 @@ const FilterTitle = styled.div`
 `;
 
 class FilterList extends React.Component {
-  state = {};
+  state = {
+    residentTypes: [],
+    maxCost: 0,
+    buildingTypes: [],
+    roomTypes: [],
+    amenities: []
+  };
+
+  handleChange = (value) => {
+    console.log(value)
+    switch (value) {
+      case "first year":
+        if (this.state.residentTypes.includes(value)) {
+          this.setState({ residentTypes: [...this.state.residentTypes, value] })
+        } else {
+          this.setState({
+            residentTypes: this.state.residentTypes
+              .filter(residentType => residentType !== value)
+          })
+        }
+        console.log(this.state.residentTypes)
+        break;
+    }
+  }
 
   render() {
     return (
       <FiltersWrapper>
+        {/* <button className="btn btn-success">
+          Apply Filter
+        </button> */}
         <FilterWrapper>
           <FilterTitle>Resident Type</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="firstyear"/>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="first year"
+              id="firstyear"
+              onChange={(e) => {
+                console.log(e.target.value)
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="firstyear">
               First Year
             </label>
@@ -54,10 +88,10 @@ class FilterList extends React.Component {
             </label>
           </div>
         </FilterWrapper>
-          
-          
+
+
         <FilterWrapper>
-        <FilterTitle>Cost</FilterTitle>
+          <FilterTitle>Cost</FilterTitle>
           <div class="input-group">
             <input type="text" placeholder="Max" class="form-control max-input" />
             <div class="input-group-append">
@@ -69,7 +103,7 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Building Type</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Economy"/>
+            <input class="form-check-input" type="checkbox" value="" id="Economy" />
             <label class="form-check-label" for="Economy">
               Economy
             </label>
@@ -91,7 +125,7 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Room Type</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Traditional"/>
+            <input class="form-check-input" type="checkbox" value="" id="Traditional" />
             <label class="form-check-label" for="Traditional">
               Traditional
             </label>
@@ -113,7 +147,7 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Amenities</FilterTitle>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Proctor"/>
+            <input class="form-check-input" type="checkbox" value="" id="Proctor" />
             <label class="form-check-label" for="Proctor">
               Proctor
             </label>
@@ -149,7 +183,7 @@ class FilterList extends React.Component {
             </label>
           </div>
         </FilterWrapper>
-        
+
       </FiltersWrapper>
     );
   }

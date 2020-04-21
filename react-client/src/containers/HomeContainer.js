@@ -40,26 +40,24 @@ class HomeContainer extends React.Component {
     this.props.findAllBuildings();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (this.state.buildings.length !== this.props.buildings.length) {
-    //   console.log("updated")
-    //   this.setState(
-    //     {
-    //       buidings: this.props.buildings
-    //     }
-    //   )
-    // }
-  }
-
   state = {
     searchTerm: "",
-    filters: {},
+    filters: {
+      residentTypes: "",
+      maxCost: 0,
+      buildingTypes: "",
+      roomTypes: "",
+      amenities: ""
+    },
   };
 
   search = () => {
-    console.log(this.state.searchTerm);
     this.props.filterBuildings(this.state.searchTerm, this.state.filters);
   };
+
+  applyFilters = () => {
+
+  }
 
   render() {
     return (
@@ -91,7 +89,9 @@ class HomeContainer extends React.Component {
         </div>
 
         <BuildingWrapper>
-          <FilterList />
+          <FilterList 
+
+          />
           <RightWrapper>
             <SortBar />
             <BuildingList buildings={this.props.buildings} profile={this.props.profile} />

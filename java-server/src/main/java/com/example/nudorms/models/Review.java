@@ -17,6 +17,8 @@ public class Review {
     @JsonIgnore
     private User user;
     private String username;
+    private String name;
+    private String buildingName;
     private String date;
     private String text;
     private String imageUrl;
@@ -32,6 +34,22 @@ public class Review {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBuildingName() {
+        return this.buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public User getUser() {
