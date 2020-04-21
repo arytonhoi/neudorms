@@ -14,12 +14,15 @@ export const findAllBuildings = (buildings) => ({
   buildings: buildings
 })
 
-export const filterBuildings = (buildings, searchTerm, filters) => ({
-  type: FILTER_BUILDINGS,
-  buildings: buildings,
-  searchTerm: searchTerm,
-  filters: filters
-})
+export const filterBuildings = (buildings, searchTerm, filters) => {
+  console.log(filters)
+  return {
+    type: FILTER_BUILDINGS,
+    buildings: buildings,
+    searchTerm: searchTerm,
+    filters: filters
+  }
+}
 
 export const findBuildingById = (building) => {
   return {

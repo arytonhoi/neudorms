@@ -56,7 +56,6 @@ class HomeContainer extends React.Component {
   };
 
   applyFilters = (filters) => {
-    console.log(filters)
     this.props.filterBuildings(this.state.searchTerm, filters);
   }
 
