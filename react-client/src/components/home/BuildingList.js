@@ -12,6 +12,7 @@ import styled from "styled-components";
 import "bootstrap/js/dist/modal";
 
 const BuildingWrapper = styled.div`
+  flex: 4;
 `;
 
 class BuildingList extends React.Component {
@@ -27,23 +28,22 @@ class BuildingList extends React.Component {
 
   render() {
     return (
-      <BuildingWrapper>
-        <div className="row col mx-auto mt-3">
-          {this.props.buildings && this.props.buildings.map((building) => (
+      <BuildingWrapper className="row mt-3">
+        {this.props.buildings &&
+          this.props.buildings.map((building) => (
             <BuildingCard key={building.id} building={building} />
           ))}
-        </div>
       </BuildingWrapper>
     );
   }
 }
 
 // const dispatchToPropertyMapper = (dispatch) => ({
-  // findAllBuildings: () => {
-  //   buildingService
-  //     .findAllBuildings()
-  //     .then((buildings) => dispatch(findAllBuildings(buildings)));
-  // },
+// findAllBuildings: () => {
+//   buildingService
+//     .findAllBuildings()
+//     .then((buildings) => dispatch(findAllBuildings(buildings)));
+// },
 
 //   createBuilding: (building) => {
 //     buildingService

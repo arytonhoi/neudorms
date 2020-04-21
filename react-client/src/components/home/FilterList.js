@@ -4,7 +4,7 @@ import styled from "styled-components";
 const FiltersWrapper = styled.div`
   margin-top: 12px;
   margin-right: 48px;
-  width: 500px;
+  flex: 2;
 `;
 
 const FilterWrapper = styled.div`
@@ -60,7 +60,7 @@ class FilterList extends React.Component {
         <FilterWrapper>
         <FilterTitle>Cost</FilterTitle>
           <div class="input-group">
-            <input type="text" placeholder="Max" class="form-control" />
+            <input type="text" placeholder="Max" class="form-control max-input" />
             <div class="input-group-append">
               <button class="input-group-text">Apply</button>
             </div>

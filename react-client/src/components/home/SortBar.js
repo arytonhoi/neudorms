@@ -3,7 +3,7 @@ import styled from "styled-components";
 import "bootstrap/js/dist/dropdown";
 
 const Wrapper = styled.div`
-  margin: 12px 36px 12px 30px;
+  margin: 12px 0px 12px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

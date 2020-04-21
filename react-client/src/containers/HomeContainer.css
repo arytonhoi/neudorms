@@ -16,6 +16,10 @@ nav {
   text-decoration: none;
 }
 
+.max-input {
+  max-width: 100px;
+}
+
 .card {
   background-color: red;
   box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);

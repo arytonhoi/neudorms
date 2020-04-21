@@ -36,7 +36,7 @@ const buildingReducer = (state = initialState, action) => {
       console.log(action.buildings)
       if (action.searchTerm !== '') {
         filteredBuildings = filteredBuildings
-          .filter(building => building.name.toLowerCase() === action.searchTerm.toLowerCase());
+          .filter(building => building.name.toLowerCase().includes(action.searchTerm.toLowerCase()));
       }
       return {
         buildings: filteredBuildings

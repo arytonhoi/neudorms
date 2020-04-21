@@ -17,6 +17,10 @@ const BuildingWrapper = styled.div`
   flex-direction: row;
 `;
 
+const RightWrapper = styled.div`
+  flex: 8;
+`;
+
 const SearchBox = styled.div`
   height: 96px;
   margin: 0px 72px;
@@ -88,10 +92,10 @@ class HomeContainer extends React.Component {
 
         <BuildingWrapper>
           <FilterList />
-          <div>
+          <RightWrapper>
             <SortBar />
             <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
-          </div>
+          </RightWrapper>
         </BuildingWrapper>
       </div>
     );
