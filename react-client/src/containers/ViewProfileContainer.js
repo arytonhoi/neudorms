@@ -37,19 +37,11 @@ class ViewProfileContainer extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (
-  //     prevProps.profile.username === "" &&
-  //     this.props.profile.username !== ""
-  //   ) {
-  //     this.setState({
-  //       name: this.props.profile.name,
-  //       password: this.props.profile.password,
-  //       major: this.props.profile.major,
-  //       year: this.props.profile.year,
-  //     });
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.profile) {
+      this.forceUpdate()
+    }
+  }
 
   render() {
     if (this.props.user) {

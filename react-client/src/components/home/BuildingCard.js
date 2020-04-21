@@ -9,11 +9,15 @@ class BuildingCard extends React.Component {
     building: this.props.building,
   };
 
+  submitUpdate(buildingId) {
+    $(`#editBuildingModal${buildingId}`).modal("hide");
+  }
+
   render() {
     return (
       <div className={this.props.inProfile ? "card-container mt-3 mb-2 col col-xl-6 d-flex align-items-stretch" : "card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch"}>
         {this.state.building && (
-          <EditBuildingForm building={this.state.building} />
+          <EditBuildingForm building={this.state.building} submitUpdate={this.submitUpdate}/>
         )}
         <div className="card">
           <Link className="card-link" to={`/details/${this.state.building.id}`}>

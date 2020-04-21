@@ -21,6 +21,7 @@ const initialState = {
 const buildingReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_ALL_BUILDINGS:
+      console.log(action.buildings)
       return {
         buildings: action.buildings
       }
@@ -111,10 +112,10 @@ const buildingReducer = (state = initialState, action) => {
       }
 
     case UPDATE_BUILDING:
-      let updatedBuilding = state.buildings.filter(building => building.id !== action.buildingId)
+      let updatedBuildings = state.buildings.filter(building => building.id !== action.buildingId)
       return {
         buildings: [
-          ...updatedBuilding,
+          ...updatedBuildings,
           action.building
         ]
       }

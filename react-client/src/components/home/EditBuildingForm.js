@@ -3,36 +3,26 @@ import { connect } from "react-redux";
 import { createReview } from "../../actions/ReviewActions";
 import reviewService from "../../services/ReviewService";
 import userService from "../../services/UserService";
+import buildingService from "../../services/BuildingService";
+import { updateBuilding } from "../../actions/BuildingActions";
 import { profile } from "../../actions/UserActions";
 
 class EditBuildingForm extends React.Component {
   state = {
     name: this.props.building.name,
     address: this.props.building.address,
-    thumbnail: this.props.building.thumbnailImageUrl,
-    mainImage: this.props.building.mainImageUrl,
+    thumbnailImageUrl: this.props.building.thumbnailImageUrl,
+    mainImageUrl: this.props.building.mainImageUrl,
+    amenities: this.props.building.amenities,
+    residentTypes: this.props.building.residentTypes,
+    buildingType: this.props.building.buildingType,
+    roomTypes: this.props.building.roomTypes,
+    minimumCost: this.props.building.minimumCost
   };
 
   componentDidMount() {
     this.props.getProfile();
   }
-
-  postReview = () => {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, "0");
-    let mm = String(today.getMonth() + 1).padStart(2, "0");
-    let yyyy = today.getFullYear();
-    let review = {
-      username: this.props.profile.username,
-      text: this.state.text,
-      imageUrl: this.state.imageUrl,
-      date: yyyy + "-" + mm + "-" + dd,
-    };
-    console.log(review);
-    this.props.createReview(this.props.building.id, review);
-    this.props.submitReview();
-    alert("Your review was posted!");
-  };
 
   render() {
     if (this.props.building) {
@@ -97,9 +87,9 @@ class EditBuildingForm extends React.Component {
                       class="form-control"
                       id="edit-Thumbnail"
                       onChange={(e) =>
-                        this.setState({ thumbnail: e.target.value })
+                        this.setState({ thumbnailImageUrl: e.target.value })
                       }
-                      defaultValue={this.state.thumbnail}
+                      defaultValue={this.state.thumbnailImageUrl}
                     />
                   </div>
                   <div class="form-group">
@@ -111,9 +101,74 @@ class EditBuildingForm extends React.Component {
                       class="form-control"
                       id="edit-mainimage"
                       onChange={(e) =>
-                        this.setState({ mainImage: e.target.value })
+                        this.setState({ mainImageUrl: e.target.value })
                       }
-                      defaultValue={this.state.mainImage}
+                      defaultValue={this.state.mainImageUrl}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-amenties" class="col-form-label">
+                      Amenities:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-amenties"
+                      onChange={(e) => this.setState({ amenities: e.target.value })}
+                      defaultValue={this.state.amenities}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-residentTypes" class="col-form-label">
+                      Resident Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-residentTypes"
+                      onChange={(e) => this.setState({ residentTypes: e.target.value })}
+                      defaultValue={this.state.residentTypes}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-buildingTypes" class="col-form-label">
+                      Building Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-buildingTypes"
+                      onChange={(e) => this.setState({ buildingType: e.target.value })}
+                      defaultValue={this.state.buildingType}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-roomTypes" class="col-form-label">
+                      Room Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-roomTypes"
+                      onChange={(e) => this.setState({ roomTypes: e.target.value })}
+                      defaultValue={this.state.roomTypes}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-minimumCost" class="col-form-label">
+                      Minimum Cost:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-minimumCost"
+                      onChange={(e) => {
+                        let newCost = parseInt(e.target.value)
+                        if (!isNaN(newCost)) {
+                          this.setState({ minimumCost: newCost })
+                        }
+                      }}
+                      defaultValue={this.state.minimumCost}
                     />
                   </div>
                 </form>
@@ -129,7 +184,11 @@ class EditBuildingForm extends React.Component {
                 <button
                   type="button"
                   class="btn btn-primary"
-                  // onClick={this.postReview}
+                  data-dismiss="modal"
+                  onClick={() => {
+                    this.props.updateBuilding(this.props.building.id, this.state)
+                    // this.props.submitUpdate()
+                  }}
                 >
                   Save Changes
                 </button>
@@ -150,11 +209,18 @@ const dispatchToPropertyMapper = (dispatch) => ({
       }
     });
   },
+
   createReview: (buildingId, review) => {
     reviewService
       .createReview(buildingId, review)
       .then((review) => dispatch(createReview(review)));
   },
+
+  updateBuilding: (buildingId, building) => {
+    buildingService
+      .updateBuilding(buildingId, building)
+      .then(status => dispatch(updateBuilding(buildingId, building)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({

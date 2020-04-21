@@ -35,7 +35,7 @@ class DetailsContainer extends React.Component {
     if (this.props.loggedIn) {
       $("#photoModal").modal("show");
     } else {
-      alert("Log in to write a review");
+      alert("Log in to add a photo");
     }
   };
 
@@ -125,7 +125,8 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   building: state.buildings.building,
-  reviews: state.reviews.reviews
+  reviews: state.reviews.reviews,
+  pictures: state.pictures.pictures
 });
 
 export default connect(

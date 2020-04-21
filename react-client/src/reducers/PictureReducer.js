@@ -6,6 +6,7 @@ const initialState = {
 }
 
 const pictureReducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case FIND_ALL_PICTURES:
             return {
