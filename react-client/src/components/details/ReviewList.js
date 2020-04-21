@@ -16,7 +16,17 @@ const ReviewBox = styled.div`
 
 const ReviewUser = styled.div`
   font-weight: 700;
+`;
+
+const ReviewDate = styled.span`
+  font-weight: 500;
+`;
+
+const ReviewBuilding = styled.div`
+  font-weight: 500;
+  font-size: 14px;
   margin-bottom: 12px;
+  
 `;
 
 const ReviewText = styled.div`
@@ -43,9 +53,12 @@ class ReviewList extends React.Component {
           <ul className="list-group" key={review.id}>
             <ReviewBox className="card">
               <ReviewHeader>
-                <ReviewUser>{review.username}</ReviewUser>
+                  <ReviewUser>
+                    {review.name} <ReviewDate>on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
                 <Sentiment>Sentiment: {review.sentiment}</Sentiment>
               </ReviewHeader>
+              <ReviewBuilding>{review.buildingName}</ReviewBuilding>
               <ReviewText>{review.text}</ReviewText>
             </ReviewBox>
           </ul>

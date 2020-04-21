@@ -26,6 +26,8 @@ class ReviewForm extends React.Component {
       text: this.state.text,
       imageUrl: this.state.imageUrl,
       date: yyyy + "-" + mm + "-" + dd,
+      name: this.props.profile.name,
+      buildingName: this.props.building.name
     };
     console.log(review);
     this.props.createReview(this.props.building.id, review);
