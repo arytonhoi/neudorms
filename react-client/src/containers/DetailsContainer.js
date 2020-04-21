@@ -35,7 +35,7 @@ class DetailsContainer extends React.Component {
     if (this.props.loggedIn) {
       $("#photoModal").modal("show");
     } else {
-      alert("Log in to write a review");
+      alert("Log in to add a photo");
     }
   };
 
