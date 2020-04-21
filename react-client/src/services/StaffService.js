@@ -26,7 +26,7 @@ export const registerStaff = (user) =>
     credentials: "include"
   }).then((response) => response.json());
 
-export const login = (user) =>
+export const loginStaff = (user) =>
   fetch(`${API_URL}/staff/login`, {
     method: "POST",
     body: JSON.stringify(user),
@@ -67,7 +67,7 @@ export const deleteStaff = async (username) => {
 export default {
   logout, 
   profile,
-  login,
+  loginStaff,
   registerStaff,
   findAllstaff,
   findStaffByUsername,
