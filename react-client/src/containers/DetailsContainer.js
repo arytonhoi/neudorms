@@ -117,7 +117,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   addUserBookmark: (username, buildingId) => {
     userService.addUserBookmark(username, buildingId)
-        .then(dispatch(addUserBookmark(username, buildingId)));
+        .then(response => console.log("RESPONSE: " + response));
   }
 });
 

@@ -1,79 +1,79 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
+import {connect, Provider} from "react-redux";
 import BuildingList from "../components/home/BuildingList";
-import buildingReducer from "../reducers/BuildingReducer";
 import "./HomeContainer.css";
 import styled from "styled-components";
-import BookmarksList from "../components/bookmarks/BookmarksList";
+import NavBar from "../components/home/NavBar";
+import userService from "../services/UserService";
+import {findBookmarksForUser, logout, profile} from "../actions/UserActions";
 
-const BookmarksWrapper = styled.div`
-  margin: 32px 48px;
+const Header = styled.h1`
+  font-weight: 900;
 `;
 
-const rootReducer = combineReducers({
-    buildings: buildingReducer,
-});
+const BuildingWrapper = styled.div`
+  margin: 32px 60px;
+  display: flex;
+  flex-direction: row;
+`;
 
-let store = createStore(rootReducer);
+const RightWrapper = styled.div`
+  width: 100%;
+`;
 
 class BookmarksContainer extends React.Component {
+    componentDidMount() {
+        this.props.getProfile();
+    }
+
     render() {
         return (
-            <Provider store={store}>
-                <div>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <a className="navbar-brand mr-5" href="/home">
-                            neudorms
-                        </a>
-                        <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarText"
-                            aria-controls="navbarText"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarText">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item active ml-4">
-                                    <form className="form-inline">
-                                        <input
-                                            className="form-control mr-sm-2"
-                                            type="search"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                        />
-                                        <button
-                                            className="btn btn-outline-success my-2 my-sm-0"
-                                            type="submit"
-                                        >
-                                            Search
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                            <a className="nav-link profile" href="/profile">
-                                Housing Group
-                            </a>
-                            <a className="nav-link profile" href="/bookmarks">
-                                Bookmarks
-                            </a>
-                            <a className="nav-link profile" href="/profile">
-                                Profile
-                            </a>
-                        </div>
-                    </nav>
-                    <BookmarksWrapper>
-                        <BookmarksList />
-                    </BookmarksWrapper>
-                </div>
-            </Provider>
+            <div>
+                <NavBar
+                    profile={this.props.profile}
+                    loggedIn={this.props.loggedIn}
+                    logout={this.props.logout}
+                />
+                <BuildingWrapper>
+                    <RightWrapper>
+                        <Header className="ml-3">My Bookmarks</Header>
+                        <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
+                    </RightWrapper>
+                </BuildingWrapper>
+            </div>
         );
     }
 }
 
-export default BookmarksContainer;
+const dispatchToPropertyMapper = (dispatch) => ({
+    getProfile: () => {
+        userService.profile().then((actualProfile) => {
+            if (actualProfile.username) {
+                console.log(actualProfile);
+                dispatch(profile(actualProfile));
+            }
+        });
+    },
+
+    logout: () => {
+        userService.logout().then(dispatch(logout()));
+    },
+
+    findBookmarksForUser: (username) => {
+        userService
+            .findBookmarksForUser(username)
+            .then((username) => dispatch(findBookmarksForUser(username)));
+    },
+});
+
+const stateToPropertyMapper = (state) => ({
+    profile: state.users.profile,
+    loggedIn: state.users.loggedIn,
+    buildings: state.users.profile.bookmarks,
+});
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(BookmarksContainer);
+
