@@ -114,9 +114,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   getUser: (username) => {
     userService.findUserByUsername(username).then((user) => {
-      if (user.username) {
-        dispatch(findUserByUsername(user));
-      }
+      dispatch(findUserByUsername(user));
     });
   },
   logout: () => {
