@@ -25,18 +25,23 @@ class FilterList extends React.Component {
   };
 
   handleChange = (value) => {
-    console.log(value)
     switch (value) {
-      case "first year":
+      case "Freshmen":
+      case "Sophomore":
+      case "Upperclassmen":
+      case "Graduates":
+      case "Law":
         if (this.state.residentTypes.includes(value)) {
-          this.setState({ residentTypes: [...this.state.residentTypes, value] })
-        } else {
-          this.setState({
-            residentTypes: this.state.residentTypes
+          this.setState(prevState => ({
+            residentTypes: prevState.residentTypes
               .filter(residentType => residentType !== value)
-          })
+          }), () => this.props.applyFilters(this.state))
+        } else {
+          this.setState(prevState =>
+            ({
+              residentTypes: [...prevState.residentTypes, value]
+            }), () => this.props.applyFilters(this.state))
         }
-        console.log(this.state.residentTypes)
         break;
     }
   }
@@ -53,8 +58,8 @@ class FilterList extends React.Component {
             <input
               class="form-check-input"
               type="checkbox"
-              value="first year"
               id="firstyear"
+              value="Freshmen"
               onChange={(e) => {
                 console.log(e.target.value)
                 this.handleChange(e.target.value)
@@ -64,25 +69,44 @@ class FilterList extends React.Component {
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="secondyear" />
+            <input class="form-check-input"
+              type="checkbox"
+              value="Sophomore"
+              id="secondyear"
+              onChange={(e) => {
+                console.log(e.target.value)
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="secondyear">
               Second Year
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="upperclassmen" />
+            <input class="form-check-input" type="checkbox" value="Upperclassmen" id="upperclassmen"
+              onChange={(e) => {
+                console.log(e.target.value)
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="upperclassmen">
               Upperclassmen
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="graduate" />
+            <input class="form-check-input" type="checkbox" value="Graduates" id="graduate"
+              onChange={(e) => {
+                console.log(e.target.value)
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="graduate">
               Graduate Students
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="law" />
+            <input class="form-check-input" type="checkbox" value="Law" id="law"
+              onChange={(e) => {
+                console.log(e.target.value)
+                this.handleChange(e.target.value)
+              }} />
             <label class="form-check-label" for="law">
               Law Students
             </label>
@@ -93,7 +117,7 @@ class FilterList extends React.Component {
         <FilterWrapper>
           <FilterTitle>Cost</FilterTitle>
           <div class="input-group">
-            <input type="text" placeholder="Max" class="form-control max-input" />
+            <input type="text" placeholder="Max" class="form-control max-input"/>
             <div class="input-group-append">
               <button class="input-group-text">Apply</button>
             </div>

@@ -43,11 +43,11 @@ class HomeContainer extends React.Component {
   state = {
     searchTerm: "",
     filters: {
-      residentTypes: "",
+      residentTypes: [],
       maxCost: 0,
-      buildingTypes: "",
-      roomTypes: "",
-      amenities: ""
+      buildingTypes: [],
+      roomTypes: [],
+      amenities: []
     },
   };
 
@@ -55,8 +55,9 @@ class HomeContainer extends React.Component {
     this.props.filterBuildings(this.state.searchTerm, this.state.filters);
   };
 
-  applyFilters = () => {
-
+  applyFilters = (filters) => {
+    console.log(filters)
+    this.props.filterBuildings(this.state.searchTerm, filters);
   }
 
   render() {
@@ -90,7 +91,7 @@ class HomeContainer extends React.Component {
 
         <BuildingWrapper>
           <FilterList 
-
+            applyFilters={this.applyFilters}
           />
           <RightWrapper>
             <SortBar />
