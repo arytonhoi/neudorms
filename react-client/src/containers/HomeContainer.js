@@ -34,6 +34,10 @@ const SearchBox = styled.div`
   background-color: white;
 `;
 
+const Header = styled.h1`
+  font-weight: 900;
+`;
+
 class HomeContainer extends React.Component {
   componentDidMount() {
     this.props.getProfile();
@@ -89,12 +93,34 @@ class HomeContainer extends React.Component {
         </div>
 
         <BuildingWrapper>
-          <FilterList 
-            applyFilters={this.applyFilters}
-          />
+
+          {!this.props.loggedIn && (
+              <FilterList
+                  applyFilters={this.applyFilters}
+              />
+          )}
+
           <RightWrapper>
-            <SortBar />
-            <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
+
+            {this.props.loggedIn && (
+                <div>
+                  <Header>My Recent Bookmarks</Header>
+                  {/*MOST RECENT BOOKMARKS HERE*/}
+                  <p>MOST RECENT BOOKMARKS HERE</p>
+                  <Header>My Recent Reviews</Header>
+                  {/*MOST RECENT REVIEWS HERE*/}
+                  <p>MOST RECENT REVIEWS HERE</p>
+                </div>
+            )}
+
+            {!this.props.loggedIn && (
+                <SortBar />
+            )}
+
+            {!this.props.loggedIn && (
+                <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
+            )}
+
           </RightWrapper>
         </BuildingWrapper>
       </div>
