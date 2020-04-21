@@ -34,7 +34,6 @@ const userReducer = (state = initialState, action) => {
       };
 
     case FIND_BOOKMARKS_FOR_USER:
-      console.log("REDUCER: " + JSON.stringify(action.bookmarks));
       return {
         bookmarks: action.bookmarks,
       };

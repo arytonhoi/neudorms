@@ -10,7 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true") // need to specify origin URL to allow cookies
+@CrossOrigin(origins = "*", allowCredentials = "true") // need to specify origin URL to allow cookies
 public class StaffController {
 
   @Autowired

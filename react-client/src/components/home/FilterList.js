@@ -168,16 +168,16 @@ class FilterList extends React.Component {
 
 
         <FilterWrapper>
-          <FilterTitle>Cost</FilterTitle>
+          <FilterTitle>Max Cost</FilterTitle>
           <div class="input-group">
             <input type="text" placeholder="Max" class="form-control max-input"
               value={this.state.maxCost}
               onChange={(e) => {
                 this.handleChange(e.target.value)
               }} />
-            <div class="input-group-append">
+            {/* <div class="input-group-append">
               <button class="input-group-text">Apply</button>
-            </div>
+            </div> */}
           </div>
         </FilterWrapper>
 

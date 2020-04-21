@@ -16,7 +16,7 @@ export const profile = () =>
     credentials: "include"
   }).then((response) => response.json());
 
-export const register = (user) =>
+export const registerUser = (user) =>
   fetch(`${API_URL}/users/register`, {
     method: "POST",
     body: JSON.stringify(user),
@@ -49,7 +49,6 @@ export const findUserByUsername = async (username) => {
 };
 
 export const findBookmarksForUser = async (username) => {
-    console.log("SERVICE USERNAME: " + username);
     return fetch(`${API_URL}/users/${username}/bookmarks`).then((response) =>
         response.json()
   );
@@ -90,10 +89,10 @@ export const deleteUser = async (username) => {
 };
 
 export default {
-  logout,
+  logout, 
   profile,
   login,
-  register,
+  registerUser,
   findAllUsers,
   findUserByUsername,
   findBookmarksForUser,
