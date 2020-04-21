@@ -40,8 +40,11 @@ public class StaffService {
     if (usernameIndex == -1) {
       return 0;
     } else {
-      this.deleteStaff(username);
-      this.createStaff(staff);
+      Staff oldStaff = staffList.get(usernameIndex);
+      oldStaff.setName(staff.getName());
+      oldStaff.setPassword(staff.getPassword());
+      oldStaff.setRole(staff.getRole());
+      staffRepository.save(oldStaff);
       return 1;
     }
   }

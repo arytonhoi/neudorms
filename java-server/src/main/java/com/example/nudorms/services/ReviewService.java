@@ -30,12 +30,7 @@ public class ReviewService {
 
     LanguageServiceClient language = LanguageServiceClient.create();
     Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();
-
-    // Detects the sentiment of the text
     Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
-
-    // System.out.printf("Text: %s%n", text);
-    // System.out.printf("Sentiment: %s, %s%n", sentiment.getScore(), sentiment.getMagnitude());
 
     review.setSentiment((double) sentiment.getScore());
     return reviewRepository.save(review);
@@ -77,13 +72,19 @@ public class ReviewService {
       return 0;
     } else {
       Review oldReview = this.findReviewById(reviewId);
-      this.deleteReview(reviewIdIndex);
+      oldReview.setDate(review.getDate());
+      oldReview.setImageUrl(review.getImageUrl());
+      oldReview.setText(review.getText());
       try {
-        this.createReview(oldReview.getBuilding().getId(), review);
+        LanguageServiceClient language = LanguageServiceClient.create();
+        Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();
+        Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
+        oldReview.setSentiment((double) sentiment.getScore());
       } catch (Exception e) {
         return 0;
       }
-      
+
+      reviewRepository.save(oldReview);
       return 1;
     }
   }

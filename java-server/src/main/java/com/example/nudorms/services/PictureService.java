@@ -36,9 +36,9 @@ public class PictureService {
     if (pictureIdIndex == -1) {
       return 0;
     } else {
-      Integer buildingId = pictureList.get(pictureIdIndex).getBuilding().getId();
-      this.deletePicture(pictureId);
-      this.createPicture(buildingId, picture);
+      Picture oldPicture = pictureList.get(pictureIdIndex);
+      oldPicture.setUrl(picture.getUrl());
+      pictureRepository.save(oldPicture);
       return 1;
     }
   }

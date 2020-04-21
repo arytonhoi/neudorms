@@ -42,9 +42,17 @@ public class BuildingService {
     if (buildingIdIndex == -1) {
       return 0;
     } else {
-      // Building b = this.findBuildingById(buildingIdIndex);
-      this.deleteBuilding(buildingId);
-      this.createBuilding(building);
+      Building oldBuilding = buildingList.get(buildingIdIndex);
+      oldBuilding.setAddress(building.getAddress());
+      oldBuilding.setAmenities(building.getAmenities());
+      oldBuilding.setBuildingType(building.getBuildingType());
+      oldBuilding.setMainImageUrl(building.getMainImageUrl());
+      oldBuilding.setMinimumCost(building.getMinimumCost());
+      oldBuilding.setName(building.getName());
+      oldBuilding.setResidentTypes(building.getResidentTypes());
+      oldBuilding.setRoomTypes(building.getRoomTypes());
+      oldBuilding.setThumbnailImageUrl(building.getThumbnailImageUrl());
+      buildingRepository.save(oldBuilding);
       return 1;
     }
   }
