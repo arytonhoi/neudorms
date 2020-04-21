@@ -12,6 +12,7 @@ import { combineReducers, createStore } from "redux";
 import userReducer from "../reducers/UserReducer";
 import buildingReducer from "../reducers/BuildingReducer";
 import reviewReducer from "../reducers/ReviewReducer";
+import ViewProfileContainer from "./ViewProfileContainer";
 
 const rootReducer = combineReducers({
   users: userReducer,
@@ -32,12 +33,11 @@ class AppRoutingContainer extends React.Component {
               path="/profile/:username"
               exact={true}
               render={(props) => (
-                <ProfileContainer
+                <ViewProfileContainer
                   {...props}
                   username={props.match.params.username}
                 />
               )}
-              component={ProfileContainer}
             />
             <Route
               path="/profile"

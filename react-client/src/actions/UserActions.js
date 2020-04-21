@@ -16,10 +16,10 @@ export const findAllUsers = (users) => ({
   users: users
 })
 
-export const findUserByUsername = (username) => {
+export const findUserByUsername = (user) => {
   return {
     type: FIND_USER_BY_USERNAME,
-    username: username
+    user: user
   }
 }
 

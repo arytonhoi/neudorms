@@ -19,32 +19,15 @@ const Header = styled.div`
   line-height: 50px;
 `;
 
-class ProfileComponent extends React.Component {
-  state = {
-    name: "",
-    password: "",
-    major: "",
-    year: 1,
-  };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (
-      prevProps.profile.username === "" &&
-      this.props.profile.username !== ""
-    ) {
-      this.setState({
-        name: this.props.profile.name,
-        password: this.props.profile.password,
-        major: this.props.profile.major,
-        year: this.props.profile.year,
-      });
-    }
+class ViewProfileComponent extends React.Component {
+  componentDidMount() {
+    this.props.getUser(this.props.username);
   }
 
   render() {
     return (
       <Wrapper className="col-4">
-        <Header>My Profile</Header>
+        <Header>{this.props.user.name} Profile</Header>
         <hr />
         <form>
           <div class="form-group mb-2">
@@ -57,7 +40,7 @@ class ProfileComponent extends React.Component {
                 class="form-control"
                 id="profile-email"
                 disabled
-                defaultValue={this.props.profile.username}
+                defaultValue={this.props.user.username}
               />
             </div>
             <label for="profile-name" class="col-form-label">
@@ -66,7 +49,7 @@ class ProfileComponent extends React.Component {
             <input
               class="form-control"
               id="profile-name"
-              defaultValue={this.props.profile.name}
+              defaultValue={this.props.user.name}
               onChange={(e) =>
                 this.setState(
                   { name: e.target.value },
@@ -84,7 +67,7 @@ class ProfileComponent extends React.Component {
               class="form-control"
               id="profile-password"
               onChange={(e) => this.setState({ password: e.target.value })}
-              defaultValue={this.props.profile.password}
+              defaultValue={this.props.user.password}
             />
           </div>
           <div class="form-group mb-2">
@@ -96,7 +79,7 @@ class ProfileComponent extends React.Component {
               class="form-control"
               id="profile-major"
               onChange={(e) => this.setState({ major: e.target.value })}
-              defaultValue={this.props.profile.major}
+              defaultValue={this.props.user.major}
             />
           </div>
           <div class="form-group mb-2">
@@ -108,7 +91,7 @@ class ProfileComponent extends React.Component {
               class="form-control"
               id="profile-year"
               onChange={(e) => this.setState({ year: e.target.value })}
-              defaultValue={this.props.profile.year}
+              defaultValue={this.props.user.year}
             />
           </div>
           <div className="row ml-0 mt-4">
@@ -118,8 +101,8 @@ class ProfileComponent extends React.Component {
               onClick={() => {
                 console.log("click");
                 userService
-                  .updateUser(this.props.profile.username, {
-                    ...this.props.profile.username,
+                  .updateUser(this.props.user.username, {
+                    ...this.props.user.username,
                     password: this.state.password,
                     major: this.state.major,
                     name: this.state.name,
@@ -134,10 +117,10 @@ class ProfileComponent extends React.Component {
               className="btn btn-outline-secondary"
               onClick={() =>
                 this.setState({
-                  name: this.props.profile.name,
-                  password: this.props.profile.password,
-                  major: this.props.profile.major,
-                  year: this.props.profile.year,
+                  name: this.props.user.name,
+                  password: this.props.user.password,
+                  major: this.props.user.major,
+                  year: this.props.user.year,
                 })
               }
             >
@@ -151,13 +134,12 @@ class ProfileComponent extends React.Component {
 }
 
 const dispatchToPropertyMapper = (dispatch) => ({
-  updateUser: (userId, user) => {
-    userService.updateUser(userId, user);
-  },
-  deleteUser: (userId) => {
-    userService
-      .deleteUser(userId)
-      .then((status) => dispatch(deleteUser(userId)));
+  getUser: (username) => {
+    userService.findUserByUsername(username).then((user) => {
+      if (user.username) {
+        dispatch(findUserByUsername(user));
+      }
+    });
   },
 });
 
@@ -167,7 +149,4 @@ const stateToPropertyMapper = (state) => {
   };
 };
 
-export default connect(
-  stateToPropertyMapper,
-  dispatchToPropertyMapper
-)(ProfileComponent);
+export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(ViewProfileComponent);
