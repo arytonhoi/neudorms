@@ -31,7 +31,7 @@ export default function NavBar(props) {
               </a>
               <a
                 className="nav-link profile"
-                href={`/profile/${props.profile.username}`}
+                href={`/profile`}
               >
                 Profile
               </a>

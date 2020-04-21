@@ -28,6 +28,30 @@ class BookmarksContainer extends React.Component {
     }
 
     render() {
+        if (this.props.profile) {
+            console.log("BOOKMARKS: " + this.props.profile.bookmarkedBuildings);
+
+            return (
+                <div>
+                    <NavBar
+                        profile={this.props.profile}
+                        loggedIn={this.props.loggedIn}
+                        logout={this.props.logout}
+                    />
+                    {this.props.profile.bookmarkedBuildings && (
+                        <BuildingWrapper>
+                        <RightWrapper>
+                            <Header className="ml-3">My Bookmarks</Header>
+                            <BuildingList buildings={this.props.profile.bookmarkedBuildings} profile={this.props.profile} />
+                        </RightWrapper>
+                    </BuildingWrapper>
+                    )}
+                    
+                </div>
+            );
+        } else {
+            return null;
+        }
         // console.log("PROFILE: " + JSON.stringify(this.props.profile.username));
         // console.log("BUILDINGS: " + JSON.stringify(this.props.findBookmarksForUser(this.props.match.params.username)));
 
@@ -39,23 +63,7 @@ class BookmarksContainer extends React.Component {
         // console.log(buildings);
         // console.log("BUILDINGS END: ======================");
 
-        console.log("BOOKMARKS: " + this.props.bookmarks);
-
-        return (
-            <div>
-                <NavBar
-                    profile={this.props.profile}
-                    loggedIn={this.props.loggedIn}
-                    logout={this.props.logout}
-                />
-                <BuildingWrapper>
-                    <RightWrapper>
-                        <Header className="ml-3">My Bookmarks</Header>
-                        <BuildingList buildings={this.props.bookmarks} profile={this.props.profile} />
-                    </RightWrapper>
-                </BuildingWrapper>
-            </div>
-        );
+        
     }
 }
 

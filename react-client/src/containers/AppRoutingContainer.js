@@ -39,6 +39,11 @@ class AppRoutingContainer extends React.Component {
               )}
               component={ProfileContainer}
             />
+            <Route
+              path="/profile"
+              exact={true}
+              component={ProfileContainer}
+            />
             <Route path="/search" component={SearchContainer} />
             <Route
               path="/details/:buildingId"
