@@ -23,17 +23,17 @@ export const findUserByUsername = (username) => {
   }
 }
 
-export const findBookmarksForUser = (userId) => {
+export const findBookmarksForUser = (username) => {
   return {
     type: FIND_BOOKMARKS_FOR_USER,
-    userId: userId
+    username: username
   }
 }
 
-export const addUserBookmark = (userId, buildingId) => {
+export const addUserBookmark = (username, buildingId) => {
   return {
     type: ADD_USER_BOOKMARK,
-    userId: userId,
+    username: username,
     buildingId: buildingId
   }
 }
@@ -43,14 +43,14 @@ export const createUser = (user) => ({
   user: user
 })
 
-export const deleteUser = (userId) => ({
+export const deleteUser = (username) => ({
   type: DELETE_USER,
-  userId: userId
+  username: username
 })
 
-export const updateUser = (userId, user) => ({
+export const updateUser = (username, user) => ({
   type: UPDATE_USER,
-  userId: userId,
+  username: username,
   user: user
 })
 

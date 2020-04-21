@@ -84,7 +84,11 @@ class TextDetails extends React.Component {
           >
             Add Photo
           </button>
-          <button className="btn btn-outline-secondary btn-sm">Bookmark</button>
+          <button className="btn btn-outline-secondary btn-sm"
+          onClick={this.props.addBookmark}
+          >
+            Bookmark
+          </button>
         </ButtonWrapper>
         <hr />
         <div className="mb-2 mt-2">

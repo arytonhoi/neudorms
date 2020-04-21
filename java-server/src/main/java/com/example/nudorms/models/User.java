@@ -18,7 +18,7 @@ public class User {
     @ManyToMany
     @JoinTable(
         name = "bookmarks", 
-        joinColumns = @JoinColumn(name = "userId"), 
+        joinColumns = @JoinColumn(name = "username"),
         inverseJoinColumns = @JoinColumn(name = "buildingId")
     )
     private Set<Building> bookmarkedBuildings;

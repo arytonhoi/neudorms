@@ -40,7 +40,7 @@ const userReducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       let updatedUsers = state.users.filter(
-        (user) => user.id !== action.userId
+        (user) => user.username !== action.username
       );
       return {
         users: [...updatedUsers, action.user],
@@ -48,7 +48,7 @@ const userReducer = (state = initialState, action) => {
 
     case DELETE_USER:
       return {
-        users: state.users.filter((user) => user.id !== action.userId),
+        users: state.users.filter((user) => user.username !== action.username),
       };
 
     case PROFILE:
