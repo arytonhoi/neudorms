@@ -1,38 +1,67 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../actions/UserActions";
-import { login } from "../../services/UserService";
+import { loginUser } from "../../services/UserService";
+import { loginStaff } from "../../services/StaffService";
 import userService from "../../services/UserService";
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userType: "student",
       username: "",
       password: ""
-      // confirmPassword: "",
     };
 
     this.login = this.login.bind(this);
   }
 
   login() {
-    login({
-      username: this.state.username,
-      password: this.state.password,
-    }).then((result) => {
-      if (result === 1) {
-        this.props.history.push("/home");
-      } else {
-        alert("Your username and password don't match. Please try again.")
-      }
-    });
+    if (this.state.userType === 'student') {
+      loginUser({
+        username: this.state.username,
+        password: this.state.password,
+      }).then((result) => {
+        if (result === 1) {
+          this.props.history.push("/home");
+        } else {
+          alert("Your username and password don't match. Please try again.")
+        }
+      });
+    } else if (this.state.userType === 'staff') {
+      loginStaff({
+        username: this.state.username,
+        password: this.state.password,
+      }).then((result) => {
+        if (result === 1) {
+          this.props.history.push("/home");
+        } else {
+          alert("Your username and password don't match. Please try again.")
+        }
+      });
+    }
   }
 
   render() {
     return (
       <div>
         <form>
+          <div className="form-group row">
+            <label htmlFor="userTypeFld" className="col-sm-2 col-form-label">
+              Log in as...
+            </label>
+            <div className="col-sm-10">
+              <select class="form-control"
+                id="userTypeFld"
+                onChange={() => {
+                  this.setState({ userType: document.getElementById("userTypeFld").value })
+                }}>
+                <option value="student">Student</option>
+                <option value="staff">Staff</option>
+              </select>
+            </div>
+          </div>
           <div className="form-group row">
             <label htmlFor="usernameFld" className="col-sm-2 col-form-label">
               Username
@@ -60,25 +89,6 @@ class LoginForm extends React.Component {
               />
             </div>
           </div>
-          {/* <div className="form-group row">
-            <label
-              htmlFor="confpasswordFld"
-              className="col-sm-2 col-form-label"
-            >
-              Confirm Password
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="password"
-                className="form-control"
-                id="confpasswordFld"
-                placeholder="*********"
-                onChange={(e) =>
-                  this.setState({ confirmPassword: e.target.value })
-                }
-              />
-            </div>
-          </div> */}
           <div className="form-group row mt-4">
             <label className="col-sm-2 col-form-label"></label>
             <button
