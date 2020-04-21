@@ -9,28 +9,24 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: "",
-      confirmPassword: "",
+      password: ""
+      // confirmPassword: "",
     };
 
     this.login = this.login.bind(this);
   }
 
   login() {
-    if (this.state.password !== this.state.confirmPassword) {
-      alert("Passwords do not match.");
-    } else {
-      login({
-        username: this.state.username,
-        password: this.state.password,
-      }).then((result) => {
-        if (result === 1) {
-          this.props.history.push("/home");
-        } else {
-          alert("Your username and password don't match. Please try again.")
-        }
-      });
-    }
+    login({
+      username: this.state.username,
+      password: this.state.password,
+    }).then((result) => {
+      if (result === 1) {
+        this.props.history.push("/home");
+      } else {
+        alert("Your username and password don't match. Please try again.")
+      }
+    });
   }
 
   render() {
@@ -64,7 +60,7 @@ class LoginForm extends React.Component {
               />
             </div>
           </div>
-          <div className="form-group row">
+          {/* <div className="form-group row">
             <label
               htmlFor="confpasswordFld"
               className="col-sm-2 col-form-label"
@@ -82,7 +78,7 @@ class LoginForm extends React.Component {
                 }
               />
             </div>
-          </div>
+          </div> */}
           <div className="form-group row mt-4">
             <label className="col-sm-2 col-form-label"></label>
             <button

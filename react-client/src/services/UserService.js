@@ -16,7 +16,7 @@ export const profile = () =>
     credentials: "include"
   }).then((response) => response.json());
 
-export const register = (user) =>
+export const registerUser = (user) =>
   fetch(`${API_URL}/users/register`, {
     method: "POST",
     body: JSON.stringify(user),
@@ -90,10 +90,10 @@ export const deleteUser = async (username) => {
 };
 
 export default {
-  logout,
+  logout, 
   profile,
   login,
-  register,
+  registerUser,
   findAllUsers,
   findUserByUsername,
   findBookmarksForUser,
