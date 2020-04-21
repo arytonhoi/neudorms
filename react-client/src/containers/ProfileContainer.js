@@ -26,14 +26,6 @@ const Header = styled.div`
 `;
 
 class ProfileContainer extends React.Component {
-  state = {
-    name: "",
-    username: "",
-    password: "",
-    major: "",
-    year: 1,
-  };
-
   componentDidMount() {
     this.props.getProfile();
   }
@@ -67,7 +59,7 @@ class ProfileContainer extends React.Component {
                     <div>
                       <Header>Reviews</Header>
                       <hr />
-                      <ReviewList 
+                      <ReviewList
                         reviews={this.props.profile.reviews}
                         inProfile={true}
                       />
