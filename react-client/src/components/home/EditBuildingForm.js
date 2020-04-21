@@ -3,14 +3,16 @@ import { connect } from "react-redux";
 import { createReview } from "../../actions/ReviewActions";
 import reviewService from "../../services/ReviewService";
 import userService from "../../services/UserService";
+import buildingService from "../../services/BuildingService";
+import { updateBuilding } from "../../actions/BuildingActions";
 import { profile } from "../../actions/UserActions";
 
 class EditBuildingForm extends React.Component {
   state = {
     name: this.props.building.name,
     address: this.props.building.address,
-    thumbnail: this.props.building.thumbnailImageUrl,
-    mainImage: this.props.building.mainImageUrl,
+    thumbnailImageUrl: this.props.building.thumbnailImageUrl,
+    mainImageUrl: this.props.building.mainImageUrl,
   };
 
   componentDidMount() {
@@ -28,7 +30,6 @@ class EditBuildingForm extends React.Component {
       imageUrl: this.state.imageUrl,
       date: yyyy + "-" + mm + "-" + dd,
     };
-    console.log(review);
     this.props.createReview(this.props.building.id, review);
     this.props.submitReview();
     alert("Your review was posted!");
@@ -97,9 +98,9 @@ class EditBuildingForm extends React.Component {
                       class="form-control"
                       id="edit-Thumbnail"
                       onChange={(e) =>
-                        this.setState({ thumbnail: e.target.value })
+                        this.setState({ thumbnailImageUrl: e.target.value })
                       }
-                      defaultValue={this.state.thumbnail}
+                      defaultValue={this.state.thumbnailImageUrl}
                     />
                   </div>
                   <div class="form-group">
@@ -111,9 +112,9 @@ class EditBuildingForm extends React.Component {
                       class="form-control"
                       id="edit-mainimage"
                       onChange={(e) =>
-                        this.setState({ mainImage: e.target.value })
+                        this.setState({ mainImageUrl: e.target.value })
                       }
-                      defaultValue={this.state.mainImage}
+                      defaultValue={this.state.mainImageUrl}
                     />
                   </div>
                 </form>
@@ -129,7 +130,11 @@ class EditBuildingForm extends React.Component {
                 <button
                   type="button"
                   class="btn btn-primary"
-                  // onClick={this.postReview}
+                  data-dismiss="modal"
+                  onClick={() => {
+                    this.props.updateBuilding(this.props.building.id, this.state)
+                    // this.props.submitUpdate()
+                  }}
                 >
                   Save Changes
                 </button>
@@ -150,11 +155,18 @@ const dispatchToPropertyMapper = (dispatch) => ({
       }
     });
   },
+
   createReview: (buildingId, review) => {
     reviewService
       .createReview(buildingId, review)
       .then((review) => dispatch(createReview(review)));
   },
+
+  updateBuilding: (buildingId, building) => {
+    buildingService
+      .updateBuilding(buildingId, building)
+      .then(status => dispatch(updateBuilding(buildingId, building)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({

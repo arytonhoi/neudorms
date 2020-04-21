@@ -112,6 +112,7 @@ const buildingReducer = (state = initialState, action) => {
 
     case UPDATE_BUILDING:
       let updatedBuilding = state.buildings.filter(building => building.id !== action.buildingId)
+      console.log(action.building)
       return {
         buildings: [
           ...updatedBuilding,
