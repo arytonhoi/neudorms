@@ -90,7 +90,7 @@ class HomeContainer extends React.Component {
           <FilterList />
           <div>
             <SortBar />
-            <BuildingList buildings={this.props.buildings} />
+            <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
           </div>
         </BuildingWrapper>
       </div>

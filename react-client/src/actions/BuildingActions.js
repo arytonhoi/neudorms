@@ -5,7 +5,8 @@ import {
   DELETE_BUILDING,
   UPDATE_BUILDING,
   FIND_PICTURES_FOR_BUILDING,
-  FILTER_BUILDINGS
+  FILTER_BUILDINGS,
+  EDIT_BUILDING
 } from '../constants';
 
 export const findAllBuildings = (buildings) => ({
@@ -40,5 +41,10 @@ export const deleteBuilding = (buildingId) => ({
 export const updateBuilding = (buildingId, building) => ({
   type: UPDATE_BUILDING,
   buildingId: buildingId,
+  building: building
+})
+
+export const editBuilding = (building) => ({
+  type: EDIT_BUILDING,
   building: building
 })

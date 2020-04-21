@@ -9,6 +9,7 @@ import React from "react";
 // import buildingService from "../../services/BuildingService";
 import BuildingCard from "./BuildingCard";
 import styled from "styled-components";
+import "bootstrap/js/dist/modal";
 
 const BuildingWrapper = styled.div`
 `;
@@ -24,12 +25,9 @@ class BuildingList extends React.Component {
   //   }
   // }
 
-  state = {};
-
   render() {
     return (
       <BuildingWrapper>
-        {/* <Header className="ml-3">Browse Dorms</Header> */}
         <div className="row col mx-auto mt-3">
           {this.props.buildings && this.props.buildings.map((building) => (
             <BuildingCard key={building.id} building={building} />

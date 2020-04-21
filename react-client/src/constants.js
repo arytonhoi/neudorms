@@ -10,6 +10,7 @@ export const FIND_BUILDING_BY_ID = "FIND_BUILDING_BY_ID";
 export const CREATE_BUILDING = 'CREATE_BUILDING';
 export const DELETE_BUILDING = 'DELETE_BUILDING';
 export const UPDATE_BUILDING = 'UPDATE_BUILDING';
+export const EDIT_BUILDING = 'EDIT_BUILDING';
 export const FILTER_BUILDINGS = 'FILTER_BUILDING';
 
 // picture constants

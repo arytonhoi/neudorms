@@ -4,13 +4,17 @@ import {
   CREATE_BUILDING,
   DELETE_BUILDING,
   UPDATE_BUILDING,
-  FILTER_BUILDINGS
+  FILTER_BUILDINGS,
+  EDIT_BUILDING
 } from '../constants';
 
 const initialState = {
   buildings: [],
   building: {
     reviews: []
+  },
+  editBuilding: {
+
   }
 }
 
@@ -58,6 +62,11 @@ const buildingReducer = (state = initialState, action) => {
     case DELETE_BUILDING:
       return {
         buildings: state.buildings.filter(building => building.id !== action.buildingId)
+      }
+
+    case EDIT_BUILDING:
+      return {
+        editBuilding: action.building
       }
 
     default:
