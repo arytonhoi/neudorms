@@ -33,6 +33,18 @@ const userReducer = (state = initialState, action) => {
         user: action.user,
       };
 
+    case FIND_BOOKMARKS_FOR_USER:
+      console.log("REDUCER: " + JSON.stringify(action.bookmarks));
+      return {
+        bookmarks: action.bookmarks,
+      };
+
+
+    case ADD_USER_BOOKMARK:
+      return {
+        bookmarks: action.bookmarks,
+      };
+
     case CREATE_USER:
       return {
         user: action.user,

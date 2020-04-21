@@ -23,10 +23,11 @@ export const findUserByUsername = (username) => {
   }
 }
 
-export const findBookmarksForUser = (username) => {
+export const findBookmarksForUser = (bookmarks) => {
+  console.log("ACTIONS: " + JSON.stringify(bookmarks));
   return {
     type: FIND_BOOKMARKS_FOR_USER,
-    username: username
+    bookmarks: bookmarks
   }
 }
 
