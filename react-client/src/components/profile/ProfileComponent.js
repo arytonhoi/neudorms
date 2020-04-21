@@ -42,9 +42,13 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
+    console.log(this.props.username)
     return (
       <Wrapper className="col-4">
-        <Header>My Profile</Header>
+        {this.props.username && (
+          <Header>{this.props.profile.name}'s Profile</Header>
+        )}
+        {!this.props.username && <Header>My Profile</Header>}
         <hr />
         <form>
           <div class="form-group mb-2">
