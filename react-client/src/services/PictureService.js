@@ -6,7 +6,7 @@ export const findAllPictures = async () => {
 }
 
 export const createPicture = async (buildingId, picture) => {
-    return fetch(`${API_URL}buildings/${buildingId}/pictures`, {
+    return fetch(`${API_URL}/buildings/${buildingId}/pictures`, {
         method: "POST",
         body: JSON.stringify(picture),
         headers: {

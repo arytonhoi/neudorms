@@ -13,27 +13,16 @@ class EditBuildingForm extends React.Component {
     address: this.props.building.address,
     thumbnailImageUrl: this.props.building.thumbnailImageUrl,
     mainImageUrl: this.props.building.mainImageUrl,
+    amenities: this.props.building.amenities,
+    residentTypes: this.props.building.residentTypes,
+    buildingType: this.props.building.buildingType,
+    roomTypes: this.props.building.roomTypes,
+    minimumCost: this.props.building.minimumCost
   };
 
   componentDidMount() {
     this.props.getProfile();
   }
-
-  postReview = () => {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, "0");
-    let mm = String(today.getMonth() + 1).padStart(2, "0");
-    let yyyy = today.getFullYear();
-    let review = {
-      username: this.props.profile.username,
-      text: this.state.text,
-      imageUrl: this.state.imageUrl,
-      date: yyyy + "-" + mm + "-" + dd,
-    };
-    this.props.createReview(this.props.building.id, review);
-    this.props.submitReview();
-    alert("Your review was posted!");
-  };
 
   render() {
     if (this.props.building) {
@@ -115,6 +104,71 @@ class EditBuildingForm extends React.Component {
                         this.setState({ mainImageUrl: e.target.value })
                       }
                       defaultValue={this.state.mainImageUrl}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-amenties" class="col-form-label">
+                      Amenities:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-amenties"
+                      onChange={(e) => this.setState({ amenities: e.target.value })}
+                      defaultValue={this.state.amenities}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-residentTypes" class="col-form-label">
+                      Resident Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-residentTypes"
+                      onChange={(e) => this.setState({ residentTypes: e.target.value })}
+                      defaultValue={this.state.residentTypes}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-buildingTypes" class="col-form-label">
+                      Building Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-buildingTypes"
+                      onChange={(e) => this.setState({ buildingType: e.target.value })}
+                      defaultValue={this.state.buildingType}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-roomTypes" class="col-form-label">
+                      Room Types:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-roomTypes"
+                      onChange={(e) => this.setState({ roomTypes: e.target.value })}
+                      defaultValue={this.state.roomTypes}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-minimumCost" class="col-form-label">
+                      Minimum Cost:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-minimumCost"
+                      onChange={(e) => {
+                        let newCost = parseInt(e.target.value)
+                        if (!isNaN(newCost)) {
+                          this.setState({ minimumCost: newCost })
+                        }
+                      }}
+                      defaultValue={this.state.minimumCost}
                     />
                   </div>
                 </form>

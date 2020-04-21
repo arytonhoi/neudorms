@@ -13,11 +13,13 @@ import userReducer from "../reducers/UserReducer";
 import buildingReducer from "../reducers/BuildingReducer";
 import reviewReducer from "../reducers/ReviewReducer";
 import ViewProfileContainer from "./ViewProfileContainer";
+import pictureReducer from "../reducers/PictureReducer";
 
 const rootReducer = combineReducers({
   users: userReducer,
   buildings: buildingReducer,
-  reviews: reviewReducer
+  reviews: reviewReducer,
+  pictures: pictureReducer
 });
 
 let store = createStore(rootReducer);

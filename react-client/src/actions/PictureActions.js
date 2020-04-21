@@ -1,5 +1,7 @@
-import { FIND_ALL_PICTURES, FIND_PICTURES_FOR_BUILDING, CREATE_PICTURE, UPDATE_PICTURE,
-    DELETE_PICTURE } from '../constants';
+import {
+    FIND_ALL_PICTURES, FIND_PICTURES_FOR_BUILDING, CREATE_PICTURE, UPDATE_PICTURE,
+    DELETE_PICTURE
+} from '../constants';
 
 export const findAllPictures = (pictures) => ({
     type: FIND_ALL_PICTURES,
@@ -11,10 +13,12 @@ export const findPicturesForBuilding = (buildingId) => ({
     buildingId: buildingId
 })
 
-export const createPicture = (picture) => ({
-    type: CREATE_PICTURE,
-    pictures: picture
-})
+export const createPicture = (picture) => {
+    return {
+        type: CREATE_PICTURE,
+        picture: picture
+    }
+}
 
 export const updatePicture = (pictureId, picture) => ({
     type: UPDATE_PICTURE,

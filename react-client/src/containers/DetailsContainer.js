@@ -125,7 +125,8 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   building: state.buildings.building,
-  reviews: state.reviews.reviews
+  reviews: state.reviews.reviews,
+  pictures: state.pictures.pictures
 });
 
 export default connect(
