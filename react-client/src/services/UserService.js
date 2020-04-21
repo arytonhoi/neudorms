@@ -45,14 +45,14 @@ export const findUserByUsername = async (username) => {
   );
 };
 
-export const findBookmarksForUser = async (userId) => {
-  return fetch(`${API_URL}/users/${userId}/bookmarks`).then((response) =>
+export const findBookmarksForUser = async (username) => {
+  return fetch(`${API_URL}/users/${username}/bookmarks`).then((response) =>
     response.json()
   );
 };
 
-export const addUserBookmark = async (userId, buildingId) => {
-  return fetch(`${API_URL}/users/${userId}/bookmarks/${buildingId}`, {
+export const addUserBookmark = async (username, buildingId) => {
+  return fetch(`${API_URL}/users/${username}/bookmarks/${buildingId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",

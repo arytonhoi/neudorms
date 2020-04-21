@@ -114,13 +114,13 @@ const dispatchToPropertyMapper = (dispatch) => ({
         userService.findUserByUsername(username)
             .then(user => dispatch(findUserByUsername(user)))
     },
-    updateUser: (userId, user) => {
-        userService.updateUser(userId, user)
-            .then(status => dispatch(updateUser(userId, user)))
+    updateUser: (username, user) => {
+        userService.updateUser(username, user)
+            .then(status => dispatch(updateUser(username, user)))
     },
-    deleteUser: (userId) => {
-        userService.deleteUser(userId)
-            .then(status => dispatch(deleteUser(userId)))
+    deleteUser: (username) => {
+        userService.deleteUser(username)
+            .then(status => dispatch(deleteUser(username)))
     }
 })
 
