@@ -22,7 +22,18 @@ class SortBar extends React.Component {
     return (
       <Wrapper>
         <SortText>
-          Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}
+        {
+            (this.props.searchTerm === "") &&
+            <div>
+              Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}
+            </div>
+          }
+          {
+            (this.props.searchTerm !== "") &&
+            <div>
+              Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}, searched for: "{this.props.searchTerm}"
+            </div>
+          }
         </SortText>
         <div class="float-right dropdown">
           <a
