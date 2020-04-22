@@ -6,10 +6,11 @@ import ReviewList from "../components/details/ReviewList";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
 import staffService from "../services/StaffService";
+import reviewService from "../services/ReviewService";
 import { profile, logout, addUserBookmark } from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
-import { findAllReviews, filterReviews } from "../actions/ReviewActions";
+import { findAllReviews, filterReviews, deleteReview } from "../actions/ReviewActions";
 import ReviewForm from "../components/details/ReviewForm";
 import ImageForm from "../components/details/ImageForm";
 import styled from "styled-components";
@@ -93,7 +94,9 @@ class DetailsContainer extends React.Component {
               <ReviewList 
                 buildingId={this.props.match.params.buildingId}
                 reviews={this.props.reviews} 
-                filter={this.props.filterReviews}/>
+                filter={this.props.filterReviews}
+                profile={this.props.profile}
+                deleteReview={this.props.deleteReview}/>
             </div>
           </div>
         )}
@@ -146,6 +149,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   filterReviews: (buildingId, preference) => {
     buildingService.findReviewsForBuilding(buildingId)
       .then(reviews => dispatch(filterReviews(reviews, preference)))
+  },
+  deleteReview: (reviewId) => {
+    reviewService.deleteReview(reviewId)
+      .then(status => dispatch(deleteReview(reviewId)))
   }
 });
 

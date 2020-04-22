@@ -88,6 +88,13 @@ class ReviewList extends React.Component {
                 </ReviewHeader>
                 <ReviewBuilding>{review.buildingName}</ReviewBuilding>
                 <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
               </ReviewBoxGreen>
             }
             {review.sentiment < -0.1 &&
@@ -101,6 +108,13 @@ class ReviewList extends React.Component {
                 </ReviewHeader>
                 <ReviewBuilding>{review.buildingName}</ReviewBuilding>
                 <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
               </ReviewBoxRed>
             }
             {(review.sentiment >= -0.1 && review.sentiment <= 0.1) &&
@@ -114,6 +128,13 @@ class ReviewList extends React.Component {
                 </ReviewHeader>
                 <ReviewBuilding>{review.buildingName}</ReviewBuilding>
                 <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
               </ReviewBox>
             }
           </ul>

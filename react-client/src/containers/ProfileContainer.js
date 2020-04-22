@@ -9,6 +9,8 @@ import "bootstrap/js/dist/modal";
 import ProfileComponent from "../components/profile/ProfileComponent";
 import BuildingList from "../components/home/BuildingList";
 import staffService from "../services/StaffService";
+import reviewService from "../services/ReviewService";
+import { deleteReview } from "../actions/ReviewActions";
 
 const Container = styled.div`
   margin-left: 60px;
@@ -55,6 +57,7 @@ class ProfileContainer extends React.Component {
                     <BuildingList
                       buildings={this.props.profile.bookmarkedBuildings}
                       inProfile={true}
+                      profile={this.props.profile}
                     />
                   </div>
                 )}
@@ -66,6 +69,8 @@ class ProfileContainer extends React.Component {
                     <ReviewList
                       reviews={this.props.profile.reviews}
                       inProfile={true}
+                      profile={this.props.profile}
+                      deleteReview={this.props.deleteReview}
                     />
                   </div>
                 )}
@@ -97,6 +102,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
     userService.logout().then(dispatch(logout()));
     staffService.logout();
   },
+  deleteReview: (reviewId) => {
+    reviewService.deleteReview(reviewId)
+      .then(status => dispatch(deleteReview(reviewId)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
