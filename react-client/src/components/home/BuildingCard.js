@@ -9,9 +9,19 @@ class BuildingCard extends React.Component {
     building: this.props.building,
   };
 
+  getSizeClass() {
+    if (this.props.topRated) {
+      return "col col-xl-3";
+    } else if (this.props.inProfile) {
+      return "col col-xl-6";
+    } else {
+      return "col-6 col-xl-4";
+    }
+  }
+
   render() {
     return (
-      <div className={this.props.inProfile ? "card-container mt-3 mb-2 col col-xl-6 d-flex align-items-stretch" : "card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch"}>
+      <div className={`card-container mt-3 mb-2 ${this.getSizeClass()} d-flex align-items-stretch`}>
         {this.state.building && (
           <EditBuildingForm building={this.state.building} submitUpdate={this.submitUpdate} />
         )}

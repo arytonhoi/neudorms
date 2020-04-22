@@ -10,3 +10,11 @@ img {
 .carousel-item {
   margin: 0;
 }
+
+.link {
+  color: inherit;
+}
+
+.link:hover {
+  color: inherit;
+}

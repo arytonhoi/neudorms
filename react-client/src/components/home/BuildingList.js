@@ -3,7 +3,6 @@ import BuildingCard from "./BuildingCard";
 import "bootstrap/js/dist/modal";
 
 class BuildingList extends React.Component {
-
   render() {
     return (
       <div className="row mt-3">
@@ -12,6 +11,7 @@ class BuildingList extends React.Component {
             <BuildingCard
               key={building.id}
               building={building}
+              topRated={this.props.topRated}
               inProfile={this.props.inProfile} />
           ))}
       </div>
