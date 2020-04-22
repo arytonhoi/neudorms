@@ -65,6 +65,12 @@ class HomeContainer extends React.Component {
     this.props.filterBuildings(this.state.searchTerm, filters);
   };
 
+  keyPressed = (event) => {
+    if (event.key === "Enter") {
+      this.search();
+    }
+  }
+
   render() {
     console.log("ROLE: " + this.props.role);
     return (
@@ -84,6 +90,7 @@ class HomeContainer extends React.Component {
                 id="search"
                 type="text"
                 placeholder="Dorm name or keyword"
+                onKeyPress={this.keyPressed}
                 onChange={(e) => this.setState({ searchTerm: e.target.value })}
               />
               <button
@@ -111,7 +118,7 @@ class HomeContainer extends React.Component {
             {/*    </div>*/}
             {/*)}*/}
 
-            <SortBar />
+            <SortBar numBuildings={this.props.buildings.length}/>
             <BuildingList
               buildings={this.props.buildings}
               profile={this.props.profile}

@@ -26,7 +26,7 @@ class BuildingCard extends React.Component {
 
           <div className="card-body">
             <h5 className="card-title">{this.state.building.name}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Rating: 5/5</h6>
+            <h6 className="card-subtitle mb-2 text-muted">{this.props.building.address}</h6>
             <p className="card-text">Description</p>
             <Link
               className="card-link"
@@ -35,9 +35,7 @@ class BuildingCard extends React.Component {
               <button className="btn btn-outline-primary mr-3">Open</button>
             </Link>
 
-            {/* Right now the edit button displays as long as you're logged in for testing purpsoses, 
-            but need to switch to only displaying on admin users in future. */}
-            {this.props.profile && this.props.profile.username && (
+            {this.props.role === "staff" && (
               <button
                 className="btn btn-outline-secondary mr-3"
                 onClick={() => {
@@ -59,6 +57,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
+  role: state.users.role
 });
 
 export default connect(

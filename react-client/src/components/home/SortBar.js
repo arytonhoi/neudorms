@@ -22,7 +22,7 @@ class SortBar extends React.Component {
     return (
       <Wrapper>
         <SortText>
-          Showing: 11 dorms
+          Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}
         </SortText>
         <div class="float-right dropdown">
           <a
