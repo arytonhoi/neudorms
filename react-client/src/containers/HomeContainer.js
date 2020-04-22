@@ -12,6 +12,8 @@ import styled from "styled-components";
 import userService from "../services/UserService";
 import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
+import CreateBuildingForm from "../components/home/CreateBuildingForm";
+import $ from "jquery";
 
 const BuildingWrapper = styled.div`
   margin: 32px 60px 60px 60px;
@@ -117,23 +119,30 @@ class HomeContainer extends React.Component {
           <FilterList applyFilters={this.applyFilters} />
 
           <RightWrapper>
-            {/*{this.props.loggedIn && (*/}
-            {/*    <div>*/}
-            {/*      <Header>My Recent Bookmarks</Header>*/}
-            {/*      /!*MOST RECENT BOOKMARKS HERE*!/*/}
-            {/*      <p>MOST RECENT BOOKMARKS HERE</p>*/}
-            {/*      <Header>My Recent Reviews</Header>*/}
-            {/*      /!*MOST RECENT REVIEWS HERE*!/*/}
-            {/*      <p>MOST RECENT REVIEWS HERE</p>*/}
-            {/*    </div>*/}
-            {/*)}*/}
 
-            <SortBar 
+
+            <SortBar
               buildings={this.props.buildings}
               searchTerm={this.state.searchTerm}
               applySort={this.props.applySort}
               numBuildings={this.props.buildings.length}
-              />
+            />
+
+            {this.props.role === "staff" &&
+              <div>
+                <CreateBuildingForm/>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    $(`#createBuildingModal`).modal("show");
+                  }}
+                  type="button"
+                >
+                  Create Building
+              </button>
+              </div>
+            }
+
             <BuildingList
               buildings={this.props.buildings}
               profile={this.props.profile}
@@ -191,10 +200,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
   applySort: (preference) => {
     buildingService
-    .findAllBuildings()
-    .then((buildings) =>
-      dispatch(sortBuildings(buildings, preference))
-    );
+      .findAllBuildings()
+      .then((buildings) =>
+        dispatch(sortBuildings(buildings, preference))
+      );
   }
 });
 
