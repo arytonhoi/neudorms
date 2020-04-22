@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function NavBar(props) {
     return (
       <nav className="navbar navbar-expand-lg navbar-light p-3">
-        <a className="navbar-brand mr-5 ml-3" href="/home">
+        <Link className="navbar-brand mr-5 ml-3" to="/">
           neudorms
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,33 +26,33 @@ export default function NavBar(props) {
                 Housing Group
               </a> */}
               {props.role === "user" && (
-                <a className="nav-link profile" href="/bookmarks">
+                <Link className="nav-link profile" to="/bookmarks">
                 Bookmarks
-              </a>
+              </Link>
               )}
-              <a
+              <Link
                 className="nav-link profile"
-                href={`/profile`}
+                to={`/profile`}
               >
                 Profile
-              </a>
-              <a
+              </Link>
+              <Link
                 className="nav-link profile"
-                href="#"
+                to="#"
                 onClick={props.logout}
               >
                 Log Out
-              </a>
+              </Link>
             </div>
           )}
           {!props.loggedIn && (
             <div className="row">
-              <a className="nav-link profile" href="/login">
+              <Link className="nav-link profile" to="/login">
                 Log In
-              </a>
-              <a className="nav-link profile" href="/register">
+              </Link>
+              <Link className="nav-link profile" to="/register">
                 Sign Up
-              </a>
+              </Link>
             </div>
           )}
         </div>
