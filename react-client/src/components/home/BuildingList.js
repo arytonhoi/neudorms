@@ -9,7 +9,10 @@ class BuildingList extends React.Component {
       <div className="row mt-3">
         {this.props.buildings &&
           this.props.buildings.map((building) => (
-            <BuildingCard key={building.id} building={building} inProfile={this.props.inProfile} />
+            <BuildingCard
+              key={building.id}
+              building={building}
+              inProfile={this.props.inProfile} />
           ))}
       </div>
     );

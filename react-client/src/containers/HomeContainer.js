@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
 import { findAllBuildings, filterBuildings } from "../actions/BuildingActions";
+import { findAllReviews } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
 import FilterList from "../components/home/FilterList";
@@ -157,6 +158,11 @@ const dispatchToPropertyMapper = (dispatch) => ({
         dispatch(filterBuildings(buildings, searchTerm, filters))
       );
   },
+
+  findReviews: (buildingId) => {
+    buildingService.findReviewsForBuilding(buildingId)
+      .then(reviews => dispatch(findAllReviews(reviews)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
@@ -164,6 +170,7 @@ const stateToPropertyMapper = (state) => ({
   role: state.users.role,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
+  reviews: state.reviews.reviews
 });
 
 export default connect(

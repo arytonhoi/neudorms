@@ -1,6 +1,7 @@
 import React from "react";
 import "./details.css";
 import styled from "styled-components";
+import ViewProfileContainer from "../../containers/ViewProfileContainer";
 
 const Title = styled.div`
   font-size: 24px;
@@ -54,7 +55,8 @@ class ReviewList extends React.Component {
             <ReviewBox className="card">
               <ReviewHeader>
                   <ReviewUser>
-                    {review.name} <ReviewDate>on {new Date(review.date).toDateString()}</ReviewDate>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
                   </ReviewUser>
                 <Sentiment>Sentiment: {review.sentiment}</Sentiment>
               </ReviewHeader>

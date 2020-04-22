@@ -24,7 +24,7 @@ public class Building {
     // single, double, etc
     private String roomTypes;
     // cost of cheapest room
-    private Integer minimumCost;
+    private Integer minimumCost = 0;
     @OneToMany(mappedBy = "building")
     private Set<Picture> pictures;
     @OneToMany(mappedBy = "building")
@@ -32,6 +32,7 @@ public class Building {
     @ManyToMany(mappedBy = "bookmarkedBuildings")
     @JsonIgnore
     private Set<User> bookmarkUsers;
+    private Integer rating = -1;
     
     public Integer getId() {
         return this.id;
@@ -83,6 +84,20 @@ public class Building {
 
     public void addReview(Review review) {
         this.reviews.add(review);
+        
+        int numPositiveReviews = 0;
+        for (Review r: this.reviews) {
+            if (r.getSentiment() >= 0) {
+                numPositiveReviews++;
+            }
+        }
+        
+        int rating = this.rating;
+        if (this.reviews.size() > 0) {
+            rating = (int) (numPositiveReviews / this.reviews.size());
+        }
+        
+        this.setRating(rating);
     }
 
     public Set<User> getBookmarkUsers() {
@@ -133,5 +148,13 @@ public class Building {
 
     public void setMinimumCost(Integer minimumCost) {
         this.minimumCost = minimumCost;
+    }
+
+    public Integer getRating() {
+        return this.rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }
