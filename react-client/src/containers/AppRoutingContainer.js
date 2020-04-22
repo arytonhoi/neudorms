@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import HomeContainer from "./HomeContainer";
 import ProfileContainer from "./ProfileContainer";
 import SearchContainer from "./SearchContainer";
@@ -19,7 +24,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   buildings: buildingReducer,
   reviews: reviewReducer,
-  pictures: pictureReducer
+  pictures: pictureReducer,
 });
 
 let store = createStore(rootReducer);
@@ -30,7 +35,12 @@ class AppRoutingContainer extends React.Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route path="/home" component={HomeContainer} />
+            <Route exact path="/" component={HomeContainer} />
+            <Route
+              path="/home"
+              exact={true}
+              render={(props) => <Redirect {...props} to="/" />}
+            />
             <Route
               path="/profile/:username"
               exact={true}
@@ -41,25 +51,11 @@ class AppRoutingContainer extends React.Component {
                 />
               )}
             />
-            <Route
-              path="/profile"
-              exact={true}
-              component={ProfileContainer}
-            />
+            <Route path="/profile" exact={true} component={ProfileContainer} />
             <Route path="/search" component={SearchContainer} />
-            <Route
-              path="/details/:buildingId"
-              // exact={true}
-              // render={(props) => (
-              //   <DetailsContainer
-              //     {...props}
-              //     buildingId={props.match.params.buildingId}
-              //   />
-              // )}
-              component={DetailsContainer}
-            />
+            <Route path="/details/:buildingId" component={DetailsContainer} />
             <Route path="/login" component={LoginContainer} />
-            <Route path="/bookmarks" component={BookmarksContainer}/>
+            <Route path="/bookmarks" component={BookmarksContainer} />
             <Route path="/register" component={RegistrationContainer} />
           </Switch>
         </Router>

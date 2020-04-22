@@ -2,6 +2,14 @@ nav {
   background-color: #f0f3f7;
 }
 
+.privacy {
+  color: black;
+}
+
+.privacy:hover {
+  color: black;
+}
+
 .navbar-brand {
   font-weight: 500;
 }

@@ -25,13 +25,13 @@ class SortBar extends React.Component {
         {
             (this.props.searchTerm === "") &&
             <div>
-              Showing: {this.props.buildings.length} dorms
+              Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}
             </div>
           }
           {
             (this.props.searchTerm !== "") &&
             <div>
-              Showing: {this.props.buildings.length} dorms, searched for: "{this.props.searchTerm}"
+              Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}, searched for: "{this.props.searchTerm}"
             </div>
           }
         </SortText>

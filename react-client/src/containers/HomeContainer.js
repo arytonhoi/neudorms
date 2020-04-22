@@ -14,7 +14,7 @@ import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 
 const BuildingWrapper = styled.div`
-  margin: 32px 60px;
+  margin: 32px 60px 60px 60px;
   display: flex;
   flex-direction: row;
 `;
@@ -38,6 +38,16 @@ const SearchBox = styled.div`
 
 const Header = styled.h1`
   font-weight: 900;
+`;
+
+const Footer = styled.div`
+  height: 96px;
+  background-color: #f0f3f7;
+  padding: 12px 60px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: gray;
 `;
 
 class HomeContainer extends React.Component {
@@ -65,6 +75,12 @@ class HomeContainer extends React.Component {
     this.props.filterBuildings(this.state.searchTerm, filters);
   };
 
+  keyPressed = (event) => {
+    if (event.key === "Enter") {
+      this.search();
+    }
+  }
+
   render() {
     console.log("ROLE: " + this.props.role);
     return (
@@ -84,6 +100,7 @@ class HomeContainer extends React.Component {
                 id="search"
                 type="text"
                 placeholder="Dorm name or keyword"
+                onKeyPress={this.keyPressed}
                 onChange={(e) => this.setState({ searchTerm: e.target.value })}
               />
               <button
@@ -114,13 +131,18 @@ class HomeContainer extends React.Component {
             <SortBar 
               buildings={this.props.buildings}
               searchTerm={this.state.searchTerm}
-              applySort={this.props.applySort}/>
+              applySort={this.props.applySort}
+              numBuildings={this.props.buildings.length}
+              />
             <BuildingList
               buildings={this.props.buildings}
               profile={this.props.profile}
             />
           </RightWrapper>
         </BuildingWrapper>
+        <Footer>
+          <span>Check out our  <a className="privacy" href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit">privacy policy.</a></span>
+        </Footer>
       </div>
     );
   }
