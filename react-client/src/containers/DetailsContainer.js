@@ -100,8 +100,15 @@ const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
       if (actualProfile && actualProfile.username) {
-        console.log("this shouldnt happen")
-        dispatch(profile(actualProfile));
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout());
+          }
+        });
       }
     });
   },

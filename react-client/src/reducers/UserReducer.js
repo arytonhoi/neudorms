@@ -90,6 +90,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: false,
+        role: ""
       };
 
     default:

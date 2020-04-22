@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { createPicture } from "../../actions/PictureActions";
 import pictureService from "../../services/PictureService";
 import userService from "../../services/UserService";
-import { profile } from "../../actions/UserActions";
+import { profile, logout } from "../../actions/UserActions";
 import "./details.css";
+import staffService from "../../services/StaffService";
 
 class ImageForm extends React.Component {
   state = {
@@ -91,8 +92,16 @@ class ImageForm extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
-        dispatch(profile(actualProfile));
+      if (actualProfile && actualProfile.username) {
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout());
+          }
+        });
       }
     });
   },

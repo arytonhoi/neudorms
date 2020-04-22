@@ -6,7 +6,6 @@ import userService from "../services/UserService";
 import { profile, logout, findUserByUsername } from "../actions/UserActions";
 import styled from "styled-components";
 import "bootstrap/js/dist/modal";
-import ProfileComponent from "../components/profile/ProfileComponent";
 import BuildingList from "../components/home/BuildingList";
 import ViewProfileComponent from "../components/profile/ViewProfileComponent";
 import staffService from "../services/StaffService";
@@ -45,8 +44,6 @@ class ViewProfileContainer extends React.Component {
   // }
 
   render() {
-    console.log("in redner")
-    console.log(this.props.user)
     if (this.props.user) {
       return (
         <div>
@@ -55,6 +52,7 @@ class ViewProfileContainer extends React.Component {
               profile={this.props.profile}
               loggedIn={this.props.loggedIn}
               logout={this.props.logout}
+              role={this.props.role}
             />
           )}
           {!this.props.profile && (
@@ -102,8 +100,16 @@ class ViewProfileContainer extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
-        dispatch(profile(actualProfile));
+      if (actualProfile && actualProfile.username) {
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout());
+          }
+        });
       }
     });
   },
@@ -122,6 +128,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   user: state.users.user,
+  role: state.users.role
 });
 
 export default connect(

@@ -5,7 +5,8 @@ import reviewService from "../../services/ReviewService";
 import userService from "../../services/UserService";
 import buildingService from "../../services/BuildingService";
 import { updateBuilding } from "../../actions/BuildingActions";
-import { profile } from "../../actions/UserActions";
+import { profile, logout } from "../../actions/UserActions";
+import staffService from "../../services/StaffService";
 
 class EditBuildingForm extends React.Component {
   state = {
@@ -204,8 +205,16 @@ class EditBuildingForm extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
-        dispatch(profile(actualProfile));
+      if (actualProfile && actualProfile.username) {
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout());
+          }
+        });
       }
     });
   },

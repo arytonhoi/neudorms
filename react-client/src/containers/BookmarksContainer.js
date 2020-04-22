@@ -62,12 +62,19 @@ class BookmarksContainer extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
     getProfile: () => {
         userService.profile().then((actualProfile) => {
-            if (actualProfile) {
-                console.log(actualProfile);
-                dispatch(profile(actualProfile));
-            }
+          if (actualProfile && actualProfile.username) {
+            dispatch(profile(actualProfile, "user"));
+          } else {
+            staffService.profile().then((staffProfile) => {
+              if (staffProfile && staffProfile.username) {
+                dispatch(profile(staffProfile, "staff"));
+              } else {
+                dispatch(logout());
+              }
+            });
+          }
         });
-    },
+      },
 
     logout: () => {
         userService.logout().then(dispatch(logout()));
