@@ -14,7 +14,7 @@ import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 
 const BuildingWrapper = styled.div`
-  margin: 32px 60px;
+  margin: 32px 60px 60px 60px;
   display: flex;
   flex-direction: row;
 `;
@@ -38,6 +38,16 @@ const SearchBox = styled.div`
 
 const Header = styled.h1`
   font-weight: 900;
+`;
+
+const Footer = styled.div`
+  height: 96px;
+  background-color: #f0f3f7;
+  padding: 12px 60px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: gray;
 `;
 
 class HomeContainer extends React.Component {
@@ -130,6 +140,9 @@ class HomeContainer extends React.Component {
             />
           </RightWrapper>
         </BuildingWrapper>
+        <Footer>
+          <span>Check out our  <a className="privacy" href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit">privacy policy.</a></span>
+        </Footer>
       </div>
     );
   }
