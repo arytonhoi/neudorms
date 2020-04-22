@@ -23,6 +23,13 @@ export const filterBuildings = (buildings, searchTerm, filters) => {
   }
 }
 
+export const sortBuildings = (buildings, preference) => {
+  return {
+    type: '',
+    buildings: buildings
+  }
+}
+
 export const findBuildingById = (building) => {
   return {
     type: FIND_BUILDING_BY_ID,
