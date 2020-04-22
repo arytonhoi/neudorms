@@ -67,6 +67,7 @@ class SearchContainer extends React.Component {
               profile={this.props.profile}
               loggedIn={this.props.loggedIn}
               logout={this.props.logout}
+              role={this.props.role}
           />
           <div className="search-wrapper">
             <div className="container">
@@ -144,6 +145,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
+  role: state.users.role
 });
 
 export default connect(

@@ -44,56 +44,47 @@ class ViewProfileContainer extends React.Component {
   // }
 
   render() {
-    if (this.props.user) {
-      return (
-        <div>
-          {this.props.profile && (
-            <NavBar
-              profile={this.props.profile}
-              loggedIn={this.props.loggedIn}
-              logout={this.props.logout}
-              role={this.props.role}
+    return (
+      <div>
+        <NavBar
+          profile={this.props.profile}
+          loggedIn={this.props.loggedIn}
+          logout={this.props.logout}
+          role={this.props.role}
+        />
+        <Container>
+          <Wrapper className="row">
+            <ViewProfileComponent
+              profile={this.props.user}
+              username={this.props.username}
             />
-          )}
-          {!this.props.profile && (
-            <NavBar loggedIn={this.props.loggedIn} logout={this.props.logout} />
-          )}
-          <Container>
-            <Wrapper className="row">
-              <ViewProfileComponent
-                profile={this.props.user}
-                username={this.props.username}
-              />
-              <div className="col">
-                {this.props.user.bookmarkedBuildings &&
-                  this.props.user.bookmarkedBuildings.length > 0 && (
-                    <div className="mb-5">
-                      <Header>Bookmarks</Header>
-                      <hr />
-                      <BuildingList
-                        buildings={this.props.user.bookmarkedBuildings}
-                        inProfile={true}
-                      />
-                    </div>
-                  )}
-                {this.props.user.reviews && this.props.user.reviews.length > 0 && (
-                  <div>
-                    <Header>Reviews</Header>
+            <div className="col">
+              {this.props.user.bookmarkedBuildings &&
+                this.props.user.bookmarkedBuildings.length > 0 && (
+                  <div className="mb-5">
+                    <Header>Bookmarks</Header>
                     <hr />
-                    <ReviewList
-                      reviews={this.props.user.reviews}
+                    <BuildingList
+                      buildings={this.props.user.bookmarkedBuildings}
                       inProfile={true}
                     />
                   </div>
                 )}
-              </div>
-            </Wrapper>
-          </Container>
-        </div>
-      );
-    } else {
-      return null;
-    }
+              {this.props.user.reviews && this.props.user.reviews.length > 0 && (
+                <div>
+                  <Header>Reviews</Header>
+                  <hr />
+                  <ReviewList
+                    reviews={this.props.user.reviews}
+                    inProfile={true}
+                  />
+                </div>
+              )}
+            </div>
+          </Wrapper>
+        </Container>
+      </div>
+    );
   }
 }
 
@@ -120,7 +111,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   logout: () => {
     userService.logout().then(dispatch(logout()));
-    staffService.logout()
+    staffService.logout();
   },
 });
 
@@ -128,7 +119,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   user: state.users.user,
-  role: state.users.role
+  role: state.users.role,
 });
 
 export default connect(

@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  findUserByUsername,
-  updateUser,
-  deleteUser,
+  findUserByUsername
 } from "../../actions/UserActions";
 import userService from "../../services/UserService";
 import styled from "styled-components";
@@ -27,7 +25,7 @@ class ViewProfileComponent extends React.Component {
   render() {
     return (
       <Wrapper className="col-4">
-        <Header>{this.props.user.name} Profile</Header>
+        <Header>{this.props.user.name}'s Profile</Header>
         <hr />
         <form>
           <div class="form-group mb-2">
@@ -39,7 +37,7 @@ class ViewProfileComponent extends React.Component {
                 type="text"
                 class="form-control"
                 id="profile-email"
-                disabled
+                readOnly
                 defaultValue={this.props.user.username}
               />
             </div>
@@ -50,25 +48,8 @@ class ViewProfileComponent extends React.Component {
               class="form-control"
               id="profile-name"
               defaultValue={this.props.user.name}
-              onChange={(e) =>
-                this.setState(
-                  { name: e.target.value },
-                  console.log(this.state.name)
-                )
-              }
+              readOnly
             ></input>
-          </div>
-          <div class="form-group mb-2">
-            <label for="profile-password" class="col-form-label">
-              Password
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="profile-password"
-              onChange={(e) => this.setState({ password: e.target.value })}
-              defaultValue={this.props.user.password}
-            />
           </div>
           <div class="form-group mb-2">
             <label for="profile-major" class="col-form-label">
@@ -78,7 +59,7 @@ class ViewProfileComponent extends React.Component {
               type="text"
               class="form-control"
               id="profile-major"
-              onChange={(e) => this.setState({ major: e.target.value })}
+              readOnly
               defaultValue={this.props.user.major}
             />
           </div>
@@ -90,42 +71,9 @@ class ViewProfileComponent extends React.Component {
               type="number"
               class="form-control"
               id="profile-year"
-              onChange={(e) => this.setState({ year: e.target.value })}
+              readOnly
               defaultValue={this.props.user.year}
             />
-          </div>
-          <div className="row ml-0 mt-4">
-            <button
-              className="btn btn-success mr-3"
-              type="button"
-              onClick={() => {
-                console.log("click");
-                userService
-                  .updateUser(this.props.user.username, {
-                    ...this.props.user.username,
-                    password: this.state.password,
-                    major: this.state.major,
-                    name: this.state.name,
-                    year: this.state.year,
-                  })
-                  .then(alert("Your profile has been updated!"));
-              }}
-            >
-              Update Profile
-            </button>
-            <button
-              className="btn btn-outline-secondary"
-              onClick={() =>
-                this.setState({
-                  name: this.props.user.name,
-                  password: this.props.user.password,
-                  major: this.props.user.major,
-                  year: this.props.user.year,
-                })
-              }
-            >
-              Cancel
-            </button>
           </div>
         </form>
       </Wrapper>

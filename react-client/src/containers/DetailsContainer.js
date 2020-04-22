@@ -68,6 +68,7 @@ class DetailsContainer extends React.Component {
           profile={this.props.profile}
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
+          role={this.props.role}
         />
         {this.props.building && (
           <div>
@@ -136,7 +137,8 @@ const stateToPropertyMapper = (state) => ({
   loggedIn: state.users.loggedIn,
   building: state.buildings.building,
   reviews: state.reviews.reviews,
-  pictures: state.pictures.pictures
+  pictures: state.pictures.pictures,
+  role: state.users.role
 });
 
 export default connect(

@@ -32,46 +32,48 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    if (this.props.profile) {
-      return (
-        <div>
-          <NavBar
-            profile={this.props.profile}
-            loggedIn={this.props.loggedIn}
-            logout={this.props.logout}
-          />
-          <Container>
-            <Wrapper className="row">
-              <ProfileComponent profile={this.props.profile} />
-              <div className="col">
-                {this.props.profile.bookmarkedBuildings &&
-                  this.props.profile.bookmarkedBuildings.length > 0 && (
-                    <div className="mb-5">
-                      <Header>Bookmarks</Header>
-                      <hr />
-                      <BuildingList
-                        buildings={this.props.profile.bookmarkedBuildings}
-                        inProfile={true}
-                      />
-                    </div>
-                  )}
-                {this.props.profile.reviews &&
-                  this.props.profile.reviews.length > 0 && (
-                    <div>
-                      <Header>Reviews</Header>
-                      <hr />
-                      <ReviewList
-                        reviews={this.props.profile.reviews}
-                        inProfile={true}
-                      />
-                    </div>
-                  )}
-              </div>
-            </Wrapper>
-          </Container>
-        </div>
-      );
-    }
+    return (
+      <div>
+        <NavBar
+          profile={this.props.profile}
+          loggedIn={this.props.loggedIn}
+          logout={() => {
+            this.props.logout();
+            this.props.history.push("/home")
+          }}
+          role={this.props.role}
+        />
+        <Container>
+          <Wrapper className="row">
+            <ProfileComponent profile={this.props.profile} />
+            <div className="col">
+              {this.props.profile.bookmarkedBuildings &&
+                this.props.profile.bookmarkedBuildings.length > 0 && (
+                  <div className="mb-5">
+                    <Header>Bookmarks</Header>
+                    <hr />
+                    <BuildingList
+                      buildings={this.props.profile.bookmarkedBuildings}
+                      inProfile={true}
+                    />
+                  </div>
+                )}
+              {this.props.profile.reviews &&
+                this.props.profile.reviews.length > 0 && (
+                  <div>
+                    <Header>Reviews</Header>
+                    <hr />
+                    <ReviewList
+                      reviews={this.props.profile.reviews}
+                      inProfile={true}
+                    />
+                  </div>
+                )}
+            </div>
+          </Wrapper>
+        </Container>
+      </div>
+    );
   }
 }
 
@@ -93,13 +95,14 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   logout: () => {
     userService.logout().then(dispatch(logout()));
-    staffService.logout()
+    staffService.logout();
   },
 });
 
 const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
+  role: state.users.role,
 });
 
 export default connect(
