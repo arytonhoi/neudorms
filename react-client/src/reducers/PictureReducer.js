@@ -9,16 +9,19 @@ const pictureReducer = (state = initialState, action) => {
     switch (action.type) {
         case FIND_ALL_PICTURES:
             return {
+                ...state,
                 pictures: action.pictures
             }
 
         case FIND_PICTURES_FOR_BUILDING:
             return {
+                ...state,
                 pictures: state.pictures.filter(picture => picture.building.id === action.buildingId)
             }
 
         case CREATE_PICTURE:
             return {
+                ...state,
                 pictures: [
                     ...state.pictures,
                     action.picture
@@ -28,6 +31,7 @@ const pictureReducer = (state = initialState, action) => {
         case UPDATE_PICTURE:
             let otherPictures = state.pictures.filter(picture => picture.id !== action.pictureId)
             return {
+                ...state,
                 pictures: [
                     ...otherPictures,
                     action.picture
@@ -36,6 +40,7 @@ const pictureReducer = (state = initialState, action) => {
 
         case DELETE_PICTURE:
             return {
+                ...state,
                 pictures: state.pictures.filter(picture => picture.id !== action.pictureId)
             }
 

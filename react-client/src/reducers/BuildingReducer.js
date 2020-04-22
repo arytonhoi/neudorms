@@ -23,11 +23,13 @@ const buildingReducer = (state = initialState, action) => {
     case FIND_ALL_BUILDINGS:
       console.log(action.buildings)
       return {
+        ...state,
         buildings: action.buildings
       }
 
     case FIND_BUILDING_BY_ID:
       return {
+        ...state,
         building: action.building
       }
 
@@ -100,11 +102,13 @@ const buildingReducer = (state = initialState, action) => {
 
       console.log(filteredBuildings)
       return {
+        ...state,
         buildings: filteredBuildings
       }
 
     case CREATE_BUILDING:
       return {
+        ...state,
         buildings: [
           ...state.buildings,
           action.building
@@ -114,6 +118,7 @@ const buildingReducer = (state = initialState, action) => {
     case UPDATE_BUILDING:
       let updatedBuildings = state.buildings.filter(building => building.id !== action.buildingId)
       return {
+        ...state,
         buildings: [
           ...updatedBuildings,
           action.building
@@ -122,11 +127,13 @@ const buildingReducer = (state = initialState, action) => {
 
     case DELETE_BUILDING:
       return {
+        ...state,
         buildings: state.buildings.filter(building => building.id !== action.buildingId)
       }
 
     case EDIT_BUILDING:
       return {
+        ...state,
         editBuilding: action.building
       }
 

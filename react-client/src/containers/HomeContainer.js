@@ -52,7 +52,7 @@ class HomeContainer extends React.Component {
       maxCost: 0,
       buildingTypes: [],
       roomTypes: [],
-      amenities: []
+      amenities: [],
     },
   };
 
@@ -62,15 +62,17 @@ class HomeContainer extends React.Component {
 
   applyFilters = (filters) => {
     this.props.filterBuildings(this.state.searchTerm, filters);
-  }
+  };
 
   render() {
+    console.log("ROLE: " + this.props.role);
     return (
       <div>
         <NavBar
           profile={this.props.profile}
           loggedIn={this.props.loggedIn}
           logout={this.props.logout}
+          role={this.props.role}
         />
         <div className="search-wrapper">
           <div className="container">
@@ -94,13 +96,9 @@ class HomeContainer extends React.Component {
         </div>
 
         <BuildingWrapper>
-
-          <FilterList
-              applyFilters={this.applyFilters}
-          />
+          <FilterList applyFilters={this.applyFilters} />
 
           <RightWrapper>
-
             {/*{this.props.loggedIn && (*/}
             {/*    <div>*/}
             {/*      <Header>My Recent Bookmarks</Header>*/}
@@ -113,8 +111,10 @@ class HomeContainer extends React.Component {
             {/*)}*/}
 
             <SortBar />
-            <BuildingList buildings={this.props.buildings} profile={this.props.profile} />
-
+            <BuildingList
+              buildings={this.props.buildings}
+              profile={this.props.profile}
+            />
           </RightWrapper>
         </BuildingWrapper>
       </div>
@@ -132,16 +132,16 @@ const dispatchToPropertyMapper = (dispatch) => ({
           if (staffProfile && staffProfile.username) {
             dispatch(profile(staffProfile, "staff"));
           } else {
-            dispatch(logout())
+            dispatch(logout());
           }
-        })
+        });
       }
     });
   },
 
   logout: () => {
     userService.logout().then(dispatch(logout()));
-    staffService.logout()
+    staffService.logout();
   },
 
   findAllBuildings: () => {

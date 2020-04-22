@@ -21,12 +21,14 @@ export default function NavBar(props) {
           <ul className="navbar-nav mr-auto" />
           {props.loggedIn && (
             <div className="row">
-              <a className="nav-link profile" href="#">
+              {/* <a className="nav-link profile" href="#">
                 Housing Group
-              </a>
-              <a className="nav-link profile" href="/bookmarks">
+              </a> */}
+              {props.role === "user" && (
+                <a className="nav-link profile" href="/bookmarks">
                 Bookmarks
               </a>
+              )}
               <a
                 className="nav-link profile"
                 href={`/profile`}

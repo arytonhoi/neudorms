@@ -26,27 +26,34 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_ALL_USERS:
       return {
+        ...state,
         users: action.users,
       };
 
     case FIND_USER_BY_USERNAME:
+      console.log("in userreducer")
+      console.log(action.user)
       return {
+        ...state,
         user: action.user,
       };
 
     case FIND_BOOKMARKS_FOR_USER:
       return {
+        ...state,
         bookmarks: action.bookmarks,
       };
 
 
     case ADD_USER_BOOKMARK:
       return {
+        ...state,
         bookmarks: action.bookmarks,
       };
 
     case CREATE_USER:
       return {
+        ...state,
         user: action.user,
       };
 
@@ -55,16 +62,19 @@ const userReducer = (state = initialState, action) => {
         (user) => user.username !== action.username
       );
       return {
+        ...state,
         users: [...updatedUsers, action.user],
       };
 
     case DELETE_USER:
       return {
+        ...state,
         users: state.users.filter((user) => user.username !== action.username),
       };
 
     case PROFILE:
       return {
+        ...state,
         profile: action.profile,
         loggedIn: true,
         role: action.role
@@ -72,11 +82,13 @@ const userReducer = (state = initialState, action) => {
 
     case LOGIN:
       return {
+        ...state,
         loggedIn: true,
       };
 
     case LOGOUT:
       return {
+        ...state,
         loggedIn: false,
       };
 
