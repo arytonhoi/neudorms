@@ -19,6 +19,7 @@ const initialState = {
     username: "",
   },
   loggedIn: false,
+  role: ""
 };
 
 const userReducer = (state = initialState, action) => {
@@ -63,10 +64,10 @@ const userReducer = (state = initialState, action) => {
       };
 
     case PROFILE:
-      console.log("IN REDUCER: " + action.profile.username)
       return {
         profile: action.profile,
-        loggedIn: true
+        loggedIn: true,
+        role: action.role
       };
 
     case LOGIN:

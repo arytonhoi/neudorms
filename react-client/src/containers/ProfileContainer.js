@@ -8,6 +8,7 @@ import styled from "styled-components";
 import "bootstrap/js/dist/modal";
 import ProfileComponent from "../components/profile/ProfileComponent";
 import BuildingList from "../components/home/BuildingList";
+import staffService from "../services/StaffService";
 
 const Container = styled.div`
   margin-left: 60px;
@@ -84,6 +85,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   logout: () => {
     userService.logout().then(dispatch(logout()));
+    staffService.logout()
   },
 });
 

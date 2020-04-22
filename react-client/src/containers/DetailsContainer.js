@@ -5,6 +5,7 @@ import ImageDetails from "../components/details/ImageDetails";
 import ReviewList from "../components/details/ReviewList";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
+import staffService from "../services/StaffService";
 import {profile, logout, addUserBookmark} from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
@@ -98,7 +99,8 @@ class DetailsContainer extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
+      if (actualProfile && actualProfile.username) {
+        console.log("this shouldnt happen")
         dispatch(profile(actualProfile));
       }
     });
@@ -110,6 +112,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   logout: () => {
     userService.logout().then(dispatch(logout()));
+    staffService.logout()
   },
   findReviews: (buildingId) => {
     buildingService.findReviewsForBuilding(buildingId)

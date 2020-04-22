@@ -10,6 +10,7 @@ import SortBar from "../components/home/SortBar";
 import "./HomeContainer.css";
 import styled from "styled-components";
 import userService from "../services/UserService";
+import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 
 const BuildingWrapper = styled.div`
@@ -127,14 +128,23 @@ class HomeContainer extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
-        dispatch(profile(actualProfile));
+      if (actualProfile && actualProfile.username) {
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout())
+          }
+        })
       }
     });
   },
 
   logout: () => {
     userService.logout().then(dispatch(logout()));
+    staffService.logout()
   },
 
   findAllBuildings: () => {
@@ -159,6 +169,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
 const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
+  role: state.users.role,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
   reviews: state.reviews.reviews
