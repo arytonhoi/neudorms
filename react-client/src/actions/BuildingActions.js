@@ -6,7 +6,8 @@ import {
   UPDATE_BUILDING,
   FIND_PICTURES_FOR_BUILDING,
   FILTER_BUILDINGS,
-  EDIT_BUILDING
+  EDIT_BUILDING,
+  HIGHEST_RATED
 } from '../constants';
 
 export const findAllBuildings = (buildings) => ({
@@ -56,4 +57,9 @@ export const updateBuilding = (buildingId, building) => ({
 export const editBuilding = (building) => ({
   type: EDIT_BUILDING,
   building: building
+})
+
+export const highestRated = (buildings) => ({
+  type: HIGHEST_RATED,
+  buildings: buildings
 })

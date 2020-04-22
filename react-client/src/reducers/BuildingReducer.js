@@ -5,7 +5,8 @@ import {
   DELETE_BUILDING,
   UPDATE_BUILDING,
   FILTER_BUILDINGS,
-  EDIT_BUILDING
+  EDIT_BUILDING,
+  HIGHEST_RATED
 } from '../constants';
 
 const initialState = {
@@ -135,6 +136,12 @@ const buildingReducer = (state = initialState, action) => {
       return {
         ...state,
         editBuilding: action.building
+      }
+    
+    case HIGHEST_RATED:
+      return {
+        ...state,
+        buildings: action.buildings.sort((a, b) => b.rating - a.rating).slice(0, 4)
       }
 
     default:

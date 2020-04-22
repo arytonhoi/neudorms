@@ -1,5 +1,5 @@
 import { FIND_ALL_REVIEWS, FIND_REVIEW_BY_ID, FIND_REVIEWS_BY_USER, CREATE_REVIEW,
-    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING} from '../constants'
+    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING, FIND_RECENT_REVIEWS, FIND_RECENT_USER_REVIEWS} from '../constants'
 
 export const findAllReviews = (reviews) => ({
     type: FIND_ALL_REVIEWS,
@@ -35,4 +35,14 @@ export const updateReview = (reviewId, review) => ({
 export const deleteReview = (reviewId) => ({
     type: DELETE_REVIEW,
     reviewId: reviewId
+})
+
+export const findRecentReviews = (reviews) => ({
+    type: FIND_RECENT_REVIEWS,
+    reviews: reviews
+})
+
+export const findRecentUserReviews = (reviews) => ({
+    type: FIND_RECENT_USER_REVIEWS,
+    reviews: reviews
 })

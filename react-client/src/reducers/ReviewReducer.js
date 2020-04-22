@@ -1,9 +1,10 @@
 import { FIND_ALL_REVIEWS, FIND_REVIEW_BY_ID, FIND_REVIEWS_BY_USER, CREATE_REVIEW,
-    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING} from '../constants'
+    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING, FIND_RECENT_REVIEWS, FIND_RECENT_USER_REVIEWS} from '../constants'
 
 const initialState = {
     reviews: [],
-    review: {}
+    review: {},
+    userReviews: []
 }
 
 const reviewReducer = (state = initialState, action) => {
@@ -12,6 +13,18 @@ const reviewReducer = (state = initialState, action) => {
             return {
                 ...state,
                 reviews: action.reviews
+            }
+        
+        case FIND_RECENT_REVIEWS:
+            return {
+                ...state,
+                reviews: action.reviews.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4)
+            }
+
+        case FIND_RECENT_USER_REVIEWS:
+            return {
+                ...state,
+                userReviews: action.reviews.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4)
             }
 
         case FIND_REVIEW_BY_ID:
