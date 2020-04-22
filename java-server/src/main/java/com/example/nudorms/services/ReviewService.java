@@ -27,6 +27,7 @@ public class ReviewService {
     buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
     review.setUser(user);
+    review.setBuildingId(buildingId);
 
     LanguageServiceClient language = LanguageServiceClient.create();
     Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();

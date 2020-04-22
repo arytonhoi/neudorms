@@ -19,6 +19,7 @@ public class Review {
     private String username;
     private String name;
     private String buildingName;
+    private Integer buildingId;
     private String date;
     private String text;
     private String imageUrl;
@@ -26,6 +27,14 @@ public class Review {
     
     public Integer getId() {
         return this.id;
+    }
+
+    public Integer getBuildingId() {
+        return this.buildingId;
+    }
+
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
     }
 
     public String getUsername() {
