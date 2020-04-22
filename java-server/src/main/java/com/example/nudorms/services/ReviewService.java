@@ -21,19 +21,23 @@ public class ReviewService {
   @Autowired
   BuildingService buildingService;
 
-  public Review createReview(Integer buildingId, Review review) throws Exception {
+  public Review createReview(Integer buildingId, Review review) {
     User user = userService.findUserByUsername(review.getUsername());
     userService.addReviewForUser(user.getUsername(), review);
     buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
     review.setUser(user);
-    review.setBuildingId(buildingId);
+    review.setReferencedBuildingId(buildingId);
 
-    LanguageServiceClient language = LanguageServiceClient.create();
-    Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();
-    Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
+    try {
+      LanguageServiceClient language = LanguageServiceClient.create();
+      Document doc = Document.newBuilder().setContent(review.getText()).setType(Type.PLAIN_TEXT).build();
+      Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
 
-    review.setSentiment((double) sentiment.getScore());
+      review.setSentiment((double) sentiment.getScore());
+    } catch (Exception e) {
+      review.setSentiment(0.001);
+    }
     return reviewRepository.save(review);
   }
 

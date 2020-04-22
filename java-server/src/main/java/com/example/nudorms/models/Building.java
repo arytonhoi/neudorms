@@ -32,6 +32,7 @@ public class Building {
     @ManyToMany(mappedBy = "bookmarkedBuildings")
     @JsonIgnore
     private Set<User> bookmarkUsers;
+    @Column(columnDefinition = "integer default -1")
     private Integer rating = -1;
     
     public Integer getId() {
@@ -92,7 +93,7 @@ public class Building {
             }
         }
         
-        int rating = this.rating;
+        int rating = -1;
         if (this.reviews.size() > 0) {
             rating = (int) (numPositiveReviews / this.reviews.size());
         }

@@ -19,22 +19,22 @@ public class Review {
     private String username;
     private String name;
     private String buildingName;
-    private Integer buildingId;
+    private Integer referencedBuildingId;
     private String date;
     private String text;
     private String imageUrl;
-    private Double sentiment;
+    private Double sentiment = 0.0;
     
     public Integer getId() {
         return this.id;
     }
 
-    public Integer getBuildingId() {
-        return this.buildingId;
+    public Integer getReferencedBuildingId() {
+        return this.referencedBuildingId;
     }
 
-    public void setBuildingId(Integer buildingId) {
-        this.buildingId = buildingId;
+    public void setReferencedBuildingId(Integer referencedBuildingId) {
+        this.referencedBuildingId = referencedBuildingId;
     }
 
     public String getUsername() {

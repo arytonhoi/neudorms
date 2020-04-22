@@ -1,4 +1,5 @@
 export const API_URL = "https://nudorms-server.herokuapp.com/api";
+// export const API_URL = "http://localhost:8070/api";
 export const REGISTER_URL = "https://nudorms-server.herokuapp.com";
 
 // LOCAL URL: http://localhost:8070/api
