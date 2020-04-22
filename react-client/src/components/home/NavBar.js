@@ -47,7 +47,7 @@ export default function NavBar(props) {
               <a className="nav-link profile" href="/login">
                 Log In
               </a>
-              <a className="nav-link profile" href="/registration">
+              <a className="nav-link profile" href="/register">
                 Sign Up
               </a>
             </div>
