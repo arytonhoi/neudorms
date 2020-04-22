@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
-import { findAllBuildings, filterBuildings } from "../actions/BuildingActions";
+import { sortBuildings, findAllBuildings, filterBuildings } from "../actions/BuildingActions";
 import { findAllReviews } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
@@ -113,7 +113,10 @@ class HomeContainer extends React.Component {
             {/*    </div>*/}
             {/*)}*/}
 
-            <SortBar />
+            <SortBar 
+              buildings={this.props.buildings}
+              searchTerm={this.state.searchTerm}
+              applySort={this.props.applySort}/>
             <BuildingList
               buildings={this.props.buildings}
               profile={this.props.profile} />
@@ -164,6 +167,14 @@ const dispatchToPropertyMapper = (dispatch) => ({
   findReviews: (buildingId) => {
     buildingService.findReviewsForBuilding(buildingId)
       .then(reviews => dispatch(findAllReviews(reviews)))
+  },
+
+  applySort: (preference) => {
+    buildingService
+    .findAllBuildings()
+    .then((buildings) =>
+      dispatch(sortBuildings(buildings, preference))
+    );
   }
 });
 

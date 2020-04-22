@@ -8,12 +8,12 @@ class BuildingCard extends React.Component {
   state = {
     building: this.props.building,
   };
-  
+
   render() {
     return (
       <div className={this.props.inProfile ? "card-container mt-3 mb-2 col col-xl-6 d-flex align-items-stretch" : "card-container mt-3 mb-2 col-6 col-xl-4 d-flex align-items-stretch"}>
         {this.state.building && (
-          <EditBuildingForm building={this.state.building} submitUpdate={this.submitUpdate}/>
+          <EditBuildingForm building={this.state.building} submitUpdate={this.submitUpdate} />
         )}
         <div className="card">
           <Link className="card-link" to={`/details/${this.state.building.id}`}>
@@ -26,7 +26,14 @@ class BuildingCard extends React.Component {
 
           <div className="card-body">
             <h5 className="card-title">{this.state.building.name}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Rating: 5/5</h6>
+            {
+              (this.state.building.rating <= 0) &&
+              <h6 className="card-subtitle mb-2 text-muted">No reviews yet!</h6>
+            }
+            {
+              (this.state.building.rating > 0) &&
+              <h6 className="card-subtitle mb-2 text-muted">this.state.building.rating %</h6>
+            }
             <p className="card-text">Description</p>
             <Link
               className="card-link"

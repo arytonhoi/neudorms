@@ -38,11 +38,11 @@ class ViewProfileContainer extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.profile) {
-      this.forceUpdate()
-    }
-  }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if (prevProps.profile) {
+  //     this.forceUpdate()
+  //   }
+  // }
 
   render() {
     if (this.props.user) {
