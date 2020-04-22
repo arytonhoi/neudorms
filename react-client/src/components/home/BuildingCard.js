@@ -32,7 +32,7 @@ class BuildingCard extends React.Component {
             }
             {
               (this.props.building.rating > 0) &&
-              <h6 className="card-subtitle mb-2 text-muted">this.props.building.rating %</h6>
+              <h6 className="card-subtitle mb-2 text-muted">{this.props.building.rating}% student approval</h6>
             }
             <p className="card-text">Description</p>
             <Link

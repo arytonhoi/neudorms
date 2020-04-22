@@ -15,6 +15,20 @@ const ReviewBox = styled.div`
   margin-bottom: 12px;
 `;
 
+const ReviewBoxRed = styled.div`
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-color: red;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+`;
+
+const ReviewBoxGreen = styled.div`
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-color: lightgreen;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+`;
+
 const ReviewUser = styled.div`
   font-weight: 700;
 `;
@@ -52,17 +66,45 @@ class ReviewList extends React.Component {
         {!this.props.inProfile && <Title>Reviews</Title>}
         {this.props.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
-            <ReviewBox className="card">
-              <ReviewHeader>
+            {review.sentiment > 0.1 && 
+              <ReviewBoxGreen className="card">
+                <ReviewHeader>
                   <ReviewUser>
                     <a href={`/profile/${review.username}`}>{review.name}</a>
                     <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
                   </ReviewUser>
-                <Sentiment>Sentiment: {review.sentiment}</Sentiment>
-              </ReviewHeader>
-              <ReviewBuilding>{review.buildingName}</ReviewBuilding>
-              <ReviewText>{review.text}</ReviewText>
-            </ReviewBox>
+                  <Sentiment>Postive review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+              </ReviewBoxGreen>
+            }
+            {review.sentiment < -0.1 && 
+              <ReviewBoxRed className="card">
+                <ReviewHeader>
+                  <ReviewUser>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
+                  <Sentiment>Negative review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+              </ReviewBoxRed>
+            }
+            {(review.sentiment >= -0.1 && review.sentiment <= 0.1 ) && 
+              <ReviewBox className="card">
+                <ReviewHeader>
+                  <ReviewUser>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
+                  <Sentiment>Neutral review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+              </ReviewBox>
+            }
           </ul>
         ))}
       </div>

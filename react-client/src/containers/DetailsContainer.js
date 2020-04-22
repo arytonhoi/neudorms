@@ -26,7 +26,12 @@ const ButtonWrapper = styled.div`
 class DetailsContainer extends React.Component {
   writeReview = () => {
     if (this.props.loggedIn) {
-      $("#reviewModal").modal("show");
+      if (this.props.role === 'user') {
+        $("#reviewModal").modal("show");
+      } else {
+        alert("Staff cannot write reviews")
+      }
+      
     } else {
       alert("Log in to write a review");
     }
@@ -34,7 +39,11 @@ class DetailsContainer extends React.Component {
 
   addPhoto = () => {
     if (this.props.loggedIn) {
-      $("#photoModal").modal("show");
+      if (this.props.role === 'user') {
+        $("#photoModal").modal("show");
+      } else {
+        alert("Staff cannot add photos")
+      }
     } else {
       alert("Log in to add a photo");
     }
