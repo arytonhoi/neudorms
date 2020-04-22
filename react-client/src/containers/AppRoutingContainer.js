@@ -60,7 +60,7 @@ class AppRoutingContainer extends React.Component {
             />
             <Route path="/login" component={LoginContainer} />
             <Route path="/bookmarks" component={BookmarksContainer}/>
-            <Route path="/registration" component={RegistrationContainer} />
+            <Route path="/register" component={RegistrationContainer} />
           </Switch>
         </Router>
       </Provider>

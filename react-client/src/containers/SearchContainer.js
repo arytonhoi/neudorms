@@ -67,6 +67,7 @@ class SearchContainer extends React.Component {
               profile={this.props.profile}
               loggedIn={this.props.loggedIn}
               logout={this.props.logout}
+              role={this.props.role}
           />
           <div className="search-wrapper">
             <div className="container">
@@ -106,8 +107,16 @@ class SearchContainer extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
   getProfile: () => {
     userService.profile().then((actualProfile) => {
-      if (actualProfile) {
-        dispatch(profile(actualProfile));
+      if (actualProfile && actualProfile.username) {
+        dispatch(profile(actualProfile, "user"));
+      } else {
+        staffService.profile().then((staffProfile) => {
+          if (staffProfile && staffProfile.username) {
+            dispatch(profile(staffProfile, "staff"));
+          } else {
+            dispatch(logout());
+          }
+        });
       }
     });
   },
@@ -136,6 +145,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
+  role: state.users.role
 });
 
 export default connect(

@@ -7,6 +7,7 @@ import {
 } from "../../actions/UserActions";
 import userService from "../../services/UserService";
 import styled from "styled-components";
+import StaffService from "../../services/StaffService";
 
 const Wrapper = styled.div`
   margin-right: 60px;
@@ -20,24 +21,81 @@ const Header = styled.div`
 `;
 
 class ProfileComponent extends React.Component {
-  state = {
-    name: "",
-    password: "",
-    major: "",
-    year: 1,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      password: "",
+      major: "",
+      year: 1,
+      role: "",
+    };
+
+    this.updateProfile = this.updateProfile.bind(this);
+    this.cancel = this.cancel.bind(this);
+  }
+  
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       prevProps.profile.username === "" &&
       this.props.profile.username !== ""
     ) {
+      if (this.props.role === "user") {
+        this.setState({
+          name: this.props.profile.name,
+          password: this.props.profile.password,
+          major: this.props.profile.major,
+          year: this.props.profile.year,
+        });
+      }
+      if (this.props.role === "staff") {
+        this.setState({
+          name: this.props.profile.name,
+          password: this.props.profile.password,
+          role: this.props.profile.role,
+        });
+      }
+    }
+  }
+
+  updateProfile() {
+    if (this.props.role === "user") {
+      userService
+        .updateUser(this.props.profile.username, {
+          ...this.props.profile,
+          password: this.state.password,
+          major: this.state.major,
+          name: this.state.name,
+          year: this.state.year,
+        })
+        .then(alert("Your profile has been updated!"));
+    }
+    if (this.props.role === "staff") {
+      StaffService.updateStaff(this.props.profile.username, {
+        ...this.props.profile,
+        password: this.state.password,
+        name: this.state.name,
+        role: this.state.role,
+      }).then(alert("Your profile has been updated!"));
+    }
+  }
+
+  cancel() {
+    if (this.props.role === "user") {
       this.setState({
         name: this.props.profile.name,
         password: this.props.profile.password,
         major: this.props.profile.major,
         year: this.props.profile.year,
-      });
+      })
+    }
+    if (this.props.role === "staff") {
+      this.setState({
+        name: this.props.profile.name,
+        password: this.props.profile.password,
+        role: this.props.profile.role
+      })
     }
   }
 
@@ -87,59 +145,60 @@ class ProfileComponent extends React.Component {
               defaultValue={this.props.profile.password}
             />
           </div>
-          <div class="form-group mb-2">
-            <label for="profile-major" class="col-form-label">
-              Major
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="profile-major"
-              onChange={(e) => this.setState({ major: e.target.value })}
-              defaultValue={this.props.profile.major}
-            />
-          </div>
-          <div class="form-group mb-2">
-            <label for="profile-year" class="col-form-label">
-              Year
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              id="profile-year"
-              onChange={(e) => this.setState({ year: e.target.value })}
-              defaultValue={this.props.profile.year}
-            />
-          </div>
+          {this.props.role === "user" && (
+            <div>
+              <div class="form-group mb-2">
+                <label for="profile-major" class="col-form-label">
+                  Major
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="profile-major"
+                  onChange={(e) => this.setState({ major: e.target.value })}
+                  defaultValue={this.props.profile.major}
+                />
+              </div>
+              <div class="form-group mb-2">
+                <label for="profile-year" class="col-form-label">
+                  Year
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="profile-year"
+                  onChange={(e) => this.setState({ year: e.target.value })}
+                  defaultValue={this.props.profile.year}
+                />
+              </div>
+            </div>
+          )}
+          {this.props.role === "staff" && (
+            <div class="form-group mb-2">
+              <label for="profile-role" class="col-form-label">
+                Role
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="profile-role"
+                onChange={(e) => this.setState({ role: e.target.value })}
+                defaultValue={this.props.profile.role}
+              />
+            </div>
+          )}
+
           <div className="row ml-0 mt-4">
             <button
               className="btn btn-success mr-3"
               type="button"
-              onClick={() => {
-                console.log("click");
-                userService
-                  .updateUser(this.props.profile.username, {
-                    ...this.props.profile.username,
-                    password: this.state.password,
-                    major: this.state.major,
-                    name: this.state.name,
-                    year: this.state.year,
-                  })
-                  .then(alert("Your profile has been updated!"));
-              }}
+              onClick={this.updateProfile}
             >
               Update Profile
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() =>
-                this.setState({
-                  name: this.props.profile.name,
-                  password: this.props.profile.password,
-                  major: this.props.profile.major,
-                  year: this.props.profile.year,
-                })
-              }
+              onClick={this.cancel}
             >
               Cancel
             </button>
@@ -164,6 +223,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
 const stateToPropertyMapper = (state) => {
   return {
     user: state.users.user,
+    role: state.users.role,
   };
 };
 

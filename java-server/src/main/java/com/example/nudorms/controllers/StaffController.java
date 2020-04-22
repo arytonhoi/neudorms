@@ -34,7 +34,7 @@ public class StaffController {
 
     // Solve review JSON writing error
     Staff actualStaff = staffService.findStaffByUsername(profile.getUsername());
-    actualStaff.setPassword("***");
+    // actualStaff.setPassword("***");
     return actualStaff;
   }
 
@@ -42,7 +42,7 @@ public class StaffController {
   public Integer login(HttpSession session, @RequestBody Staff staff) {
     Staff newStaff = staffService.login(staff);
     if (newStaff != null) {
-      newStaff.setPassword("***");
+      // newStaff.setPassword("***");
       session.setAttribute("profile", newStaff);
       return 1;
     } else {
