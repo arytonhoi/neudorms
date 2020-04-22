@@ -54,9 +54,10 @@ export const updateUser = (username, user) => ({
   user: user
 })
 
-export const profile = (profile) => ({
+export const profile = (profile, role) => ({
   type: PROFILE,
-  profile: profile
+  profile: profile,
+  role: role
 })
 
 export const login = () => ({

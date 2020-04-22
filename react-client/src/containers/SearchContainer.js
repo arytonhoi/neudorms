@@ -10,6 +10,7 @@ import "./HomeContainer.css";
 import styled from "styled-components";
 import userService from "../services/UserService";
 import NavBar from "../components/home/NavBar";
+import staffService from "../services/StaffService";
 
 const BuildingWrapper = styled.div`
   margin: 32px 60px;
@@ -113,6 +114,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
   logout: () => {
     userService.logout().then(dispatch(logout()));
+    staffService.logout()
   },
 
   findAllBuildings: () => {

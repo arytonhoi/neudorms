@@ -30,7 +30,7 @@ class EditBuildingForm extends React.Component {
         <div
           class="modal fade"
           id={`editBuildingModal${this.props.building.id}`}
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"

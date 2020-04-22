@@ -5,6 +5,7 @@ import "./HomeContainer.css";
 import styled from "styled-components";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
+import staffService from "../services/StaffService";
 import {findBookmarksForUser, logout, profile} from "../actions/UserActions";
 
 const Header = styled.h1`
@@ -70,6 +71,8 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
     logout: () => {
         userService.logout().then(dispatch(logout()));
+    staffService.logout()
+
     },
 });
 
