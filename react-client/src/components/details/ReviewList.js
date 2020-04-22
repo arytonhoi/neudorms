@@ -64,9 +64,20 @@ class ReviewList extends React.Component {
     return (
       <div className="mb-5">
         {!this.props.inProfile && <Title>Reviews</Title>}
+        <span>
+          <button className='btn btn-warning' onClick={() => this.props.filter(this.props.buildingId, '')}>
+            All reviews
+          </button>
+          <button className='btn btn-success' onClick={() => this.props.filter(this.props.buildingId, 'positive')}>
+            Positive reviews
+          </button>
+          <button className='btn btn-danger' onClick={() => this.props.filter(this.props.buildingId, 'negative')}>
+            Negative reviews
+          </button>
+        </span>
         {this.props.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
-            {review.sentiment > 0.1 && 
+            {review.sentiment > 0.1 &&
               <ReviewBoxGreen className="card">
                 <ReviewHeader>
                   <ReviewUser>
@@ -79,7 +90,7 @@ class ReviewList extends React.Component {
                 <ReviewText>{review.text}</ReviewText>
               </ReviewBoxGreen>
             }
-            {review.sentiment < -0.1 && 
+            {review.sentiment < -0.1 &&
               <ReviewBoxRed className="card">
                 <ReviewHeader>
                   <ReviewUser>
@@ -92,7 +103,7 @@ class ReviewList extends React.Component {
                 <ReviewText>{review.text}</ReviewText>
               </ReviewBoxRed>
             }
-            {(review.sentiment >= -0.1 && review.sentiment <= 0.1 ) && 
+            {(review.sentiment >= -0.1 && review.sentiment <= 0.1) &&
               <ReviewBox className="card">
                 <ReviewHeader>
                   <ReviewUser>

@@ -1,5 +1,5 @@
 import { FIND_ALL_REVIEWS, FIND_REVIEW_BY_ID, FIND_REVIEWS_BY_USER, CREATE_REVIEW,
-    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING} from '../constants'
+    UPDATE_REVIEW, DELETE_REVIEW, FIND_REVIEWS_FOR_BUILDING, FILTER_REVIEWS} from '../constants'
 
 const initialState = {
     reviews: [],
@@ -55,6 +55,19 @@ const reviewReducer = (state = initialState, action) => {
             return {
                 ...state,
                 reviews: state.reviews.filter(review => review.id !== action.reviewId)
+            }
+        
+        case FILTER_REVIEWS:
+            let reviews = action.reviews;
+            if (action.preference === 'positive') {
+                reviews = reviews.filter(review => review.sentiment > 0.1)
+            } else if (action.preference === 'negative') {
+                reviews = reviews.filter(review => review.sentiment < -0.1)
+            }
+
+            return {
+                ...state,
+                reviews: reviews
             }
 
         default:

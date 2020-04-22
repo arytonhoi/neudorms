@@ -29,6 +29,7 @@ export const CREATE_REVIEW = 'CREATE_REVIEW';
 export const UPDATE_REVIEW = 'UPDATE_USER';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
 export const FIND_REVIEWS_FOR_BUILDING = 'FIND_REVIEWS_FOR_BUILDING';
+export const FILTER_REVIEWS = 'FILTER_REVIEWS;'
 
 // user constants
 export const FIND_ALL_USERS = 'FIND_ALL_USERS';

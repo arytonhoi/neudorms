@@ -6,10 +6,10 @@ import ReviewList from "../components/details/ReviewList";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
 import staffService from "../services/StaffService";
-import {profile, logout, addUserBookmark} from "../actions/UserActions";
+import { profile, logout, addUserBookmark } from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
-import { findAllReviews } from "../actions/ReviewActions";
+import { findAllReviews, filterReviews } from "../actions/ReviewActions";
 import ReviewForm from "../components/details/ReviewForm";
 import ImageForm from "../components/details/ImageForm";
 import styled from "styled-components";
@@ -24,6 +24,7 @@ const ButtonWrapper = styled.div`
 `;
 
 class DetailsContainer extends React.Component {
+
   writeReview = () => {
     if (this.props.loggedIn) {
       if (this.props.role === 'user') {
@@ -31,7 +32,7 @@ class DetailsContainer extends React.Component {
       } else {
         alert("Staff cannot write reviews")
       }
-      
+
     } else {
       alert("Log in to write a review");
     }
@@ -89,7 +90,10 @@ class DetailsContainer extends React.Component {
                 addPhoto={this.addPhoto}
                 addBookmark={this.addBookmark}
               />
-              <ReviewList reviews={this.props.reviews} />
+              <ReviewList 
+                buildingId={this.props.match.params.buildingId}
+                reviews={this.props.reviews} 
+                filter={this.props.filterReviews}/>
             </div>
           </div>
         )}
@@ -97,7 +101,7 @@ class DetailsContainer extends React.Component {
           building={this.props.building}
           submitReview={this.submitReview}
         />
-        <ImageForm 
+        <ImageForm
           building={this.props.building}
           submitReview={this.submitReview}
         />
@@ -137,7 +141,11 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
   addUserBookmark: (username, buildingId) => {
     userService.addUserBookmark(username, buildingId)
-        .then(response => console.log("RESPONSE: " + response));
+      .then(response => console.log("RESPONSE: " + response));
+  },
+  filterReviews: (buildingId, preference) => {
+    buildingService.findReviewsForBuilding(buildingId)
+      .then(reviews => dispatch(filterReviews(reviews, preference)))
   }
 });
 
