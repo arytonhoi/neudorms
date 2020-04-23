@@ -10,7 +10,7 @@ import ProfileComponent from "../components/profile/ProfileComponent";
 import BuildingList from "../components/home/BuildingList";
 import staffService from "../services/StaffService";
 import reviewService from "../services/ReviewService";
-import { deleteReview, findAllReviews } from "../actions/ReviewActions";
+import { deleteReview, findAllReviews, clearReviews } from "../actions/ReviewActions";
 
 const Container = styled.div`
   margin-left: 60px;
@@ -37,6 +37,10 @@ class ProfileContainer extends React.Component {
     if (!prevProps.profile.username && this.props.profile.username) {
       this.props.findReviewsForUser(this.props.profile.username);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearReviews();
   }
 
   render() {
@@ -114,7 +118,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   findReviewsForUser: (username) => {
     reviewService.findReviewsByUser(username)
       .then((reviews) => dispatch(findAllReviews(reviews)))
-  }
+  },
+  clearReviews: () => {
+    dispatch(clearReviews());
+  },
 });
 
 const stateToPropertyMapper = (state) => ({

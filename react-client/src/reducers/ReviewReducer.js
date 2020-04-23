@@ -9,6 +9,7 @@ import {
   FIND_RECENT_REVIEWS,
   FIND_RECENT_USER_REVIEWS,
   FILTER_REVIEWS,
+  CLEAR_REVIEWS,
 } from "../constants";
 
 const initialState = {
@@ -101,6 +102,13 @@ const reviewReducer = (state = initialState, action) => {
         ...state,
         reviews: reviews,
       };
+
+    case CLEAR_REVIEWS:
+      return {
+        ...state,
+        reviews: [],
+        userReviews: []
+      }
 
     default:
       return state;

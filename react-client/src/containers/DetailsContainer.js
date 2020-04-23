@@ -10,7 +10,7 @@ import reviewService from "../services/ReviewService";
 import { profile, logout, addUserBookmark } from "../actions/UserActions";
 import buildingService from "../services/BuildingService";
 import { findBuildingById } from "../actions/BuildingActions";
-import { findAllReviews, filterReviews, deleteReview } from "../actions/ReviewActions";
+import { findAllReviews, filterReviews, deleteReview, clearReviews } from "../actions/ReviewActions";
 import ReviewForm from "../components/details/ReviewForm";
 import ImageForm from "../components/details/ImageForm";
 import styled from "styled-components";
@@ -74,6 +74,10 @@ class DetailsContainer extends React.Component {
     this.props.getProfile();
     this.props.findBuildingById(this.props.match.params.buildingId);
     this.props.findReviews(this.props.match.params.buildingId);
+  }
+
+  componentWillUnmount() {
+    this.props.clearReviews();
   }
 
   render() {
@@ -156,7 +160,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   deleteReview: (reviewId) => {
     reviewService.deleteReview(reviewId)
       .then(status => dispatch(deleteReview(reviewId)))
-  }
+  },
+  clearReviews: () => {
+    dispatch(clearReviews());
+  },
 });
 
 const stateToPropertyMapper = (state) => ({

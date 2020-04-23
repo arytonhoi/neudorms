@@ -6,6 +6,7 @@ import {
   findRecentReviews,
   findRecentUserReviews,
   deleteReview,
+  clearReviews
 } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
@@ -72,6 +73,10 @@ class HomeContainer extends React.Component {
     this.props.getProfile();
     this.props.findBestBuildings();
     this.props.findRecentReviews();
+
+    if (this.props.role === "user") {
+      this.props.findRecentUserReviews(this.props.profile.username);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -82,6 +87,7 @@ class HomeContainer extends React.Component {
 
   componentWillUnmount() {
     this.props.clearBuildings();
+    this.props.clearReviews();
   }
 
   state = {
@@ -240,6 +246,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
   clearBuildings: () => {
     dispatch(clearBuildings());
+  },
+
+  clearReviews: () => {
+    dispatch(clearReviews());
   },
 
   deleteReview: (reviewId) => {

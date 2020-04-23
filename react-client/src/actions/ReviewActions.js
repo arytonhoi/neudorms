@@ -9,6 +9,7 @@ import {
   FIND_RECENT_REVIEWS,
   FIND_RECENT_USER_REVIEWS,
   FILTER_REVIEWS,
+  CLEAR_REVIEWS
 } from "../constants";
 
 export const findAllReviews = (reviews) => ({
@@ -56,8 +57,13 @@ export const findRecentUserReviews = (reviews) => ({
   type: FIND_RECENT_USER_REVIEWS,
   reviews: reviews,
 });
+
 export const filterReviews = (reviews, preference) => ({
   type: FILTER_REVIEWS,
   reviews: reviews,
   preference: preference,
 });
+
+export const clearReviews = () => ({
+  type: CLEAR_REVIEWS
+})
