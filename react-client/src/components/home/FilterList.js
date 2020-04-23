@@ -106,7 +106,7 @@ class FilterList extends React.Component {
 
   render() {
     return (
-      <FiltersWrapper>
+      <FiltersWrapper className="d-none d-md-block">
         {/* <button className="btn btn-success">
           Apply Filter
         </button> */}

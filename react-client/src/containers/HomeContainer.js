@@ -99,7 +99,7 @@ class HomeContainer extends React.Component {
   };
 
   search = () => {
-    this.props.filterBuildings(this.state.searchTerm, this.state.filters);
+    // this.props.filterBuildings(this.state.searchTerm, this.state.filters);
     this.props.history.push("/search");
   };
 
@@ -123,7 +123,7 @@ class HomeContainer extends React.Component {
             logout={this.props.logout}
             role={this.props.role}
           />
-          <div className="search-wrapper">
+          <div className="search-wrapper d-none d-md-block">
             <div className="container">
               <SearchBox>
                 <i className="fas fa-search" />

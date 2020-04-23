@@ -101,7 +101,7 @@ class ProfileComponent extends React.Component {
 
   render() {
     return (
-      <Wrapper className="col-4">
+      <Wrapper className="col-12 col-lg-4 mb-5">
         <Header>My Profile</Header>
         <hr />
         <form>

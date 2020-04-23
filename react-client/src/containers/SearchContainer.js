@@ -102,7 +102,7 @@ class HomeContainer extends React.Component {
           logout={this.props.logout}
           role={this.props.role}
         />
-        <div className="search-wrapper">
+        <div className="search-wrapper d-none d-md-block">
           <div className="container">
             <SearchBox>
               <i className="fas fa-search" />

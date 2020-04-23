@@ -14,11 +14,11 @@ class BuildingCard extends React.Component {
 
   getSizeClass() {
     if (this.props.topRated) {
-      return "col col-xl-3";
+      return "col-12 col-md-6 col-lg-4 col-xl-3";
     } else if (this.props.inProfile) {
-      return "col col-xl-6";
+      return "col-12 col-md-6";
     } else {
-      return "col-6 col-xl-4";
+      return "col-12 col-lg-6 col-xl-4";
     }
   }
 
@@ -52,12 +52,12 @@ class BuildingCard extends React.Component {
               className="card-link"
               to={`/details/${this.props.building.id}`}
             >
-              <button className="btn btn-outline-primary mr-3">Open</button>
+              <button className="btn btn-outline-primary mr-3 mt-1">Open</button>
             </Link>
 
             {this.props.role === "staff" && (
               <button
-                className="btn btn-outline-secondary mr-3"
+                className="btn btn-outline-secondary mr-3 mt-1"
                 onClick={() => {
                   $(`#editBuildingModal${this.props.building.id}`).modal("show");
                 }}
@@ -68,7 +68,7 @@ class BuildingCard extends React.Component {
             )}
             {this.props.inProfile && (
               <button
-                className="btn mr-3 btn-outline-danger"
+                className="btn mr-3 btn-outline-danger mt-1"
                 onClick={() => this.props.removeUserBookmark(this.props.profile.username, this.props.building.id)}
                 type="button"
               >

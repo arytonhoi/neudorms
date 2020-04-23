@@ -66,7 +66,7 @@ class ReviewList extends React.Component {
         <div>
           <div className="row mt-4">
             {this.props.reviews.map((review) => (
-              <div className="mb-2 col-3 d-flex align-items-stretch">
+              <div className="mb-2 col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
                 <ReviewBox className="card" key={review.id}>
                   <ReviewHeader>
                     <div>

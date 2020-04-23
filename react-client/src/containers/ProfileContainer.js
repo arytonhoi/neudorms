@@ -54,7 +54,7 @@ class ProfileContainer extends React.Component {
         <Container>
           <Wrapper className="row">
             <ProfileComponent profile={this.props.profile} />
-            <div className="col">
+            <div className="col-12 col-lg">
               {this.props.profile.bookmarkedBuildings &&
                 this.props.profile.bookmarkedBuildings.length > 0 && (
                   <div className="mb-5">
