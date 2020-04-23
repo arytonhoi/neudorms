@@ -33,8 +33,9 @@ const Body = styled.div`
 `;
 
 const Section = styled.div`
-  margin-right: 48px;
+  /* margin-right: 48px; */
   min-width: 124px;
+  margin-bottom: 12px;
 `;
 
 const Subtitle = styled.div`
@@ -91,26 +92,26 @@ class TextDetails extends React.Component {
           </button>
         </ButtonWrapper>
         <hr />
-        <div className="mb-2 mt-2">
+        <div className="mt-2">
           <Title>Building Information</Title>
-          <Body>
-            <Section>
+          <Body className="row">
+            <Section className="col-6 col-lg-2">
               <Subtitle>Cost</Subtitle>
               <Text>${this.props.building.minimumCost} /month</Text>
             </Section>
-            <Section>
+            <Section className="col-6 col-lg-2">
               <Subtitle>Resident Types</Subtitle>
               <Text>{this.props.building.residentTypes}</Text>
             </Section>
-            <Section>
+            <Section className="col-6 col-lg-2">
               <Subtitle>Building Type</Subtitle>
               <Text>{this.props.building.buildingType}</Text>
             </Section>
-            <Section>
+            <Section className="col-6 col-lg-2">
               <Subtitle>Room Types</Subtitle>
               <Text>{this.props.building.roomTypes}</Text>
             </Section>
-            <Section>
+            <Section className="col-10 col-lg-4">
               <Subtitle>Amenities</Subtitle>
               <Text>{this.props.building.amenities}</Text>
             </Section>
