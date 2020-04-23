@@ -10,6 +10,7 @@ import {
   FIND_RECENT_USER_REVIEWS,
   FILTER_REVIEWS,
   CLEAR_REVIEWS,
+  DELETE_REVIEWS_FOR_BUILDING
 } from "../constants";
 
 const initialState = {
@@ -89,6 +90,17 @@ const reviewReducer = (state = initialState, action) => {
           (review) => review.id !== action.reviewId
         )
       };
+    
+    case DELETE_REVIEWS_FOR_BUILDING:
+      return {
+        ...state,
+        reviews: state.reviews.filter(
+          (review) => review.referencedBuildingId !== action.buildingId
+        ),
+        userReviews: state.reviews.filter(
+          (review) => review.referencedBuildingId !== action.buildingId
+        )
+      }
 
     case FILTER_REVIEWS:
       let reviews = action.reviews;

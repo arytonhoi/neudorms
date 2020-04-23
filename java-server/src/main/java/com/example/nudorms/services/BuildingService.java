@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BuildingService {
@@ -14,6 +15,10 @@ public class BuildingService {
   BuildingRepository buildingRepository;
   @Autowired
   UserService userService;
+  @Autowired
+  PictureService pictureService;
+  @Autowired
+  ReviewService reviewService;
 
   public Building findBuildingById(Integer buildingId) {
     return buildingRepository.findBuildingById(buildingId);
@@ -58,6 +63,23 @@ public class BuildingService {
   }
 
   public Integer deleteBuilding(Integer buildingId) {
+    Building building = this.findBuildingById(buildingId);
+
+    Set<User> bookmarkUsers = building.getBookmarkUsers();
+    for (User u: bookmarkUsers) {
+      userService.removeBookmarkForUser(u.getUsername(), buildingId);
+    }
+
+    Set<Picture> pictures = building.getPictures();
+    for (Picture p : pictures) {
+      pictureService.deletePicture(p.getId());
+    }
+
+    Set<Review> reviews = building.getReviews();
+    for (Review r : reviews) {
+      reviewService.deleteReview(r.getId());
+    }
+
     buildingRepository.deleteById(buildingId);
     return 1;
   }

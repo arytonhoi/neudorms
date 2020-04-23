@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createReview } from "../../actions/ReviewActions";
-import reviewService from "../../services/ReviewService";
 import userService from "../../services/UserService";
 import buildingService from "../../services/BuildingService";
 import { updateBuilding, deleteBuilding } from "../../actions/BuildingActions";
+import { deleteReviewsForBuilding } from "../../actions/ReviewActions";
 import { profile, logout } from "../../actions/UserActions";
 import staffService from "../../services/StaffService";
 
@@ -238,7 +237,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   deleteBuilding: (buildingId) => {
     buildingService
       .deleteBuilding(buildingId)
-      .then(status => dispatch(deleteBuilding(buildingId)))
+      .then(status => {
+        dispatch(deleteBuilding(buildingId));
+        dispatch(deleteReviewsForBuilding(buildingId));
+      })
   }
 });
 

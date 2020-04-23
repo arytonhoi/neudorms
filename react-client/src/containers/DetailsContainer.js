@@ -57,7 +57,7 @@ class DetailsContainer extends React.Component {
         this.props.addUserBookmark(this.props.profile.username, this.props.building);
         alert("Bookmarked " + this.props.building.name);
       } else {
-        alert("Staff cannot add photos")
+        alert("Staff cannot add bookmarks")
       }
     } else {
       alert("Log in to bookmark");
