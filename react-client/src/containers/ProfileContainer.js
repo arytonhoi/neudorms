@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import ReviewList from "../components/details/ReviewList";
 import NavBar from "../components/home/NavBar";
 import userService from "../services/UserService";
-import { profile, logout } from "../actions/UserActions";
+import { profile, logout, findBookmarksForUser } from "../actions/UserActions";
 import styled from "styled-components";
 import "bootstrap/js/dist/modal";
 import ProfileComponent from "../components/profile/ProfileComponent";
@@ -31,11 +31,17 @@ const Header = styled.div`
 class ProfileContainer extends React.Component {
   componentDidMount() {
     this.props.getProfile();
+
+    if (this.props.profile.username) {
+      this.props.findReviewsForUser(this.props.profile.username);
+      this.props.findBookmarksForUser(this.props.profile.username);
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.profile.username && this.props.profile.username) {
       this.props.findReviewsForUser(this.props.profile.username);
+      this.props.findBookmarksForUser(this.props.profile.username);
     }
   }
 
@@ -59,13 +65,13 @@ class ProfileContainer extends React.Component {
           <Wrapper className="row">
             <ProfileComponent profile={this.props.profile} />
             <div className="col-12 col-lg">
-              {this.props.profile.bookmarkedBuildings &&
-                this.props.profile.bookmarkedBuildings.length > 0 && (
+              {this.props.bookmarks &&
+                this.props.bookmarks.length > 0 && (
                   <div className="mb-5">
                     <Header>Bookmarks</Header>
                     <hr />
                     <BuildingList
-                      buildings={this.props.profile.bookmarkedBuildings}
+                      buildings={this.props.bookmarks}
                       inProfile={true}
                       profile={this.props.profile}
                     />
@@ -122,13 +128,18 @@ const dispatchToPropertyMapper = (dispatch) => ({
   clearReviews: () => {
     dispatch(clearReviews());
   },
+  findBookmarksForUser: (username) => {
+    userService.findBookmarksForUser(username)
+      .then((bookmarks) => dispatch(findBookmarksForUser(bookmarks)))
+  }
 });
 
 const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   role: state.users.role,
-  reviews: state.reviews.reviews
+  reviews: state.reviews.reviews,
+  bookmarks: state.users.bookmarks
 });
 
 export default connect(

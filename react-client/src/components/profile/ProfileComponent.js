@@ -34,6 +34,26 @@ class ProfileComponent extends React.Component {
     this.updateProfile = this.updateProfile.bind(this);
     this.cancel = this.cancel.bind(this);
   }
+
+  componentDidMount() {
+    if (this.state.name === "") {
+      if (this.props.role === "user") {
+        this.setState({
+          name: this.props.profile.name,
+          password: this.props.profile.password,
+          major: this.props.profile.major,
+          year: this.props.profile.year,
+        });
+      }
+      if (this.props.role === "staff") {
+        this.setState({
+          name: this.props.profile.name,
+          password: this.props.profile.password,
+          role: this.props.profile.role,
+        });
+      }
+    }
+  }
   
 
   componentDidUpdate(prevProps, prevState, snapshot) {
