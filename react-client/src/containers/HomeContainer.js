@@ -1,24 +1,31 @@
 import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
-import { sortBuildings, findAllBuildings, filterBuildings } from "../actions/BuildingActions";
-import { findAllReviews } from "../actions/ReviewActions";
+import {
+  sortBuildings,
+  findAllBuildings,
+  filterBuildings,
+  highestRated,
+} from "../actions/BuildingActions";
+import {
+  findRecentReviews,
+  findAllReviews,
+  findRecentUserReviews,
+} from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
-import FilterList from "../components/home/FilterList";
-import SortBar from "../components/home/SortBar";
 import "./HomeContainer.css";
 import styled from "styled-components";
 import userService from "../services/UserService";
 import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
+import ReviewList from "../components/details/ReviewList";
+import ReviewService from "../services/ReviewService";
 import CreateBuildingForm from "../components/home/CreateBuildingForm";
 import $ from "jquery";
 
-const BuildingWrapper = styled.div`
-  margin: 32px 60px 60px 60px;
-  display: flex;
-  flex-direction: row;
+const ReviewWrapper = styled.div`
+  margin: 32px 60px 32px 60px;
 `;
 
 const RightWrapper = styled.div`
@@ -39,23 +46,45 @@ const SearchBox = styled.div`
 `;
 
 const Header = styled.h1`
-  font-weight: 900;
+  font-weight: 700;
+  font-size: 28px;
+  margin-top: 32px;
 `;
 
-const Footer = styled.div`
+const Footer = styled.footer`
+  flex-shrink: 0;
+  width: 100%;
   height: 96px;
   background-color: #f0f3f7;
-  padding: 12px 60px;
+  padding: 0px 60px;
   display: flex;
   align-items: center;
   font-weight: 700;
   color: gray;
 `;
 
+const Body = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Wrapper = styled.div`
+  flex: 1 0 auto;
+  margin-bottom: 12px;
+`;
+
 class HomeContainer extends React.Component {
   componentDidMount() {
     this.props.getProfile();
-    this.props.findAllBuildings();
+    this.props.findBestBuildings();
+    this.props.findRecentReviews();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.role && this.props.role === "user") {
+      this.props.findRecentUserReviews(this.props.profile.username);
+    }
   }
 
   state = {
@@ -71,6 +100,7 @@ class HomeContainer extends React.Component {
 
   search = () => {
     this.props.filterBuildings(this.state.searchTerm, this.state.filters);
+    this.props.history.push("/search");
   };
 
   applyFilters = (filters) => {
@@ -81,39 +111,68 @@ class HomeContainer extends React.Component {
     if (event.key === "Enter") {
       this.search();
     }
-  }
+  };
 
   render() {
-    console.log("ROLE: " + this.props.role);
     return (
-      <div>
-        <NavBar
-          profile={this.props.profile}
-          loggedIn={this.props.loggedIn}
-          logout={this.props.logout}
-          role={this.props.role}
-        />
-        <div className="search-wrapper">
-          <div className="container">
-            <SearchBox>
-              <i className="fas fa-search" />
-              <input
-                className="form-control form-control-lg search-input"
-                id="search"
-                type="text"
-                placeholder="Dorm name or keyword"
-                onKeyPress={this.keyPressed}
-                onChange={(e) => this.setState({ searchTerm: e.target.value })}
-              />
-              <button
-                className="btn btn-primary search-btn"
-                onClick={this.search}
-              >
-                <span className="search-btn-text">Search</span>
-              </button>
-            </SearchBox>
+      <Body>
+        <Wrapper>
+          <NavBar
+            profile={this.props.profile}
+            loggedIn={this.props.loggedIn}
+            logout={this.props.logout}
+            role={this.props.role}
+          />
+          <div className="search-wrapper">
+            <div className="container">
+              <SearchBox>
+                <i className="fas fa-search" />
+                <input
+                  className="form-control form-control-lg search-input"
+                  id="search"
+                  type="text"
+                  placeholder="Dorm name or keyword"
+                  onKeyPress={this.keyPressed}
+                  onChange={(e) =>
+                    this.setState({ searchTerm: e.target.value })
+                  }
+                />
+                <button
+                  className="btn btn-primary search-btn"
+                  onClick={this.search}
+                >
+                  <span className="search-btn-text">Search</span>
+                </button>
+              </SearchBox>
+            </div>
           </div>
-        </div>
+
+          <ReviewWrapper>
+            <Header>Top Rated Dorms</Header>
+            <RightWrapper>
+              <BuildingList buildings={this.props.buildings} topRated={true} />
+            </RightWrapper>
+          </ReviewWrapper>
+
+          {this.props.role === "user" && this.props.userReviews.length > 0 && (
+            <ReviewWrapper>
+              <Header>My Recent Reviews</Header>
+              <RightWrapper>
+                <ReviewList inHome={true} reviews={this.props.userReviews} />
+              </RightWrapper>
+            </ReviewWrapper>
+          )}
+
+          {this.props.reviews.length > 0 && (
+            <ReviewWrapper>
+              <Header>Recent Reviews</Header>
+              <RightWrapper>
+                <ReviewList inHome={true} reviews={this.props.reviews} />
+              </RightWrapper>
+            </ReviewWrapper>
+          )}
+        </Wrapper>
+        {/* </div>
 
         <BuildingWrapper>
           <FilterList applyFilters={this.applyFilters} />
@@ -148,11 +207,19 @@ class HomeContainer extends React.Component {
               profile={this.props.profile}
             />
           </RightWrapper>
-        </BuildingWrapper>
+        </BuildingWrapper> */}
         <Footer>
-          <span>Check out our  <a className="privacy" href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit">privacy policy.</a></span>
+          <span>
+            Check out our{" "}
+            <a
+              className="privacy"
+              href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit"
+            >
+              privacy policy.
+            </a>
+          </span>
         </Footer>
-      </div>
+      </Body>
     );
   }
 }
@@ -194,17 +261,34 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
 
   findReviews: (buildingId) => {
-    buildingService.findReviewsForBuilding(buildingId)
-      .then(reviews => dispatch(findAllReviews(reviews)))
+    buildingService
+      .findReviewsForBuilding(buildingId)
+      .then((reviews) => dispatch(findAllReviews(reviews)));
   },
 
   applySort: (preference) => {
     buildingService
       .findAllBuildings()
-      .then((buildings) =>
-        dispatch(sortBuildings(buildings, preference))
-      );
-  }
+      .then((buildings) => dispatch(sortBuildings(buildings, preference)));
+  },
+
+  findRecentReviews: () => {
+    ReviewService.findAllReviews().then((reviews) =>
+      dispatch(findRecentReviews(reviews))
+    );
+  },
+
+  findRecentUserReviews: (username) => {
+    ReviewService.findReviewsByUser(username).then((reviews) => {
+      dispatch(findRecentUserReviews(reviews));
+    });
+  },
+
+  findBestBuildings: () => {
+    buildingService
+      .findAllBuildings()
+      .then((buildings) => dispatch(highestRated(buildings)));
+  },
 });
 
 const stateToPropertyMapper = (state) => ({
@@ -212,7 +296,8 @@ const stateToPropertyMapper = (state) => ({
   role: state.users.role,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
-  reviews: state.reviews.reviews
+  reviews: state.reviews.reviews,
+  userReviews: state.reviews.userReviews,
 });
 
 export default connect(
