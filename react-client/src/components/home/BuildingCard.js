@@ -68,11 +68,11 @@ class BuildingCard extends React.Component {
             )}
             {this.props.inProfile && (
               <button
-                className="btn btn-outline-secondary mr-3 btn-danger"
+                className="btn mr-3 btn-outline-danger"
                 onClick={() => this.props.removeUserBookmark(this.props.profile.username, this.props.building.id)}
                 type="button"
               >
-                Remove
+                Remove Bookmark
               </button>
             )}
           </div>

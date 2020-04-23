@@ -54,7 +54,7 @@ class DetailsContainer extends React.Component {
   addBookmark = () => {
     if (this.props.loggedIn) {
       if (this.props.role === 'user') {
-        this.props.addUserBookmark(this.props.profile.username, this.props.match.params.buildingId);
+        this.props.addUserBookmark(this.props.profile.username, this.props.building);
         alert("Bookmarked " + this.props.building.name);
       } else {
         alert("Staff cannot add photos")
