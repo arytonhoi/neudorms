@@ -9,7 +9,8 @@ import {
   FIND_RECENT_REVIEWS,
   FIND_RECENT_USER_REVIEWS,
   FILTER_REVIEWS,
-  CLEAR_REVIEWS
+  CLEAR_REVIEWS,
+  DELETE_REVIEWS_FOR_BUILDING
 } from "../constants";
 
 export const findAllReviews = (reviews) => ({
@@ -66,4 +67,9 @@ export const filterReviews = (reviews, preference) => ({
 
 export const clearReviews = () => ({
   type: CLEAR_REVIEWS
+})
+
+export const deleteReviewsForBuilding = (buildingId) => ({
+  type: DELETE_REVIEWS_FOR_BUILDING,
+  buildingId: buildingId
 })
