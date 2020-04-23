@@ -84,6 +84,9 @@ const reviewReducer = (state = initialState, action) => {
         reviews: state.reviews.filter(
           (review) => review.id !== action.reviewId
         ),
+        userReviews: state.userReviews.filter(
+          (review) => review.id !== action.reviewId
+        )
       };
 
     case FILTER_REVIEWS:

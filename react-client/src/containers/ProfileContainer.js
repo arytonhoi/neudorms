@@ -10,7 +10,7 @@ import ProfileComponent from "../components/profile/ProfileComponent";
 import BuildingList from "../components/home/BuildingList";
 import staffService from "../services/StaffService";
 import reviewService from "../services/ReviewService";
-import { deleteReview } from "../actions/ReviewActions";
+import { deleteReview, findAllReviews } from "../actions/ReviewActions";
 
 const Container = styled.div`
   margin-left: 60px;
@@ -31,6 +31,12 @@ const Header = styled.div`
 class ProfileContainer extends React.Component {
   componentDidMount() {
     this.props.getProfile();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.profile.username && this.props.profile.username) {
+      this.props.findReviewsForUser(this.props.profile.username);
+    }
   }
 
   render() {
@@ -61,15 +67,14 @@ class ProfileContainer extends React.Component {
                     />
                   </div>
                 )}
-              {this.props.profile.reviews &&
-                this.props.profile.reviews.length > 0 && (
+              {this.props.reviews &&
+                this.props.reviews.length > 0 && (
                   <div>
                     <Header>Reviews</Header>
                     <hr />
                     <ReviewList
-                      reviews={this.props.profile.reviews}
+                      reviews={this.props.reviews}
                       inProfile={true}
-                      profile={this.props.profile}
                       deleteReview={this.props.deleteReview}
                     />
                   </div>
@@ -105,6 +110,10 @@ const dispatchToPropertyMapper = (dispatch) => ({
   deleteReview: (reviewId) => {
     reviewService.deleteReview(reviewId)
       .then(status => dispatch(deleteReview(reviewId)))
+  },
+  findReviewsForUser: (username) => {
+    reviewService.findReviewsByUser(username)
+      .then((reviews) => dispatch(findAllReviews(reviews)))
   }
 });
 
@@ -112,6 +121,7 @@ const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
   loggedIn: state.users.loggedIn,
   role: state.users.role,
+  reviews: state.reviews.reviews
 });
 
 export default connect(

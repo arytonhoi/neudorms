@@ -6,7 +6,8 @@ import {
   UPDATE_BUILDING,
   FILTER_BUILDINGS,
   EDIT_BUILDING,
-  HIGHEST_RATED
+  HIGHEST_RATED,
+  CLEAR_BUILDINGS
 } from '../constants';
 
 const initialState = {
@@ -21,6 +22,12 @@ const initialState = {
 
 const buildingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_BUILDINGS:
+      return {
+        ...state,
+        buildings: []
+      }
+
     case FIND_ALL_BUILDINGS:
       console.log(action.buildings)
       return {

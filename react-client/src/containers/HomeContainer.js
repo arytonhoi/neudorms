@@ -2,15 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
 import {
-  sortBuildings,
-  findAllBuildings,
-  filterBuildings,
   highestRated,
+  clearBuildings
 } from "../actions/BuildingActions";
 import {
   findRecentReviews,
-  findAllReviews,
   findRecentUserReviews,
+  deleteReview
 } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
@@ -21,8 +19,6 @@ import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 import ReviewList from "../components/details/ReviewList";
 import ReviewService from "../services/ReviewService";
-import CreateBuildingForm from "../components/home/CreateBuildingForm";
-import $ from "jquery";
 
 const ReviewWrapper = styled.div`
   margin: 32px 60px 32px 60px;
@@ -87,6 +83,10 @@ class HomeContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearBuildings();
+  }
+
   state = {
     searchTerm: "",
     filters: {
@@ -147,18 +147,23 @@ class HomeContainer extends React.Component {
             </div>
           </div>
 
-          <ReviewWrapper>
-            <Header>Top Rated Dorms</Header>
-            <RightWrapper>
-              <BuildingList buildings={this.props.buildings} topRated={true} />
-            </RightWrapper>
-          </ReviewWrapper>
+          {this.props.buildings && this.props.buildings.length > 0 && (
+            <ReviewWrapper>
+              <Header>Top Rated Dorms</Header>
+              <RightWrapper>
+                <BuildingList
+                  buildings={this.props.buildings}
+                  topRated={true}
+                />
+              </RightWrapper>
+            </ReviewWrapper>
+          )}
 
           {this.props.role === "user" && this.props.userReviews.length > 0 && (
             <ReviewWrapper>
               <Header>My Recent Reviews</Header>
               <RightWrapper>
-                <ReviewList inHome={true} reviews={this.props.userReviews} />
+                <ReviewList inHome={true} reviews={this.props.userReviews} deleteReview={this.props.deleteReview} />
               </RightWrapper>
             </ReviewWrapper>
           )}
@@ -167,47 +172,12 @@ class HomeContainer extends React.Component {
             <ReviewWrapper>
               <Header>Recent Reviews</Header>
               <RightWrapper>
-                <ReviewList inHome={true} reviews={this.props.reviews} />
+                <ReviewList inHome={true} reviews={this.props.reviews} deleteReview={this.props.deleteReview} />
               </RightWrapper>
             </ReviewWrapper>
           )}
         </Wrapper>
-        {/* </div>
-
-        <BuildingWrapper>
-          <FilterList applyFilters={this.applyFilters} />
-
-          <RightWrapper>
-
-
-            <SortBar
-              buildings={this.props.buildings}
-              searchTerm={this.state.searchTerm}
-              applySort={this.props.applySort}
-              numBuildings={this.props.buildings.length}
-            />
-
-            {this.props.role === "staff" &&
-              <div>
-                <CreateBuildingForm/>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    $(`#createBuildingModal`).modal("show");
-                  }}
-                  type="button"
-                >
-                  Create Building
-              </button>
-              </div>
-            }
-
-            <BuildingList
-              buildings={this.props.buildings}
-              profile={this.props.profile}
-            />
-          </RightWrapper>
-        </BuildingWrapper> */}
+        
         <Footer>
           <span>
             Check out our{" "}
@@ -246,32 +216,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
     staffService.logout();
   },
 
-  findAllBuildings: () => {
-    buildingService
-      .findAllBuildings()
-      .then((buildings) => dispatch(findAllBuildings(buildings)));
-  },
-
-  filterBuildings: (searchTerm, filters) => {
-    buildingService
-      .findAllBuildings()
-      .then((buildings) =>
-        dispatch(filterBuildings(buildings, searchTerm, filters))
-      );
-  },
-
-  findReviews: (buildingId) => {
-    buildingService
-      .findReviewsForBuilding(buildingId)
-      .then((reviews) => dispatch(findAllReviews(reviews)));
-  },
-
-  applySort: (preference) => {
-    buildingService
-      .findAllBuildings()
-      .then((buildings) => dispatch(sortBuildings(buildings, preference)));
-  },
-
   findRecentReviews: () => {
     ReviewService.findAllReviews().then((reviews) =>
       dispatch(findRecentReviews(reviews))
@@ -288,6 +232,15 @@ const dispatchToPropertyMapper = (dispatch) => ({
     buildingService
       .findAllBuildings()
       .then((buildings) => dispatch(highestRated(buildings)));
+  },
+
+  clearBuildings: () => {
+    dispatch(clearBuildings())
+  },
+
+  deleteReview: (reviewId) => {
+    ReviewService.deleteReview(reviewId)
+      .then(status => dispatch(deleteReview(reviewId)))
   },
 });
 

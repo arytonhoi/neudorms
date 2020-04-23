@@ -18,3 +18,7 @@ img {
 .link:hover {
   color: inherit;
 }
+
+.btn-delete {
+  width: 110px;
+}

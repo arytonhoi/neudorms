@@ -14,6 +14,7 @@ export const UPDATE_BUILDING = 'UPDATE_BUILDING';
 export const EDIT_BUILDING = 'EDIT_BUILDING';
 export const FILTER_BUILDINGS = 'FILTER_BUILDING';
 export const HIGHEST_RATED = 'HIGHEST_RATED';
+export const CLEAR_BUILDINGS = 'CLEAR_BUILDINGS';
 
 // picture constants
 export const FIND_ALL_PICTURES = 'FIND_ALL_PICTURES';

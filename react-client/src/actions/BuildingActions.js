@@ -7,7 +7,8 @@ import {
   FIND_PICTURES_FOR_BUILDING,
   FILTER_BUILDINGS,
   EDIT_BUILDING,
-  HIGHEST_RATED
+  HIGHEST_RATED,
+  CLEAR_BUILDINGS
 } from '../constants';
 
 export const findAllBuildings = (buildings) => ({
@@ -62,4 +63,8 @@ export const editBuilding = (building) => ({
 export const highestRated = (buildings) => ({
   type: HIGHEST_RATED,
   buildings: buildings
+})
+
+export const clearBuildings = () => ({
+  type: CLEAR_BUILDINGS
 })

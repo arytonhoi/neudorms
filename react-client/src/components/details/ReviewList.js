@@ -1,8 +1,10 @@
 import React from "react";
 import "./details.css";
 import styled from "styled-components";
-import ViewProfileContainer from "../../containers/ViewProfileContainer";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { profile, logout } from "../../actions/UserActions";
+import userService from "../../services/UserService";
 
 const Title = styled.div`
   font-size: 24px;
@@ -15,20 +17,6 @@ const ReviewBox = styled.div`
   padding: 16px 24px;
   margin-bottom: 12px;
   width: 100%;
-`;
-
-const ReviewBoxRed = styled.div`
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
-  background-color: red;
-  padding: 12px 24px;
-  margin-bottom: 12px;
-`;
-
-const ReviewBoxGreen = styled.div`
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
-  background-color: lightgreen;
-  padding: 12px 24px;
-  margin-bottom: 12px;
 `;
 
 const ReviewUser = styled.div`
@@ -49,6 +37,18 @@ const Sentiment = styled.div`
   margin-bottom: 12px;
 `;
 
+const NegativeSentiment = styled.div`
+  color: red;
+  font-weight: 500;
+  margin-bottom: 12px;
+`;
+
+const PositiveSentiment = styled.div`
+  color: green;
+  font-weight: 500;
+  margin-bottom: 12px;
+`;
+
 const ReviewHeader = styled.div`
   display: flex;
   flex-direction: row;
@@ -56,10 +56,14 @@ const ReviewHeader = styled.div`
 `;
 
 class ReviewList extends React.Component {
+  state = {
+    filter: "All Reviews",
+  };
+
   render() {
     if (this.props.inHome) {
       return (
-        <div >
+        <div>
           <div className="row mt-4">
             {this.props.reviews.map((review) => (
               <div className="mb-2 col-3 d-flex align-items-stretch">
@@ -67,9 +71,22 @@ class ReviewList extends React.Component {
                   <ReviewHeader>
                     <div>
                       <ReviewBuilding>
-                        <Link className="link" to={`/details/${review.referencedBuildingId}`}>{review.buildingName}</Link>
+                        <Link
+                          className="link"
+                          to={`/details/${review.referencedBuildingId}`}
+                        >
+                          {review.buildingName}
+                        </Link>
                       </ReviewBuilding>
-                      <Sentiment>Sentiment: {review.sentiment}</Sentiment>
+                      {review.sentiment > 0.1 && (
+                        <PositiveSentiment>Positive Review</PositiveSentiment>
+                      )}
+                      {review.sentiment < -0.1 && (
+                        <NegativeSentiment>Negative Review</NegativeSentiment>
+                      )}
+                      {review.sentiment >= -0.1 && review.sentiment <= 0.1 && (
+                        <Sentiment>Neutral Review</Sentiment>
+                      )}
                     </div>
                     <ReviewUser>
                       <div>
@@ -77,12 +94,21 @@ class ReviewList extends React.Component {
                           timeZone: "UTC",
                         })}
                       </div>
-                      <Link className="link" to={`/profile/${review.username}`}>{review.name}</Link>
+                      <Link className="link" to={`/profile/${review.username}`}>
+                        {review.name}
+                      </Link>
                     </ReviewUser>
                   </ReviewHeader>
                   <ReviewText>{review.text}</ReviewText>
+                  {this.props.profile && this.props.profile.username === review.username &&
+                  <button className='btn btn-outline-danger btn-delete btn-sm mt-3'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
                 </ReviewBox>
-                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -91,27 +117,79 @@ class ReviewList extends React.Component {
 
     return (
       <div className="mb-5">
-        {!this.props.inProfile && <Title>Reviews</Title>}
-        <span>
-          <button className='btn btn-warning' onClick={() => this.props.filter(this.props.buildingId, '')}>
-            All reviews
-          </button>
-          <button className='btn btn-success' onClick={() => this.props.filter(this.props.buildingId, 'positive')}>
-            Positive reviews
-          </button>
-          <button className='btn btn-danger' onClick={() => this.props.filter(this.props.buildingId, 'negative')}>
-            Negative reviews
-          </button>
-        </span>
+        {!this.props.inProfile && (
+          <div className="d-flex justify-content-between">
+            <Title>Reviews</Title>
+            <div class="float-right dropdown">
+              <a
+                class="dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {this.state.filter}
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    this.setState({ filter: "All Reviews" });
+                    this.props.filter(this.props.buildingId, "");
+                  }}
+                >
+                  All Reviews
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    this.setState({ filter: "Positive Reviews" });
+                    this.props.filter(this.props.buildingId, "positive");
+                  }}
+                >
+                  Positive Reviews
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    this.setState({ filter: "Negative Reviews" });
+                    this.props.filter(this.props.buildingId, "negative");
+                  }}
+                >
+                  Negative Reviews
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
         {this.props.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
             <ReviewBox className="card">
               <ReviewHeader>
                 <div>
                   <ReviewBuilding>
-                    Review on {review.buildingName}
+                    <Link
+                      className="link"
+                      to={`/details/${review.referencedBuildingId}`}
+                    >
+                      {review.buildingName}
+                    </Link>
                   </ReviewBuilding>
-                  <Sentiment>Sentiment: {review.sentiment}</Sentiment>
+                  {review.sentiment > 0.1 && (
+                    <PositiveSentiment>Positive Review</PositiveSentiment>
+                  )}
+                  {review.sentiment < -0.1 && (
+                    <NegativeSentiment>Negative Review</NegativeSentiment>
+                  )}
+                  {review.sentiment >= -0.1 && review.sentiment <= 0.1 && (
+                    <Sentiment>Neutral Review</Sentiment>
+                  )}
                 </div>
                 <ReviewUser>
                   <div>
@@ -119,71 +197,20 @@ class ReviewList extends React.Component {
                       timeZone: "UTC",
                     })}
                   </div>
-                  <a href={`/profile/${review.username}`}>{review.name}</a>
+                  <Link className="link" to={`/profile/${review.username}`}>
+                    {review.name}
+                  </Link>
                 </ReviewUser>
               </ReviewHeader>
               <ReviewText>{review.text}</ReviewText>
+              {this.props.profile && this.props.profile.username === review.username &&
+                  <button className='btn btn-outline-danger btn-delete btn-sm mt-3'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
             </ReviewBox>
-            {/* {review.sentiment > 0.1 &&
-              <ReviewBoxGreen className="card">
-                <ReviewHeader>
-                  <ReviewUser>
-                    <a href={`/profile/${review.username}`}>{review.name}</a>
-                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
-                  </ReviewUser>
-                  <Sentiment>Postive review</Sentiment>
-                </ReviewHeader>
-                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
-                <ReviewText>{review.text}</ReviewText>
-                {this.props.profile.username === review.username &&
-                  <button className='btn btn-danger'
-                    onClick={() => this.props.deleteReview(review.id)}
-                  >
-                    Delete Review
-                  </button>
-                }
-              </ReviewBoxGreen>
-            }
-            {review.sentiment < -0.1 &&
-              <ReviewBoxRed className="card">
-                <ReviewHeader>
-                  <ReviewUser>
-                    <a href={`/profile/${review.username}`}>{review.name}</a>
-                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
-                  </ReviewUser>
-                  <Sentiment>Negative review</Sentiment>
-                </ReviewHeader>
-                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
-                <ReviewText>{review.text}</ReviewText>
-                {this.props.profile.username === review.username &&
-                  <button className='btn btn-danger'
-                    onClick={() => this.props.deleteReview(review.id)}
-                  >
-                    Delete Review
-                  </button>
-                }
-              </ReviewBoxRed>
-            }
-            {(review.sentiment >= -0.1 && review.sentiment <= 0.1) &&
-              <ReviewBox className="card">
-                <ReviewHeader>
-                  <ReviewUser>
-                    <a href={`/profile/${review.username}`}>{review.name}</a>
-                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
-                  </ReviewUser>
-                  <Sentiment>Neutral review</Sentiment>
-                </ReviewHeader>
-                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
-                <ReviewText>{review.text}</ReviewText>
-                {this.props.profile.username === review.username &&
-                  <button className='btn btn-danger'
-                    onClick={() => this.props.deleteReview(review.id)}
-                  >
-                    Delete Review
-                  </button>
-                }
-              </ReviewBox>
-            } */}
           </ul>
         ))}
       </div>
@@ -191,4 +218,10 @@ class ReviewList extends React.Component {
   }
 }
 
-export default ReviewList;
+const stateToPropertyMapper = (state) => ({
+  profile: state.users.profile
+});
+
+export default connect(
+  stateToPropertyMapper
+)(ReviewList);

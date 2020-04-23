@@ -53,8 +53,12 @@ class DetailsContainer extends React.Component {
 
   addBookmark = () => {
     if (this.props.loggedIn) {
-      this.props.addUserBookmark(this.props.profile.username, this.props.match.params.buildingId);
-      alert("Bookmarked " + this.props.building.name);
+      if (this.props.role === 'user') {
+        this.props.addUserBookmark(this.props.profile.username, this.props.match.params.buildingId);
+        alert("Bookmarked " + this.props.building.name);
+      } else {
+        alert("Staff cannot add photos")
+      }
     } else {
       alert("Log in to bookmark");
     }
@@ -95,7 +99,6 @@ class DetailsContainer extends React.Component {
                 buildingId={this.props.match.params.buildingId}
                 reviews={this.props.reviews} 
                 filter={this.props.filterReviews}
-                profile={this.props.profile}
                 deleteReview={this.props.deleteReview}/>
             </div>
           </div>

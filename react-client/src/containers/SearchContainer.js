@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
-import { sortBuildings, findAllBuildings, filterBuildings } from "../actions/BuildingActions";
+import {
+  sortBuildings,
+  findAllBuildings,
+  filterBuildings,
+  clearBuildings,
+} from "../actions/BuildingActions";
 import { findAllReviews } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
@@ -12,6 +17,8 @@ import styled from "styled-components";
 import userService from "../services/UserService";
 import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
+import CreateBuildingForm from "../components/home/CreateBuildingForm";
+import $ from "jquery";
 
 const BuildingWrapper = styled.div`
   margin: 32px 60px 60px 60px;
@@ -56,6 +63,10 @@ class HomeContainer extends React.Component {
     this.props.findAllBuildings();
   }
 
+  componentWillUnmount() {
+    this.props.clearBuildings();
+  }
+
   state = {
     searchTerm: "",
     filters: {
@@ -79,7 +90,7 @@ class HomeContainer extends React.Component {
     if (event.key === "Enter") {
       this.search();
     }
-  }
+  };
 
   render() {
     console.log("ROLE: " + this.props.role);
@@ -117,23 +128,28 @@ class HomeContainer extends React.Component {
           <FilterList applyFilters={this.applyFilters} />
 
           <RightWrapper>
-            {/*{this.props.loggedIn && (*/}
-            {/*    <div>*/}
-            {/*      <Header>My Recent Bookmarks</Header>*/}
-            {/*      /!*MOST RECENT BOOKMARKS HERE*!/*/}
-            {/*      <p>MOST RECENT BOOKMARKS HERE</p>*/}
-            {/*      <Header>My Recent Reviews</Header>*/}
-            {/*      /!*MOST RECENT REVIEWS HERE*!/*/}
-            {/*      <p>MOST RECENT REVIEWS HERE</p>*/}
-            {/*    </div>*/}
-            {/*)}*/}
-
-            <SortBar 
+            <SortBar
               buildings={this.props.buildings}
               searchTerm={this.state.searchTerm}
               applySort={this.props.applySort}
               numBuildings={this.props.buildings.length}
-              />
+            />
+
+            {this.props.role === "staff" && (
+              <div>
+                <CreateBuildingForm />
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    $(`#createBuildingModal`).modal("show");
+                  }}
+                  type="button"
+                >
+                  Create Building
+                </button>
+              </div>
+            )}
+
             <BuildingList
               buildings={this.props.buildings}
               profile={this.props.profile}
@@ -141,7 +157,15 @@ class HomeContainer extends React.Component {
           </RightWrapper>
         </BuildingWrapper>
         <Footer>
-          <span>Check out our  <a className="privacy" href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit">privacy policy.</a></span>
+          <span>
+            Check out our{" "}
+            <a
+              className="privacy"
+              href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit"
+            >
+              privacy policy.
+            </a>
+          </span>
         </Footer>
       </div>
     );
@@ -185,17 +209,20 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
 
   findReviews: (buildingId) => {
-    buildingService.findReviewsForBuilding(buildingId)
-      .then(reviews => dispatch(findAllReviews(reviews)))
+    buildingService
+      .findReviewsForBuilding(buildingId)
+      .then((reviews) => dispatch(findAllReviews(reviews)));
   },
 
   applySort: (preference) => {
     buildingService
-    .findAllBuildings()
-    .then((buildings) =>
-      dispatch(sortBuildings(buildings, preference))
-    );
-  }
+      .findAllBuildings()
+      .then((buildings) => dispatch(sortBuildings(buildings, preference)));
+  },
+
+  clearBuildings: () => {
+    dispatch(clearBuildings());
+  },
 });
 
 const stateToPropertyMapper = (state) => ({
@@ -203,7 +230,7 @@ const stateToPropertyMapper = (state) => ({
   role: state.users.role,
   loggedIn: state.users.loggedIn,
   buildings: state.buildings.buildings,
-  reviews: state.reviews.reviews
+  reviews: state.reviews.reviews,
 });
 
 export default connect(

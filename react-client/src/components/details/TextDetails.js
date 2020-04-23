@@ -65,7 +65,7 @@ class TextDetails extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mb-4">
         <Header>{this.props.building.name}</Header>
         <Address>
           <i class="fas fa-map-marker-alt ml-1 mr-2"></i>

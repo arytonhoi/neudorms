@@ -25,6 +25,9 @@ export default function NavBar(props) {
               {/* <a className="nav-link profile" href="#">
                 Housing Group
               </a> */}
+              <Link className="nav-link profile" to="/search">
+                Search
+              </Link>
               {props.role === "user" && (
                 <Link className="nav-link profile" to="/bookmarks">
                 Bookmarks
