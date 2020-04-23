@@ -40,24 +40,24 @@ class BuildingCard extends React.Component {
           <div className="card-body">
             <h5 className="card-title">{this.props.building.name}</h5>
             {
-              (this.props.building.rating <= 0) &&
+              (this.props.building.rating < 0) &&
               <h6 className="card-subtitle mb-2 text-muted">No reviews yet!</h6>
             }
             {
-              (this.props.building.rating > 0) &&
+              (this.props.building.rating >= 0) &&
               <h6 className="card-subtitle mb-2 text-muted">{this.props.building.rating}% student approval</h6>
             }
-            <p className="card-text">Description</p>
+            <p className="card-text">Resident Types: {this.props.building.residentTypes}</p>
             <Link
               className="card-link"
               to={`/details/${this.props.building.id}`}
             >
-              <button className="btn btn-outline-primary mr-3 mt-1">Open</button>
+              <button className="btn btn-outline-primary mr-3 mt-2">Open</button>
             </Link>
 
             {this.props.role === "staff" && (
               <button
-                className="btn btn-outline-secondary mr-3 mt-1"
+                className="btn btn-outline-secondary mr-3 mt-2"
                 onClick={() => {
                   $(`#editBuildingModal${this.props.building.id}`).modal("show");
                 }}
@@ -68,7 +68,7 @@ class BuildingCard extends React.Component {
             )}
             {this.props.inProfile && (
               <button
-                className="btn mr-3 btn-outline-danger mt-1"
+                className="btn mr-3 btn-outline-danger mt-2"
                 onClick={() => this.props.removeUserBookmark(this.props.profile.username, this.props.building.id)}
                 type="button"
               >

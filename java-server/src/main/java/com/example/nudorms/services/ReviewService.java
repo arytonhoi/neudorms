@@ -24,7 +24,6 @@ public class ReviewService {
   public Review createReview(Integer buildingId, Review review) {
     User user = userService.findUserByUsername(review.getUsername());
     userService.addReviewForUser(user.getUsername(), review);
-    buildingService.addReviewForBuilding(buildingId, review);
     review.setBuilding(buildingService.findBuildingById(buildingId));
     review.setUser(user);
     review.setReferencedBuildingId(buildingId);
@@ -38,6 +37,9 @@ public class ReviewService {
     } catch (Exception e) {
       review.setSentiment(0.001);
     }
+    
+    buildingService.addReviewForBuilding(buildingId, review);
+
     return reviewRepository.save(review);
   }
 
