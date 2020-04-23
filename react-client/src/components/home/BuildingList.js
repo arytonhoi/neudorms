@@ -11,6 +11,8 @@ class BuildingList extends React.Component {
             <BuildingCard
               key={building.id}
               building={building}
+              inProfile={this.props.inProfile}
+              profile={this.props.profile}
               topRated={this.props.topRated}
               inProfile={this.props.inProfile} />
           ))}

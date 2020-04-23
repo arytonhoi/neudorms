@@ -145,9 +145,9 @@ const dispatchToPropertyMapper = (dispatch) => ({
     buildingService.findReviewsForBuilding(buildingId)
       .then(reviews => dispatch(findAllReviews(reviews)))
   },
-  addUserBookmark: (username, buildingId) => {
-    userService.addUserBookmark(username, buildingId)
-      .then(response => console.log("RESPONSE: " + response));
+  addUserBookmark: (username, building) => {
+    userService.addUserBookmark(username, building.id)
+      .then(response => dispatch(addUserBookmark(username, building)));
   },
   filterReviews: (buildingId, preference) => {
     buildingService.findReviewsForBuilding(buildingId)

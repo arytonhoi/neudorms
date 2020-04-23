@@ -3,6 +3,7 @@ import {
   FIND_USER_BY_USERNAME,
   FIND_BOOKMARKS_FOR_USER,
   ADD_USER_BOOKMARK,
+  REMOVE_USER_BOOKMARK,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
@@ -30,11 +31,19 @@ export const findBookmarksForUser = (bookmarks) => {
   }
 }
 
-export const addUserBookmark = (username, buildingId) => {
+export const removeUserBookmark = (username, buildingId) => {
+  return {
+    type: REMOVE_USER_BOOKMARK,
+    username: username,
+    buildingId: buildingId
+  }
+}
+
+export const addUserBookmark = (username, building) => {
   return {
     type: ADD_USER_BOOKMARK,
     username: username,
-    buildingId: buildingId
+    bulding: building
   }
 }
 
