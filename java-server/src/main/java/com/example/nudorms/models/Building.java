@@ -95,7 +95,7 @@ public class Building {
         
         int rating = -1;
         if (this.reviews.size() > 0) {
-            rating = (int) (numPositiveReviews / this.reviews.size());
+            rating = (int) ((numPositiveReviews / this.reviews.size()) * 100);
         }
         
         this.setRating(rating);

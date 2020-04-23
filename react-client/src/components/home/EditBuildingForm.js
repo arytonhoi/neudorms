@@ -4,12 +4,13 @@ import { createReview } from "../../actions/ReviewActions";
 import reviewService from "../../services/ReviewService";
 import userService from "../../services/UserService";
 import buildingService from "../../services/BuildingService";
-import { updateBuilding } from "../../actions/BuildingActions";
+import { updateBuilding, deleteBuilding } from "../../actions/BuildingActions";
 import { profile, logout } from "../../actions/UserActions";
 import staffService from "../../services/StaffService";
 
 class EditBuildingForm extends React.Component {
   state = {
+    id: this.props.building.id,
     name: this.props.building.name,
     address: this.props.building.address,
     thumbnailImageUrl: this.props.building.thumbnailImageUrl,
@@ -188,10 +189,19 @@ class EditBuildingForm extends React.Component {
                   data-dismiss="modal"
                   onClick={() => {
                     this.props.updateBuilding(this.props.building.id, this.state)
-                    // this.props.submitUpdate()
                   }}
                 >
                   Save Changes
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    this.props.deleteBuilding(this.props.building.id)
+                  }}
+                >
+                  Delete Building
                 </button>
               </div>
             </div>
@@ -219,16 +229,16 @@ const dispatchToPropertyMapper = (dispatch) => ({
     });
   },
 
-  createReview: (buildingId, review) => {
-    reviewService
-      .createReview(buildingId, review)
-      .then((review) => dispatch(createReview(review)));
-  },
-
   updateBuilding: (buildingId, building) => {
     buildingService
       .updateBuilding(buildingId, building)
       .then(status => dispatch(updateBuilding(buildingId, building)))
+  },
+
+  deleteBuilding: (buildingId) => {
+    buildingService
+      .deleteBuilding(buildingId)
+      .then(status => dispatch(deleteBuilding(buildingId)))
   }
 });
 

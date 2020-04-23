@@ -53,8 +53,6 @@ const buildingReducer = (state = initialState, action) => {
           })
       })
 
-      console.log(action.filters.maxCost)
-      console.log(filteredBuildings)
       let maxCost = parseInt(action.filters.maxCost)
       if (maxCost > 0 && !isNaN(maxCost)) {
         filteredBuildings = filteredBuildings

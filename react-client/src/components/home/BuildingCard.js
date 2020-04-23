@@ -26,28 +26,28 @@ class BuildingCard extends React.Component {
           <EditBuildingForm building={this.state.building} submitUpdate={this.submitUpdate} />
         )}
         <div className="card">
-          <Link className="card-link" to={`/details/${this.state.building.id}`}>
+          <Link className="card-link" to={`/details/${this.props.building.id}`}>
             <img
               className="card-img-top"
-              src={this.state.building.thumbnailImageUrl}
+              src={this.props.building.thumbnailImageUrl}
               alt="Card image cap"
             />
           </Link>
 
           <div className="card-body">
-            <h5 className="card-title">{this.state.building.name}</h5>
+            <h5 className="card-title">{this.props.building.name}</h5>
             {
-              (this.state.building.rating <= 0) &&
+              (this.props.building.rating <= 0) &&
               <h6 className="card-subtitle mb-2 text-muted">No reviews yet!</h6>
             }
             {
-              (this.state.building.rating > 0) &&
-              <h6 className="card-subtitle mb-2 text-muted">this.state.building.rating %</h6>
+              (this.props.building.rating > 0) &&
+              <h6 className="card-subtitle mb-2 text-muted">{this.props.building.rating}% student approval</h6>
             }
             <p className="card-text">Description</p>
             <Link
               className="card-link"
-              to={`/details/${this.state.building.id}`}
+              to={`/details/${this.props.building.id}`}
             >
               <button className="btn btn-outline-primary mr-3">Open</button>
             </Link>
@@ -56,7 +56,7 @@ class BuildingCard extends React.Component {
               <button
                 className="btn btn-outline-secondary mr-3"
                 onClick={() => {
-                  $(`#editBuildingModal${this.state.building.id}`).modal("show");
+                  $(`#editBuildingModal${this.props.building.id}`).modal("show");
                 }}
                 type="button"
               >

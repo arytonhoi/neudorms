@@ -17,6 +17,20 @@ const ReviewBox = styled.div`
   width: 100%;
 `;
 
+const ReviewBoxRed = styled.div`
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-color: red;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+`;
+
+const ReviewBoxGreen = styled.div`
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-color: lightgreen;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+`;
+
 const ReviewUser = styled.div`
   color: gray;
 `;
@@ -78,6 +92,17 @@ class ReviewList extends React.Component {
     return (
       <div className="mb-5">
         {!this.props.inProfile && <Title>Reviews</Title>}
+        <span>
+          <button className='btn btn-warning' onClick={() => this.props.filter(this.props.buildingId, '')}>
+            All reviews
+          </button>
+          <button className='btn btn-success' onClick={() => this.props.filter(this.props.buildingId, 'positive')}>
+            Positive reviews
+          </button>
+          <button className='btn btn-danger' onClick={() => this.props.filter(this.props.buildingId, 'negative')}>
+            Negative reviews
+          </button>
+        </span>
         {this.props.reviews.map((review) => (
           <ul className="list-group" key={review.id}>
             <ReviewBox className="card">
@@ -99,6 +124,66 @@ class ReviewList extends React.Component {
               </ReviewHeader>
               <ReviewText>{review.text}</ReviewText>
             </ReviewBox>
+            {/* {review.sentiment > 0.1 &&
+              <ReviewBoxGreen className="card">
+                <ReviewHeader>
+                  <ReviewUser>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
+                  <Sentiment>Postive review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
+              </ReviewBoxGreen>
+            }
+            {review.sentiment < -0.1 &&
+              <ReviewBoxRed className="card">
+                <ReviewHeader>
+                  <ReviewUser>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
+                  <Sentiment>Negative review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
+              </ReviewBoxRed>
+            }
+            {(review.sentiment >= -0.1 && review.sentiment <= 0.1) &&
+              <ReviewBox className="card">
+                <ReviewHeader>
+                  <ReviewUser>
+                    <a href={`/profile/${review.username}`}>{review.name}</a>
+                    <ReviewDate> on {new Date(review.date).toDateString()}</ReviewDate>
+                  </ReviewUser>
+                  <Sentiment>Neutral review</Sentiment>
+                </ReviewHeader>
+                <ReviewBuilding>{review.buildingName}</ReviewBuilding>
+                <ReviewText>{review.text}</ReviewText>
+                {this.props.profile.username === review.username &&
+                  <button className='btn btn-danger'
+                    onClick={() => this.props.deleteReview(review.id)}
+                  >
+                    Delete Review
+                  </button>
+                }
+              </ReviewBox>
+            } */}
           </ul>
         ))}
       </div>

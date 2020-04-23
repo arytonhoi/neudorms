@@ -21,6 +21,8 @@ import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 import ReviewList from "../components/details/ReviewList";
 import ReviewService from "../services/ReviewService";
+import CreateBuildingForm from "../components/home/CreateBuildingForm";
+import $ from "jquery";
 
 const ReviewWrapper = styled.div`
   margin: 32px 60px 32px 60px;
@@ -170,6 +172,42 @@ class HomeContainer extends React.Component {
             </ReviewWrapper>
           )}
         </Wrapper>
+        {/* </div>
+
+        <BuildingWrapper>
+          <FilterList applyFilters={this.applyFilters} />
+
+          <RightWrapper>
+
+
+            <SortBar
+              buildings={this.props.buildings}
+              searchTerm={this.state.searchTerm}
+              applySort={this.props.applySort}
+              numBuildings={this.props.buildings.length}
+            />
+
+            {this.props.role === "staff" &&
+              <div>
+                <CreateBuildingForm/>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    $(`#createBuildingModal`).modal("show");
+                  }}
+                  type="button"
+                >
+                  Create Building
+              </button>
+              </div>
+            }
+
+            <BuildingList
+              buildings={this.props.buildings}
+              profile={this.props.profile}
+            />
+          </RightWrapper>
+        </BuildingWrapper> */}
         <Footer>
           <span>
             Check out our{" "}
