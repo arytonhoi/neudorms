@@ -9,7 +9,8 @@ import {
   DELETE_USER,
   PROFILE,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  CLEAR_BOOKMARKS
 } from "../constants";
 
 const initialState = {
@@ -103,6 +104,12 @@ const userReducer = (state = initialState, action) => {
         loggedIn: false,
         role: ""
       };
+
+    case CLEAR_BOOKMARKS:
+      return {
+        ...state,
+        bookmarks: []
+      }
 
     default:
       return state;

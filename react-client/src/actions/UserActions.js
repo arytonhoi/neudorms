@@ -9,7 +9,8 @@ import {
   DELETE_USER,
   PROFILE,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  CLEAR_BOOKMARKS
 } from '../constants';
 
 export const findAllUsers = (users) => ({
@@ -43,7 +44,7 @@ export const addUserBookmark = (username, building) => {
   return {
     type: ADD_USER_BOOKMARK,
     username: username,
-    bulding: building
+    building: building
   }
 }
 
@@ -75,4 +76,8 @@ export const login = () => ({
 
 export const logout = () => ({
   type: LOGOUT
+})
+
+export const clearBookmarks = () => ({
+  type: CLEAR_BOOKMARKS
 })

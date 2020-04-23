@@ -48,3 +48,4 @@ export const DELETE_USER = 'DELETE_USER';
 export const PROFILE = 'PROFILE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const CLEAR_BOOKMARKS = 'CLEAR_BOOKMARKS';
