@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import EditBuildingForm from "./EditBuildingForm";
 import $ from "jquery";
+import userService from "../../services/UserService";
+import { removeUserBookmark } from "../../actions/UserActions";
+
 
 class BuildingCard extends React.Component {
   state = {
@@ -53,12 +56,29 @@ class BuildingCard extends React.Component {
                 Edit
               </button>
             )}
+            {this.props.inProfile && (
+              <button
+                className="btn btn-outline-secondary mr-3 btn-danger"
+                onClick={() => this.props.removeUserBookmark(this.props.profile.username, this.props.building.id)}
+                type="button"
+              >
+                Remove
+              </button>
+            )}
           </div>
         </div>
       </div>
     );
   }
 }
+
+
+const dispatchToPropertyMapper = (dispatch) => ({
+  removeUserBookmark: (username, buildingId) => {
+    userService.removeUserBookmark(username, buildingId)
+      .then(response => dispatch(removeUserBookmark(username, buildingId)))
+  }
+});
 
 const stateToPropertyMapper = (state) => ({
   profile: state.users.profile,
@@ -68,5 +88,6 @@ const stateToPropertyMapper = (state) => ({
 });
 
 export default connect(
-  stateToPropertyMapper
+  stateToPropertyMapper,
+  dispatchToPropertyMapper
 )(BuildingCard);

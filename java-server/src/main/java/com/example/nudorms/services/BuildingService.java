@@ -62,7 +62,7 @@ public class BuildingService {
     return 1;
   }
 
-  public Integer addReviewForBuilding(Integer buildingId, Review review)   {
+  public Integer addReviewForBuilding(Integer buildingId, Review review) {
     Building building = this.findBuildingById(buildingId);
     building.addReview(review);
     buildingRepository.save(building);
@@ -75,5 +75,17 @@ public class BuildingService {
     building.addBookmarkUser(user);
     buildingRepository.save(building);
     return 1;
+  }
+
+  public Integer removeBookmarkUser(String username, Integer buildingId) {
+    User user = userService.findUserByUsername(username);
+    Building building = this.findBuildingById(buildingId);
+
+    if (building.removeBookmarkUser(user)) {
+      buildingRepository.save(building);
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

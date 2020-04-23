@@ -9,7 +9,6 @@ public class User {
     @Id
     private String username;
     private String password;
-    // private String email;
     private String name;
     private String major;
     private Integer year;
@@ -38,14 +37,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    // public String getEmail() {
-    //     return this.email;
-    // }
-
-    // public void setEmail(String email) {
-    //     this.email = email;
-    // }
 
     public String getName() {
         return this.name;
@@ -77,6 +68,10 @@ public class User {
 
     public void addBookmark(Building building) {
         this.bookmarkedBuildings.add(building);
+    }
+
+    public Boolean removeBookmark(Building building) {
+        return this.bookmarkedBuildings.removeIf(b -> b.getId() == building.getId());
     }
 
     public Set<Review> getReviews() {

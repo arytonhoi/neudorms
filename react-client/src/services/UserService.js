@@ -15,11 +15,11 @@ export const profile = () =>
     },
     credentials: "include"
   }).then((response) => response.json())
-  .catch((e) => {
-    if (e.message === "JSON.parse: unexpected end of data at line 1 column 1 of the JSON data") {
-      return undefined;
-    }
-  });
+    .catch((e) => {
+      if (e.message === "JSON.parse: unexpected end of data at line 1 column 1 of the JSON data") {
+        return undefined;
+      }
+    });
 
 export const registerUser = (user) =>
   fetch(`${API_URL}/users/register`, {
@@ -54,14 +54,23 @@ export const findUserByUsername = async (username) => {
 };
 
 export const findBookmarksForUser = async (username) => {
-    return fetch(`${API_URL}/users/${username}/bookmarks`).then((response) =>
-        response.json()
+  return fetch(`${API_URL}/users/${username}/bookmarks`).then((response) =>
+    response.json()
   );
 };
 
 export const addUserBookmark = async (username, buildingId) => {
   return fetch(`${API_URL}/users/${username}/bookmarks/${buildingId}`, {
     method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+  }).then((response) => response.json());
+};
+
+export const removeUserBookmark = async (username, buildingId) => {
+  return fetch(`${API_URL}/users/${username}/bookmarks/${buildingId}`, {
+    method: "DELETE",
     headers: {
       "content-type": "application/json",
     },
@@ -93,14 +102,17 @@ export const deleteUser = async (username) => {
   }).then((response) => response.json());
 };
 
+
+
 export default {
-  logout, 
+  logout,
   profile,
   loginUser,
   registerUser,
   findAllUsers,
   findUserByUsername,
   findBookmarksForUser,
+  removeUserBookmark,
   addUserBookmark,
   createUser,
   updateUser,

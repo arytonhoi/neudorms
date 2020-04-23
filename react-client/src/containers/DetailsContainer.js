@@ -53,7 +53,7 @@ class DetailsContainer extends React.Component {
 
   addBookmark = () => {
     if (this.props.loggedIn) {
-      this.props.addUserBookmark(this.props.profile.username, this.props.match.params.buildingId);
+      this.props.addUserBookmark(this.props.profile.username, this.props.building);
       alert("Bookmarked " + this.props.building.name);
     } else {
       alert("Log in to bookmark");
@@ -142,9 +142,9 @@ const dispatchToPropertyMapper = (dispatch) => ({
     buildingService.findReviewsForBuilding(buildingId)
       .then(reviews => dispatch(findAllReviews(reviews)))
   },
-  addUserBookmark: (username, buildingId) => {
-    userService.addUserBookmark(username, buildingId)
-      .then(response => console.log("RESPONSE: " + response));
+  addUserBookmark: (username, building) => {
+    userService.addUserBookmark(username, building.id)
+      .then(response => dispatch(addUserBookmark(username, building)));
   },
   filterReviews: (buildingId, preference) => {
     buildingService.findReviewsForBuilding(buildingId)

@@ -89,6 +89,13 @@ public class UserController {
     return buildingService.addBookmarkUser(username, buildingId);  
   }
 
+  @DeleteMapping("/api/users/{username}/bookmarks/{buildingId}")
+  public Integer removeUserBookmark(@PathVariable("username") String username, @PathVariable("buildingId") Integer buildingId) {
+    userService.removeBookmarkForUser(username, buildingId);
+    return buildingService.addBookmarkUser(username, buildingId);  
+  }
+
+
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     return userService.createUser(user);

@@ -109,6 +109,10 @@ public class Building {
         this.bookmarkUsers.add(user);
     }
 
+    public Boolean removeBookmarkUser(User user) {
+        return this.bookmarkUsers.removeIf(u -> u.getUsername().equals(user.getUsername()));
+    }
+
     public String getAmenities() {
         return this.amenities;
     }

@@ -3,6 +3,7 @@ import {
   FIND_USER_BY_USERNAME,
   FIND_BOOKMARKS_FOR_USER,
   ADD_USER_BOOKMARK,
+  REMOVE_USER_BOOKMARK,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
@@ -48,8 +49,18 @@ const userReducer = (state = initialState, action) => {
     case ADD_USER_BOOKMARK:
       return {
         ...state,
-        bookmarks: action.bookmarks,
+        bookmarks:
+          [
+            ...state.bookmarks,
+            action.building
+          ]
       };
+
+    case REMOVE_USER_BOOKMARK:
+      return {
+        ...state,
+        bookmarks: state.bookmarks.filter(building => building.id !== action.buildingId)
+      }
 
     case CREATE_USER:
       return {

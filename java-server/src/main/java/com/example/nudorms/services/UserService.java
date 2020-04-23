@@ -54,6 +54,18 @@ public class UserService {
     }
   }
 
+  public Integer removeBookmarkForUser(String username, Integer buildingId) {
+    User user = this.findUserByUsername(username);
+    Building building = buildingService.findBuildingById(buildingId);
+
+    if (user.removeBookmark(building)) {
+      userRepository.save(user);
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   public List<Building> findBookmarksForUser(String username) {
     return userRepository.findBookmarksForUser(username);
   }
