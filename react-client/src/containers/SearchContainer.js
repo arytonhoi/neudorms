@@ -57,18 +57,9 @@ const Footer = styled.div`
   color: gray;
 `;
 
-class HomeContainer extends React.Component {
-  componentDidMount() {
-    this.props.getProfile();
-    this.props.findAllBuildings();
-  }
-
-  componentWillUnmount() {
-    this.props.clearBuildings();
-  }
-
+class SearchContainer extends React.Component {
   state = {
-    searchTerm: "",
+    searchTerm: this.props.query,
     filters: {
       residentTypes: [],
       maxCost: 0,
@@ -78,8 +69,41 @@ class HomeContainer extends React.Component {
     },
   };
 
-  search = () => {
+  componentDidMount() {
+    this.props.getProfile();
+
+    if (this.props.query) {
+      this.setState({searchTerm: this.props.query})
+      this.loadSearch();
+    } else {
+      this.setState({searchTerm: ""})
+      this.props.findAllBuildings();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.query && !this.props.query) {
+      this.props.findAllBuildings();
+    } else if (prevProps.query !== this.props.query) {
+      this.setState({searchTerm: this.props.query})
+      this.loadSearch();
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearBuildings();
+  }
+
+  loadSearch = () => {
     this.props.filterBuildings(this.state.searchTerm, this.state.filters);
+  }
+  
+  search = () => {
+    if (this.state.searchTerm === "") {
+      this.props.history.push("/search");
+    } else {
+      this.props.history.push(`/search/${this.state.searchTerm}`);
+    }
   };
 
   applyFilters = (filters) => {
@@ -93,7 +117,6 @@ class HomeContainer extends React.Component {
   };
 
   render() {
-    console.log("ROLE: " + this.props.role);
     return (
       <div>
         <NavBar
@@ -112,6 +135,7 @@ class HomeContainer extends React.Component {
                 type="text"
                 placeholder="Dorm name or keyword"
                 onKeyPress={this.keyPressed}
+                defaultValue={this.state.searchTerm}
                 onChange={(e) => this.setState({ searchTerm: e.target.value })}
               />
               <button
@@ -130,7 +154,7 @@ class HomeContainer extends React.Component {
           <RightWrapper>
             <SortBar
               buildings={this.props.buildings}
-              searchTerm={this.state.searchTerm}
+              searchTerm={this.props.query ? this.props.query : ""}
               applySort={this.props.applySort}
               numBuildings={this.props.buildings.length}
             />
@@ -236,4 +260,4 @@ const stateToPropertyMapper = (state) => ({
 export default connect(
   stateToPropertyMapper,
   dispatchToPropertyMapper
-)(HomeContainer);
+)(SearchContainer);

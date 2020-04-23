@@ -71,7 +71,6 @@ const buildingReducer = (state = initialState, action) => {
             }
           })
       }
-      console.log(filteredBuildings)
 
       action.filters.roomTypes.forEach((roomType) => {
         filteredBuildings = filteredBuildings
@@ -106,7 +105,6 @@ const buildingReducer = (state = initialState, action) => {
           })
       })
 
-      console.log(filteredBuildings)
       return {
         ...state,
         buildings: filteredBuildings

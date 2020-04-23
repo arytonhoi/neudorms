@@ -52,7 +52,14 @@ class AppRoutingContainer extends React.Component {
               )}
             />
             <Route path="/profile" exact={true} component={ProfileContainer} />
-            <Route path="/search" component={SearchContainer} />
+            <Route path="/search" exact={true} component={SearchContainer} />
+            <Route
+              path="/search/:query"
+              exact={true}
+              render={(props) => (
+                <SearchContainer {...props} query={props.match.params.query} />
+              )}
+            />
             <Route path="/details/:buildingId" component={DetailsContainer} />
             <Route path="/login" component={LoginContainer} />
             <Route path="/bookmarks" component={BookmarksContainer} />

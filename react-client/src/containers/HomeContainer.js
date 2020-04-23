@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { profile, logout } from "../actions/UserActions";
-import {
-  highestRated,
-  clearBuildings
-} from "../actions/BuildingActions";
+import { highestRated, clearBuildings } from "../actions/BuildingActions";
 import {
   findRecentReviews,
   findRecentUserReviews,
-  deleteReview
+  deleteReview,
 } from "../actions/ReviewActions";
 import buildingService from "../services/BuildingService";
 import BuildingList from "../components/home/BuildingList";
@@ -99,14 +96,13 @@ class HomeContainer extends React.Component {
   };
 
   search = () => {
-    // this.props.filterBuildings(this.state.searchTerm, this.state.filters);
-    this.props.history.push("/search");
+    if (this.state.searchTerm === "") {
+      this.props.history.push("/search");
+    } else {
+      this.props.history.push(`/search/${this.state.searchTerm}`);
+    }
   };
-
-  applyFilters = (filters) => {
-    this.props.filterBuildings(this.state.searchTerm, filters);
-  };
-
+  
   keyPressed = (event) => {
     if (event.key === "Enter") {
       this.search();
@@ -163,7 +159,11 @@ class HomeContainer extends React.Component {
             <ReviewWrapper>
               <Header>My Recent Reviews</Header>
               <RightWrapper>
-                <ReviewList inHome={true} reviews={this.props.userReviews} deleteReview={this.props.deleteReview} />
+                <ReviewList
+                  inHome={true}
+                  reviews={this.props.userReviews}
+                  deleteReview={this.props.deleteReview}
+                />
               </RightWrapper>
             </ReviewWrapper>
           )}
@@ -172,12 +172,16 @@ class HomeContainer extends React.Component {
             <ReviewWrapper>
               <Header>Recent Reviews</Header>
               <RightWrapper>
-                <ReviewList inHome={true} reviews={this.props.reviews} deleteReview={this.props.deleteReview} />
+                <ReviewList
+                  inHome={true}
+                  reviews={this.props.reviews}
+                  deleteReview={this.props.deleteReview}
+                />
               </RightWrapper>
             </ReviewWrapper>
           )}
         </Wrapper>
-        
+
         <Footer>
           <span>
             Check out our{" "}
@@ -235,12 +239,13 @@ const dispatchToPropertyMapper = (dispatch) => ({
   },
 
   clearBuildings: () => {
-    dispatch(clearBuildings())
+    dispatch(clearBuildings());
   },
 
   deleteReview: (reviewId) => {
-    ReviewService.deleteReview(reviewId)
-      .then(status => dispatch(deleteReview(reviewId)))
+    ReviewService.deleteReview(reviewId).then((status) =>
+      dispatch(deleteReview(reviewId))
+    );
   },
 });
 
