@@ -29,9 +29,9 @@ class ImageDetails extends React.Component {
           <div class="carousel-inner">
             {this.props.building.pictures && this.props.building.pictures.map((picture, index, pictures) => (
               <div className={index === 0 ? "carousel-item active" : "carousel-item"} key={index}>
-                <img src={picture.url} class="col-4 p-0" alt="..." />
-                <img src={pictures[(index + 1) % pictures.length].url} class="col-4 p-0" alt="..." />
-                <img src={pictures[(index + 2) % pictures.length].url} class="col-4 p-0" alt="..." />
+                <img src={picture.url} class="col-12 col-md-6 col-lg-4 p-0" alt="..." />
+                <img src={pictures[(index + 1) % pictures.length].url} class="d-none d-md-inline col-md-6 col-lg-4 p-0" alt="..." />
+                <img src={pictures[(index + 2) % pictures.length].url} class="d-none d-lg-inline col-lg-4 p-0" alt="..." />
               </div>
             ))}
           </div>
