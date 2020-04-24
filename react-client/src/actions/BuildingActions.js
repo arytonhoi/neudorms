@@ -6,6 +6,7 @@ import {
   UPDATE_BUILDING,
   FIND_PICTURES_FOR_BUILDING,
   FILTER_BUILDINGS,
+  SORT_BUILDINGS,
   EDIT_BUILDING,
   HIGHEST_RATED,
   CLEAR_BUILDINGS
@@ -27,8 +28,9 @@ export const filterBuildings = (buildings, searchTerm, filters) => {
 
 export const sortBuildings = (buildings, preference) => {
   return {
-    type: '',
-    buildings: buildings
+    type: SORT_BUILDINGS,
+    buildings: buildings,
+    preference: preference
   }
 }
 

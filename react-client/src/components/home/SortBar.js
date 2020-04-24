@@ -22,7 +22,7 @@ class SortBar extends React.Component {
     return (
       <Wrapper>
         <SortText>
-        {
+          {
             (this.props.searchTerm === "") &&
             <div>
               Showing: {this.props.numBuildings} dorm{this.props.numBuildings === 1 ? "" : "s"}
@@ -48,19 +48,24 @@ class SortBar extends React.Component {
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" onClick={() => this.setState({sort: "Sort by"})}>
+            <a class="dropdown-item" href="#"
+              onClick={() => this.setState({ sort: "Sort by" }, () => this.props.applySort(this.state.sort))}>
               Default
             </a>
-            <a class="dropdown-item" href="#" onClick={() => this.setState({sort: "Price: Low to High"})}>
+            <a class="dropdown-item" href="#"
+              onClick={() => this.setState({ sort: "Price: Low to High" }, () => this.props.applySort(this.state.sort))}>
               Price: Low to High
             </a>
-            <a class="dropdown-item" href="#" onClick={() => this.setState({sort: "Price: High to Low"})}>
+            <a class="dropdown-item" href="#"
+              onClick={() => this.setState({ sort: "Price: High to Low" }, () => this.props.applySort(this.state.sort))}>
               Price: High to Low
             </a>
-            <a class="dropdown-item" href="#" onClick={() => this.setState({sort: "Rating: High to Low"})}>
+            <a class="dropdown-item" href="#"
+              onClick={() => this.setState({ sort: "Rating: High to Low" }, () => this.props.applySort(this.state.sort))}>
               Rating: High to Low
             </a>
-            <a class="dropdown-item" href="#" onClick={() => this.setState({sort: "Rating: Low to High"})}>
+            <a class="dropdown-item" href="#"
+              onClick={() => this.setState({ sort: "Rating: Low to High" }, () => this.props.applySort(this.state.sort))}>
               Rating: Low to High
             </a>
           </div>

@@ -5,6 +5,7 @@ import {
   DELETE_BUILDING,
   UPDATE_BUILDING,
   FILTER_BUILDINGS,
+  SORT_BUILDINGS,
   EDIT_BUILDING,
   HIGHEST_RATED,
   CLEAR_BUILDINGS
@@ -29,7 +30,6 @@ const buildingReducer = (state = initialState, action) => {
       }
 
     case FIND_ALL_BUILDINGS:
-      console.log(action.buildings)
       return {
         ...state,
         buildings: action.buildings
@@ -110,6 +110,40 @@ const buildingReducer = (state = initialState, action) => {
         buildings: filteredBuildings
       }
 
+    case SORT_BUILDINGS:
+      let sortedBuildings = action.buildings;
+      switch (action.preference) {
+        case 'Price: Low to High':
+          sortedBuildings.sort(function (a, b) {
+            return a.minimumCost - b.minimumCost;
+          });
+          break;
+        case 'Price: High to Low':
+          sortedBuildings.sort(function (a, b) {
+            return b.minimumCost - a.minimumCost;
+          });
+          break;
+        case 'Rating: High to Low':
+          sortedBuildings = sortedBuildings.filter(building => building.rating !== -1)
+          sortedBuildings.sort(function (a, b) {
+            return a.rating - b.rating;
+          });
+          break;
+        case 'Rating: Low to High':
+          sortedBuildings = sortedBuildings.filter(building => building.rating !== -1)
+          sortedBuildings.sort(function (a, b) {
+            return b.rating - a.rating;
+          });
+          break;
+      }
+
+      console.log(sortedBuildings)
+      return {
+        ...state,
+        buildings: sortedBuildings
+      }
+
+
     case CREATE_BUILDING:
       return {
         ...state,
@@ -140,7 +174,7 @@ const buildingReducer = (state = initialState, action) => {
         ...state,
         editBuilding: action.building
       }
-    
+
     case HIGHEST_RATED:
       return {
         ...state,
