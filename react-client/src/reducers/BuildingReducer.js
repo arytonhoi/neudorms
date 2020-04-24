@@ -112,6 +112,7 @@ const buildingReducer = (state = initialState, action) => {
 
     case SORT_BUILDINGS:
       let sortedBuildings = action.buildings;
+      let unratedBuildings = [];
       switch (action.preference) {
         case 'Price: Low to High':
           sortedBuildings.sort(function (a, b) {
@@ -124,16 +125,20 @@ const buildingReducer = (state = initialState, action) => {
           });
           break;
         case 'Rating: High to Low':
-          sortedBuildings = sortedBuildings.filter(building => building.rating !== -1)
-          sortedBuildings.sort(function (a, b) {
-            return a.rating - b.rating;
-          });
-          break;
-        case 'Rating: Low to High':
+          unratedBuildings = sortedBuildings.filter(building => building.rating === -1)
           sortedBuildings = sortedBuildings.filter(building => building.rating !== -1)
           sortedBuildings.sort(function (a, b) {
             return b.rating - a.rating;
           });
+          sortedBuildings = sortedBuildings.concat(unratedBuildings);
+          break;
+        case 'Rating: Low to High':
+          unratedBuildings = sortedBuildings.filter(building => building.rating === -1)
+          sortedBuildings = sortedBuildings.filter(building => building.rating !== -1)
+          sortedBuildings.sort(function (a, b) {
+            return a.rating - b.rating;
+          });
+          sortedBuildings = sortedBuildings.concat(unratedBuildings);
           break;
       }
 
