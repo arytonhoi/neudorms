@@ -26,8 +26,8 @@ class FilterList extends React.Component {
 
   handleChange = (value) => {
     switch (value) {
-      case "Freshmen":
-      case "Sophomore":
+      case "First Year":
+      case "Second Year":
       case "Upperclassmen":
       case "Graduates":
       case "Law":
@@ -117,7 +117,7 @@ class FilterList extends React.Component {
               class="form-check-input"
               type="checkbox"
               id="firstyear"
-              value="Freshmen"
+              value="First Year"
               onChange={(e) => {
                 this.handleChange(e.target.value)
               }} />
