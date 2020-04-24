@@ -30,12 +30,19 @@ const buildingReducer = (state = initialState, action) => {
       }
 
     case FIND_ALL_BUILDINGS:
+      action.buildings.map(building => building.pictures.push(building.mainImageUrl))
+      console.log(action.buildings)
       return {
         ...state,
         buildings: action.buildings
       }
 
     case FIND_BUILDING_BY_ID:
+      let picture = {
+        url: action.building.mainImageUrl
+      }
+      action.building.pictures.push(picture)
+      console.log(action.building)
       return {
         ...state,
         building: action.building
