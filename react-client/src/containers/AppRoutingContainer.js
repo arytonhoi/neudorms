@@ -19,6 +19,7 @@ import buildingReducer from "../reducers/BuildingReducer";
 import reviewReducer from "../reducers/ReviewReducer";
 import ViewProfileContainer from "./ViewProfileContainer";
 import pictureReducer from "../reducers/PictureReducer";
+import PrivacyContainer from "./PrivacyContainer";
 
 const rootReducer = combineReducers({
   users: userReducer,
@@ -64,6 +65,7 @@ class AppRoutingContainer extends React.Component {
             <Route path="/login" component={LoginContainer} />
             <Route path="/bookmarks" component={BookmarksContainer} />
             <Route path="/register" component={RegistrationContainer} />
+            <Route path="/privacy" component={PrivacyContainer} />
           </Switch>
         </Router>
       </Provider>

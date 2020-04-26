@@ -17,6 +17,7 @@ import staffService from "../services/StaffService";
 import NavBar from "../components/home/NavBar";
 import ReviewList from "../components/details/ReviewList";
 import ReviewService from "../services/ReviewService";
+import { Link } from "react-router-dom";
 
 const ReviewWrapper = styled.div`
   margin: 32px 60px 32px 60px;
@@ -191,12 +192,12 @@ class HomeContainer extends React.Component {
         <Footer>
           <span>
             Check out our{" "}
-            <a
+            <Link
               className="privacy"
-              href="https://docs.google.com/document/d/1kXHBNsuqeXzpO41KTajtD32bEl5Sh7KnC3b4SC6XOv4/edit"
+              to="/privacy"
             >
               privacy policy.
-            </a>
+            </Link>
           </span>
         </Footer>
       </Body>
